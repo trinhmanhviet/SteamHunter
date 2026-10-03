@@ -89,25 +89,39 @@ func show_gear(progress: Dictionary) -> void:
 	_label(t("gear_title"), Vector2(58 + center_offset, 45), Vector2(420, 48), 34, Color("#f1cf89"))
 	_label(t("parts") + ": " + str(progress.get("parts", 0)), Vector2(658 + center_offset, 52), Vector2(245, 33), 21, Color("#d9dfc9"))
 	var ids := Rules.weapon_ids()
+	var weapon_scroll := ScrollContainer.new()
+	weapon_scroll.name = "WeaponScroll"
+	weapon_scroll.position = Vector2(48 + center_offset, 104)
+	weapon_scroll.size = Vector2(864, 324)
+	weapon_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	weapon_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	root.add_child(weapon_scroll)
+	var card_strip := Control.new()
+	card_strip.name = "WeaponCards"
+	card_strip.custom_minimum_size = Vector2(ids.size() * 290.0 - 18.0, 310.0)
+	weapon_scroll.add_child(card_strip)
 	for index in range(ids.size()):
 		var weapon_id: String = ids[index]
-		var x := 53.0 + center_offset + index * 295.0
-		_panel(Rect2(x, 112, 272, 310))
+		var weapon_data: Dictionary = Rules.weapon(weapon_id)
+		var x := index * 290.0
+		_panel(Rect2(x, 0, 272, 310), card_strip)
 		var portrait := Sprite2D.new()
 		portrait.name = "Portrait_" + weapon_id
-		portrait.texture = load("res://art/hunter.png") if weapon_id == "blade" else load("res://art/hunter_" + weapon_id + ".png")
+		portrait.texture = load(str(weapon_data["art"]))
+		portrait.modulate = weapon_data.get("tint", Color.WHITE)
 		portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		portrait.position = Vector2(x + 136, 207)
+		portrait.position = Vector2(x + 136, 95)
 		var portrait_scale: float = minf(232.0 / portrait.texture.get_width(), 167.0 / portrait.texture.get_height())
 		portrait.scale = Vector2.ONE * portrait_scale
-		root.add_child(portrait)
-		_label(t(weapon_id + "_name"), Vector2(x + 16, 296), Vector2(240, 34), 23, Color("#f1cf89"))
-		_label(t(weapon_id + "_desc"), Vector2(x + 16, 329), Vector2(240, 43), 15, Color("#c8d4c7"))
-		var owned: bool = bool(progress["weapons"][weapon_id])
+		card_strip.add_child(portrait)
+		_label(t(weapon_id + "_name"), Vector2(x + 16, 184), Vector2(240, 34), 22, Color("#f1cf89"), card_strip)
+		_label(t(weapon_id + "_desc"), Vector2(x + 16, 217), Vector2(240, 43), 14, Color("#c8d4c7"), card_strip)
+		var owned: bool = bool(progress.get("weapons", {}).get(weapon_id, weapon_id == "blade"))
 		var equipped: bool = str(progress["equipped"]) == weapon_id
 		var cost: int = Rules.weapon_cost(weapon_id)
 		var action_text := t("equipped") if equipped else (t("equip") if owned else (t("craft_weapon") if int(progress["parts"]) >= cost else t("need_parts")).format({"cost": cost}))
-		var action_button := _button(action_text, Rect2(x + 16, 373, 240, 42), func(): weapon_pressed.emit(weapon_id))
+		var action_button := _button(action_text, Rect2(x + 16, 261, 240, 42), func(): weapon_pressed.emit(weapon_id), card_strip)
+		action_button.name = "Weapon_" + weapon_id
 		action_button.disabled = equipped or (not owned and int(progress["parts"]) < cost)
 	var forge_level: int = int(progress.get("forge_level", 0))
 	var forge_cost: int = Rules.forge_cost(forge_level)
@@ -278,7 +292,7 @@ func _overlay(color: Color) -> void:
 	cover.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(cover)
 
-func _panel(box: Rect2) -> Panel:
+func _panel(box: Rect2, parent: Control = null) -> Panel:
 	var panel := Panel.new()
 	panel.position = box.position
 	panel.size = box.size
@@ -289,7 +303,7 @@ func _panel(box: Rect2) -> Panel:
 	style.set_border_width_all(2)
 	style.set_corner_radius_all(7)
 	panel.add_theme_stylebox_override("panel", style)
-	root.add_child(panel)
+	(parent if parent != null else root).add_child(panel)
 	return panel
 
 func _label(value: String, at: Vector2, size: Vector2, font_size: int, color: Color, parent: Control = null) -> Label:

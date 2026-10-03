@@ -1,7 +1,8 @@
 extends RefCounted
 
 const SAVE_PATH := "user://mist_and_iron_save.json"
-const SCHEMA_VERSION := 2
+const SCHEMA_VERSION := 3
+const Rules = preload("res://scripts/rules.gd")
 
 static func defaults() -> Dictionary:
 	return {
@@ -10,7 +11,7 @@ static func defaults() -> Dictionary:
 		"parts": 0,
 		"forge_level": 0,
 		"hunts_won": 0,
-		"weapons": {"blade": true, "pike": false, "maul": false},
+		"weapons": {"blade": true, "counter": false, "twins": false, "pike": false, "maul": false},
 		"equipped": "blade",
 		"chapter": 1,
 		"completed_hunts": [],
@@ -92,7 +93,9 @@ static func _clean(input: Dictionary) -> Dictionary:
 	var raw_weapons = input.get("weapons", {})
 	if not raw_weapons is Dictionary:
 		raw_weapons = {}
-	var weapons := {"blade": true, "pike": raw_weapons.get("pike", false) == true, "maul": raw_weapons.get("maul", false) == true}
+	var weapons := {}
+	for weapon_id in Rules.weapon_ids():
+		weapons[weapon_id] = true if weapon_id == "blade" else raw_weapons.get(weapon_id, false) == true
 	var equipped := str(input.get("equipped", "blade"))
 	if not weapons.get(equipped, false):
 		equipped = "blade"

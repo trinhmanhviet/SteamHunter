@@ -56,23 +56,23 @@ Stage the catalog, rules, tests, design spec, and this plan. Commit as `feat: de
 - Modify: `tests/test_gear_buttons.gd`
 - Modify: `tests/test_gear_portraits.gd`
 
-- [ ] **Step 1: Write failing migration and five-card tests**
+- [x] **Step 1: Write failing migration and five-card tests**
 
 Change the save expectations so decoded schema-2 data gains `counter:false` and `twins:false`, preserves every existing ownership flag, and keeps an owned new weapon equipped. Change forge tests to expect all five IDs and recursively find `Portrait_<id>` below the horizontal card content.
 
-- [ ] **Step 2: Run the three affected tests and verify red**
+- [x] **Step 2: Run the three affected tests and verify red**
 
 Run `test_weapon_save.gd`, `test_gear_buttons.gd`, and `test_gear_portraits.gd`. Expected: missing ownership keys and missing counter/twins controls.
 
-- [ ] **Step 3: Implement schema 3 and responsive horizontal forge cards**
+- [x] **Step 3: Implement schema 3 and responsive horizontal forge cards**
 
 Set `SCHEMA_VERSION` to 3 and clean all IDs returned by `Rules.weapon_ids()`, forcing only `blade` to owned when absent. Add English and Vietnamese names/descriptions for `counter` and `twins`. Put the five 272 by 310 cards in a horizontally scrolling `Control` with 18 pixels between cards; load the catalog art path and use a tint for the two new weapons until dedicated animation sheets are added. Keep the whole gear panel centered with `_center_offset()`.
 
-- [ ] **Step 4: Run migration, forge, mobile layout, and flow tests**
+- [x] **Step 4: Run migration, forge, mobile layout, and flow tests**
 
 Expected: all affected tests exit 0 and wide viewport assertions remain valid.
 
-- [ ] **Step 5: Commit save and forge integration**
+- [x] **Step 5: Commit save and forge integration**
 
 Commit as `feat: add four-archetype forge roster`.
 

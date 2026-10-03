@@ -14,10 +14,11 @@ func _run() -> void:
 	var pressed: Array[String] = []
 	ui.weapon_pressed.connect(func(id: String): pressed.append(id))
 	ui.show_gear(progress)
-	for child in ui.root.get_children():
-		if child is Button and (child.text == "FORGE · 5 PARTS" or child.text == "FORGE · 7 PARTS"):
-			child.pressed.emit()
-	_check(pressed == ["pike", "maul"], "each gear card chooses its own weapon")
+	for weapon_id in ["counter", "twins", "pike", "maul"]:
+		var button = ui.root.find_child("Weapon_" + weapon_id, true, false)
+		_check(button is Button, "forge has a button for " + weapon_id)
+		button.pressed.emit()
+	_check(pressed == ["counter", "twins", "pike", "maul"], "each gear card chooses its own weapon")
 	ui.queue_free()
 	quit()
 
