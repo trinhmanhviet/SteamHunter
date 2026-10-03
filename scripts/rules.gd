@@ -1,37 +1,66 @@
 extends RefCounted
 
-const WEAPON_STATS := {
-	"blade": {"cost": 0, "quick_damage": 12, "heavy_damage": 20, "charge_bonus": 18, "quick_reach": 110.0, "heavy_reach": 150.0, "quick_cost": 12.0, "heavy_cost": 28.0, "quick_time": 0.20, "heavy_time": 0.32},
-	"pike": {"cost": 5, "quick_damage": 9, "heavy_damage": 17, "charge_bonus": 15, "quick_reach": 170.0, "heavy_reach": 225.0, "quick_cost": 11.0, "heavy_cost": 25.0, "quick_time": 0.18, "heavy_time": 0.31},
-	"maul": {"cost": 7, "quick_damage": 16, "heavy_damage": 29, "charge_bonus": 24, "quick_reach": 94.0, "heavy_reach": 128.0, "quick_cost": 17.0, "heavy_cost": 36.0, "quick_time": 0.27, "heavy_time": 0.46}
-}
+const Catalog = preload("res://scripts/weapon_catalog.gd")
 
 static func weapon_ids() -> Array[String]:
-	return ["blade", "pike", "maul"]
+	return Catalog.weapon_ids()
+
+static func required_weapon_ids() -> Array[String]:
+	return Catalog.required_ids()
 
 static func weapon_cost(weapon: String) -> int:
-	return int(WEAPON_STATS.get(weapon, WEAPON_STATS["blade"])["cost"])
+	return int(Catalog.weapon(weapon)["cost"])
 
 static func can_spend_stamina(current: float, cost: float) -> bool:
 	return current >= cost and cost >= 0.0
 
 static func attack_damage(kind: String, charge: float, forge_level: int, weapon: String = "blade") -> int:
-	var stats: Dictionary = WEAPON_STATS.get(weapon, WEAPON_STATS["blade"])
-	var base: int = int(stats["quick_damage"]) if kind == "quick" else int(stats["heavy_damage"])
-	var bonus: int = int(round(clampf(charge, 0.0, 1.0) * int(stats["charge_bonus"]))) if kind == "heavy" else 0
-	return base + bonus + maxi(0, forge_level) * 5
+	return action_damage(_resolve_action(kind, weapon), charge, forge_level, weapon)
 
 static func attack_reach(kind: String, weapon: String = "blade") -> float:
-	var stats: Dictionary = WEAPON_STATS.get(weapon, WEAPON_STATS["blade"])
-	return float(stats["quick_reach"]) if kind == "quick" else float(stats["heavy_reach"])
+	return float(action(_resolve_action(kind, weapon), weapon).get("reach", 0.0))
 
 static func attack_cost(kind: String, weapon: String = "blade") -> float:
-	var stats: Dictionary = WEAPON_STATS.get(weapon, WEAPON_STATS["blade"])
-	return float(stats["quick_cost"]) if kind == "quick" else float(stats["heavy_cost"])
+	return float(action(_resolve_action(kind, weapon), weapon).get("stamina", 0.0))
 
 static func attack_duration(kind: String, weapon: String = "blade") -> float:
-	var stats: Dictionary = WEAPON_STATS.get(weapon, WEAPON_STATS["blade"])
-	return float(stats["quick_time"]) if kind == "quick" else float(stats["heavy_time"])
+	return float(action(_resolve_action(kind, weapon), weapon).get("duration", 0.0))
+
+static func weapon(weapon_id: String) -> Dictionary:
+	return Catalog.weapon(weapon_id)
+
+static func action_ids(weapon_id: String) -> Array[String]:
+	return Catalog.action_ids(weapon_id)
+
+static func action(action_id: String, weapon_id: String = "blade") -> Dictionary:
+	return Catalog.action(weapon_id, _resolve_action(action_id, weapon_id))
+
+static func entry_action(weapon_id: String) -> String:
+	return str(weapon(weapon_id)["entry"])
+
+static func followup_action(current: String, token: String, weapon_id: String) -> String:
+	var branches: Dictionary = weapon(weapon_id)["followups"].get(current, {})
+	return str(branches.get(token, ""))
+
+static func action_damage(action_id: String, charge: float, forge_level: int, weapon_id: String = "blade") -> int:
+	var data := action(action_id, weapon_id)
+	var bonus := roundi(clampf(charge, 0.0, 1.0) * int(data.get("charge_bonus", 0)))
+	return int(data.get("damage", 0)) + bonus + maxi(0, forge_level) * 5
+
+static func action_impact(action_id: String, weapon_id: String = "blade") -> String:
+	if action_id == "quick":
+		return "light"
+	if action_id == "heavy":
+		return "heavy"
+	return str(action(action_id, weapon_id).get("impact", "light"))
+
+static func _resolve_action(action_id: String, weapon_id: String) -> String:
+	var record := weapon(weapon_id)
+	if action_id == "quick":
+		return str(record["entry"])
+	if action_id == "heavy":
+		return str(record["heavy"])
+	return action_id
 
 static func forge_cost(forge_level: int) -> int:
 	return 3 + maxi(0, forge_level) * 2
