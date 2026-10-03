@@ -112,23 +112,23 @@ Commit as `feat: add weapon combo and defense state machine`.
 - Modify: `tests/test_part_targeting.gd`
 - Create: `tests/test_hit_confirmation.gd`
 
-- [ ] **Step 1: Write failing integration tests**
+- [x] **Step 1: Write failing integration tests**
 
 Test that light action IDs map to light part damage, Great Blade finishers map to heavy part damage, and `hunter.confirm_hit(action_id)` runs only after a rat or boss actually receives the strike.
 
-- [ ] **Step 2: Run both tests and verify red**
+- [x] **Step 2: Run both tests and verify red**
 
 Expected: resource stays unchanged after a landed action because main never confirms it, and action IDs are treated as light by the old body-part branch.
 
-- [ ] **Step 3: Integrate action impact and confirmation**
+- [x] **Step 3: Integrate action impact and confirmation**
 
 In `_on_hunter_struck`, translate the action ID through `Rules.action_impact(kind, hunter.weapon_type)` before calling `boss.receive_hit`. Track whether any target received damage and call `hunter.confirm_hit(kind)` once for the swing. Keep direct legacy `quick` and `heavy` test calls valid.
 
-- [ ] **Step 4: Run hit, boss, and body-part tests**
+- [x] **Step 4: Run hit, boss, and body-part tests**
 
 Expected: hit confirmation, body parts, Cinderback, and Thornhart tests all exit 0.
 
-- [ ] **Step 5: Commit world combat integration**
+- [x] **Step 5: Commit world combat integration**
 
 Commit as `feat: connect weapon actions to monster hit zones`.
 

@@ -239,6 +239,8 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 		return
 	_play_sound("swing")
 	var landed := false
+	var impact := Rules.action_impact(kind, hunter.weapon_type)
+	var part_kind := "heavy" if impact in ["heavy", "pierce", "blunt"] else "light"
 	for rat in rats:
 		if not is_instance_valid(rat) or rat.health <= 0:
 			continue
@@ -252,10 +254,11 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 			var target_position: Vector2 = boss.part_world_position(selected_part)
 			var target_dx := target_position.x - hunter.global_position.x
 			if target_dx * hunter.facing >= -25.0 and absf(target_dx) < reach + 40.0 and absf(target_position.y - hunter.global_position.y) < 155.0:
-				boss.receive_hit(damage, kind, selected_part)
+				boss.receive_hit(damage, part_kind, selected_part)
 				boss.queue_redraw()
 				landed = true
 	if landed:
+		hunter.confirm_hit(kind)
 		_play_sound("hit")
 
 func _on_rat_attack(damage: int, rat: Node2D) -> void:

@@ -26,6 +26,8 @@ func _run() -> void:
 	game.cycle_target_part()
 	_check(game.selected_part == "tail", "target button cycles to tail")
 	_check(game.ui.target_label.text.contains(game.ui.t("part_tail")), "target label shows selected part")
+	game._on_hunter_struck(20, 150.0, "charged_hew")
+	_check(int(game.boss.part_status("tail")["progress"]) >= 20, "Great Blade action ID applies heavy part damage")
 	game._on_hunter_struck(30, 150.0, "heavy")
 	_check(int(game.boss.part_status("tail")["progress"]) >= 30, "heavy strike reaches selected tail")
 	game.boss.receive_hit(50, "heavy", "tail")
