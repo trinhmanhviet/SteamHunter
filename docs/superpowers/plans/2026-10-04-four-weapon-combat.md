@@ -84,23 +84,23 @@ Commit as `feat: add four-archetype forge roster`.
 - Modify: `tests/test_weapon_hunter.gd`
 - Modify: `tests/test_hunter.gd`
 
-- [ ] **Step 1: Write failing action-state tests**
+- [x] **Step 1: Write failing action-state tests**
 
 Test these public behaviors with real Hunter nodes: `start_action` spends action stamina; `confirm_hit` grants catalog resource once; a light input inside `combo_open` buffers the declared follow-up; Great Blade charge produces more damage and Resolve; Long Counter Blade prevents damage during its counter window and starts `counter_riposte`; Twin Blades reject `overdrive_flurry` without Tempo and spend Tempo with it; Fortress Lance guard reduces damage and opens `counter_thrust`; dodge and airborne light select their branch actions.
 
-- [ ] **Step 2: Run the action test and verify red**
+- [x] **Step 2: Run the action test and verify red**
 
 Expected: `start_action`, `confirm_hit`, and special state APIs are missing.
 
-- [ ] **Step 3: Implement action runtime and backward compatibility**
+- [x] **Step 3: Implement action runtime and backward compatibility**
 
 Add runtime fields `current_action`, `buffered_token`, `combo_elapsed`, `weapon_resource`, `weapon_drawn`, `idle_combat_time`, `guard_time`, `counter_time`, `resolve`, and `hit_confirmed`. `start_action` validates stamina/resource and starts catalog timing. `request_action(token, directional, airborne)` resolves draw, dodge, directional, aerial, special, heavy, and follow-up branches. `advance_action(delta)` emits one strike at the action hit frame and begins a buffered follow-up after recovery. `confirm_hit` grants resource and hit stop once. `take_hit` resolves perfect counter, lance guard, Great Blade brace, invincibility, then ordinary damage in that order. Keep `start_attack("quick"|"heavy", charge)` for older callers and tests.
 
-- [ ] **Step 4: Run hunter tests and refactor while green**
+- [x] **Step 4: Run hunter tests and refactor while green**
 
 Expected: `test_weapon_actions.gd`, `test_weapon_hunter.gd`, `test_hunter.gd`, and `test_healing.gd` all exit 0.
 
-- [ ] **Step 5: Commit the combat controller**
+- [x] **Step 5: Commit the combat controller**
 
 Commit as `feat: add weapon combo and defense state machine`.
 

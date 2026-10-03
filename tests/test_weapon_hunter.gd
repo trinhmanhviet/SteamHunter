@@ -15,8 +15,8 @@ func _run() -> void:
 	var pike = Hunter.new()
 	pike.weapon_type = "pike"
 	root.add_child(pike)
-	_check(pike.start_attack("heavy", 1.0), "pike hunter can charge")
-	_check(pike.stamina == 75.0, "pike has a lower heavy stamina cost")
+	_check(pike.start_attack("heavy", 1.0), "pike hunter can shield bash")
+	_check(pike.stamina == 89.0 and pike.current_action == "shield_bash", "pike heavy input uses its own branch")
 	_check(pike.sprite.texture.resource_path.ends_with("hunter_pike.png"), "pike art appears in hunter hands")
 	pike.facing = -1
 	pike._update_art(0.0)
