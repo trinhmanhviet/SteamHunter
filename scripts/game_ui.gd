@@ -47,13 +47,17 @@ func t(key: String) -> String:
 
 func show_camp(progress: Dictionary) -> void:
 	_clear()
+	var right_offset := _right_offset()
+	var center_offset := _center_offset()
 	_overlay(Color(0.01, 0.04, 0.07, 0.20))
-	_label(t("title"), Vector2(318, 24), Vector2(600, 60), 46, Color("#f4d99b"))
-	_label(t("subtitle"), Vector2(319, 81), Vector2(590, 31), 21, Color("#c5d6ca"))
-	_panel(Rect2(626, 125, 306, 365))
-	_label(t("choose_hunt"), Vector2(648, 141), Vector2(270, 33), 24, Color("#f1cf89"))
+	var camp_title := _label(t("title"), Vector2(318 + center_offset, 24), Vector2(600, 60), 46, Color("#f4d99b"))
+	camp_title.name = "CampTitle"
+	_label(t("subtitle"), Vector2(319 + center_offset, 81), Vector2(590, 31), 21, Color("#c5d6ca"))
+	var hunt_panel := _panel(Rect2(626 + right_offset, 125, 306, 365))
+	hunt_panel.name = "HuntSelectPanel"
+	_label(t("choose_hunt"), Vector2(648 + right_offset, 141), Vector2(270, 33), 24, Color("#f1cf89"))
 	var hunt_scroll := ScrollContainer.new()
-	hunt_scroll.position = Vector2(647, 184)
+	hunt_scroll.position = Vector2(647 + right_offset, 184)
 	hunt_scroll.size = Vector2(264, 164)
 	hunt_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	hunt_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
@@ -69,23 +73,25 @@ func show_camp(progress: Dictionary) -> void:
 		button.add_theme_font_size_override("font_size", 16)
 		_label(t(str(hunt["tip_key"])), Vector2(1, index * 82 + 47), Vector2(260, 30), 13, Color("#c0d1cc"), hunt_list)
 		index += 1
-	_button(t("gear_button") + ": " + t(str(progress.get("equipped", "blade")) + "_name"), Rect2(647, 353, 264, 42), func(): gear_pressed.emit())
-	_label(t("parts") + ": " + str(progress.get("parts", 0)) + "   •   " + t("level") + ": " + str(int(progress.get("forge_level", 0)) + 1), Vector2(648, 408), Vector2(270, 28), 16, Color("#f1cf89"))
-	_label(t("hunt_count").format({"count": progress.get("hunts_won", 0)}), Vector2(648, 440), Vector2(270, 26), 15, Color("#c0d1cc"))
+	_button(t("gear_button") + ": " + t(str(progress.get("equipped", "blade")) + "_name"), Rect2(647 + right_offset, 353, 264, 42), func(): gear_pressed.emit())
+	_label(t("parts") + ": " + str(progress.get("parts", 0)) + "   •   " + t("level") + ": " + str(int(progress.get("forge_level", 0)) + 1), Vector2(648 + right_offset, 408), Vector2(270, 28), 16, Color("#f1cf89"))
+	_label(t("hunt_count").format({"count": progress.get("hunts_won", 0)}), Vector2(648 + right_offset, 440), Vector2(270, 26), 15, Color("#c0d1cc"))
 	_button(t("lang"), Rect2(24, 473, 172, 40), func(): language_pressed.emit())
 	if not OS.has_feature("mobile"):
 		_label(t("controls"), Vector2(20, 510), Vector2(910, 24), 13, Color("#d7d9c1"))
 
 func show_gear(progress: Dictionary) -> void:
 	_clear()
+	var center_offset := _center_offset()
 	_overlay(Color(0.01, 0.03, 0.06, 0.77))
-	_panel(Rect2(30, 26, 900, 488))
-	_label(t("gear_title"), Vector2(58, 45), Vector2(420, 48), 34, Color("#f1cf89"))
-	_label(t("parts") + ": " + str(progress.get("parts", 0)), Vector2(658, 52), Vector2(245, 33), 21, Color("#d9dfc9"))
+	var gear_panel := _panel(Rect2(30 + center_offset, 26, 900, 488))
+	gear_panel.name = "GearPanel"
+	_label(t("gear_title"), Vector2(58 + center_offset, 45), Vector2(420, 48), 34, Color("#f1cf89"))
+	_label(t("parts") + ": " + str(progress.get("parts", 0)), Vector2(658 + center_offset, 52), Vector2(245, 33), 21, Color("#d9dfc9"))
 	var ids := Rules.weapon_ids()
 	for index in range(ids.size()):
 		var weapon_id: String = ids[index]
-		var x := 53.0 + index * 295.0
+		var x := 53.0 + center_offset + index * 295.0
 		_panel(Rect2(x, 112, 272, 310))
 		var portrait := Sprite2D.new()
 		portrait.name = "Portrait_" + weapon_id
@@ -106,15 +112,17 @@ func show_gear(progress: Dictionary) -> void:
 	var forge_level: int = int(progress.get("forge_level", 0))
 	var forge_cost: int = Rules.forge_cost(forge_level)
 	var forge_text := t("forge_max") if forge_level >= 3 else (t("forge_ready") if int(progress["parts"]) >= forge_cost else t("forge_short")).format({"cost": forge_cost})
-	var forge_button := _button(forge_text + "  ·  " + t("level") + " " + str(forge_level + 1), Rect2(54, 448, 510, 43), func(): forge_pressed.emit())
+	var forge_button := _button(forge_text + "  ·  " + t("level") + " " + str(forge_level + 1), Rect2(54 + center_offset, 448, 510, 43), func(): forge_pressed.emit())
 	forge_button.disabled = forge_level >= 3 or int(progress["parts"]) < forge_cost
-	_button(t("return"), Rect2(705, 448, 200, 43), func(): camp_pressed.emit())
+	_button(t("return"), Rect2(705 + center_offset, 448, 200, 43), func(): camp_pressed.emit())
 
 func show_hunt(hunt_id: String = "moor") -> void:
 	current_hunt = hunt_id
 	_clear()
-	var right_offset := layout_size.x - REFERENCE_SIZE.x
-	_panel(Rect2(18, 16, 312, 99))
+	var right_offset := _right_offset()
+	var center_offset := _center_offset()
+	var hunt_hud := _panel(Rect2(18, 16, 312, 99))
+	hunt_hud.name = "HuntHud"
 	_label(t("health"), Vector2(30, 22), Vector2(68, 24), 15, Color("#f4d99b"))
 	_label(t("stamina"), Vector2(30, 61), Vector2(68, 24), 15, Color("#f4d99b"))
 	_bar(Rect2(106, 30, 208, 14), Color("#4a262d"))
@@ -124,7 +132,7 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	part_label = _label(t("parts") + ": 0", Vector2(20, 121), Vector2(300, 25), 16, Color("#f1cf89"))
 	potion_label = _label(t("potion") + ": 2", Vector2(20, 148), Vector2(300, 25), 16, Color("#b9e4a5"))
 	boss_group = Control.new()
-	boss_group.position = Vector2(359, 19)
+	boss_group.position = Vector2(359 + center_offset, 19)
 	boss_group.size = Vector2(450, 60)
 	boss_group.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	root.add_child(boss_group)
@@ -149,7 +157,7 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	target_label = _label("", Vector2(0, 52), Vector2(450, 22), 13, Color("#e6c889"), boss_group)
 	target_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	boss_group.visible = false
-	flash_label = _label("", Vector2(330, 115), Vector2(420, 52), 31, Color("#ffe3a5"))
+	flash_label = _label("", Vector2(330 + center_offset, 115), Vector2(420, 52), 31, Color("#ffe3a5"))
 	flash_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var stick := GameStick.new()
 	stick.name = "MoveStick"
@@ -209,12 +217,14 @@ func _process(delta: float) -> void:
 
 func show_result(victory: bool, parts: int) -> void:
 	_clear()
+	var center_offset := _center_offset()
 	_overlay(Color(0.01, 0.03, 0.06, 0.70))
-	_panel(Rect2(238, 119, 484, 318))
-	_label(t("victory") if victory else t("defeat"), Vector2(263, 145), Vector2(434, 63), 35, Color("#f1cf89"))
-	_label(t("victory_body").format({"parts": parts}) if victory else t("defeat_body"), Vector2(270, 223), Vector2(420, 57), 19, Color("#d9e0d1"))
-	_button(t("retry"), Rect2(286, 330, 180, 55), func(): retry_pressed.emit())
-	_button(t("return"), Rect2(497, 330, 180, 55), func(): camp_pressed.emit())
+	var result_panel := _panel(Rect2(238 + center_offset, 119, 484, 318))
+	result_panel.name = "ResultPanel"
+	_label(t("victory") if victory else t("defeat"), Vector2(263 + center_offset, 145), Vector2(434, 63), 35, Color("#f1cf89"))
+	_label(t("victory_body").format({"parts": parts}) if victory else t("defeat_body"), Vector2(270 + center_offset, 223), Vector2(420, 57), 19, Color("#d9e0d1"))
+	_button(t("retry"), Rect2(286 + center_offset, 330, 180, 55), func(): retry_pressed.emit())
+	_button(t("return"), Rect2(497 + center_offset, 330, 180, 55), func(): camp_pressed.emit())
 
 func _show_pause() -> void:
 	for child in root.get_children():
@@ -222,11 +232,12 @@ func _show_pause() -> void:
 			child.release_touch()
 			child.set_process_input(false)
 	_overlay(Color(0.0, 0.0, 0.0, 0.58))
-	var panel := _panel(Rect2(312, 139, 336, 266))
+	var center_offset := _center_offset()
+	var panel := _panel(Rect2(312 + center_offset, 139, 336, 266))
 	panel.name = "PausePanel"
-	_label(t("pause"), Vector2(353, 161), Vector2(260, 51), 32, Color("#f1cf89"))
-	_button(t("resume"), Rect2(365, 239, 230, 49), func(): _close_pause())
-	_button(t("return"), Rect2(365, 307, 230, 49), func(): camp_pressed.emit())
+	_label(t("pause"), Vector2(353 + center_offset, 161), Vector2(260, 51), 32, Color("#f1cf89"))
+	_button(t("resume"), Rect2(365 + center_offset, 239, 230, 49), func(): _close_pause())
+	_button(t("return"), Rect2(365 + center_offset, 307, 230, 49), func(): camp_pressed.emit())
 	get_tree().paused = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -253,6 +264,12 @@ func _clear() -> void:
 	target_label = null
 	potion_label = null
 	flash_label = null
+
+func _right_offset() -> float:
+	return layout_size.x - REFERENCE_SIZE.x
+
+func _center_offset() -> float:
+	return _right_offset() * 0.5
 
 func _overlay(color: Color) -> void:
 	var cover := ColorRect.new()

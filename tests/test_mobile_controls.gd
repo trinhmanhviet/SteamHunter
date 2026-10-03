@@ -68,6 +68,8 @@ func _run() -> void:
 	_check(Input.get_action_strength("move_right") > 0.0 and Input.is_action_pressed("attack"), "move and strike work together")
 	ui.show_camp({"equipped":"blade", "weapons":{"blade":true,"pike":false,"maul":false}, "parts":0, "forge_level":0})
 	_check(Input.get_axis("move_left", "move_right") == 0.0 and not Input.is_action_pressed("attack"), "leaving hunt clears held controls")
+	var regular_camp_panel = ui.root.get_node_or_null("HuntSelectPanel")
+	_check(regular_camp_panel != null and regular_camp_panel.position.x == 626.0, "16:9 camp panel keeps approved position")
 	ui.queue_free()
 
 	var wide_viewport := SubViewport.new()
@@ -79,10 +81,35 @@ func _run() -> void:
 	var wide_stick = wide_ui.root.get_node("MoveStick")
 	var wide_attack = wide_ui.root.get_node("Action_attack")
 	var wide_pause = wide_ui.root.get_node_or_null("PauseButton")
+	var wide_hud = wide_ui.root.get_node_or_null("HuntHud")
 	_check(wide_ui.root.size == Vector2(1224, 540), "wide hunt root uses visible viewport size")
 	_check(wide_stick.size == Vector2(1224, 540), "wide stick touch surface fills viewport")
 	_check(wide_attack.position.x == 1075.0, "attack stays attached to wide right edge")
 	_check(wide_pause != null and wide_pause.position.x == 1163.0, "pause stays attached to wide right edge")
+	_check(wide_hud != null and wide_hud.position.x == 18.0, "hunt HUD stays attached to left edge")
+	_check(wide_ui.boss_group.position.x == 491.0, "boss display follows wide viewport center")
+	_check(wide_ui.flash_label.position.x == 462.0, "hunt message follows wide viewport center")
+
+	var wide_progress := {"equipped":"blade", "weapons":{"blade":true,"pike":false,"maul":false}, "parts":0, "forge_level":0, "hunts_won":0}
+	wide_ui.show_camp(wide_progress)
+	var wide_camp_panel = wide_ui.root.get_node_or_null("HuntSelectPanel")
+	var wide_camp_title = wide_ui.root.get_node_or_null("CampTitle")
+	_check(wide_camp_panel != null and wide_camp_panel.position.x == 890.0, "camp selection stays attached to wide right edge")
+	_check(wide_camp_title != null and wide_camp_title.position.x == 450.0, "camp title follows wide viewport center")
+
+	wide_ui.show_gear(wide_progress)
+	var wide_gear_panel = wide_ui.root.get_node_or_null("GearPanel")
+	_check(wide_gear_panel != null and wide_gear_panel.position.x == 162.0, "forge panel stays centered on wide viewport")
+
+	wide_ui.show_hunt("moor")
+	wide_ui._show_pause()
+	var wide_pause_panel = wide_ui.root.get_node_or_null("PausePanel")
+	_check(wide_pause_panel != null and wide_pause_panel.position.x == 444.0, "pause dialog stays centered on wide viewport")
+	paused = false
+
+	wide_ui.show_result(false, 0)
+	var wide_result_panel = wide_ui.root.get_node_or_null("ResultPanel")
+	_check(wide_result_panel != null and wide_result_panel.position.x == 370.0, "result dialog stays centered on wide viewport")
 	wide_viewport.queue_free()
 	quit()
 
