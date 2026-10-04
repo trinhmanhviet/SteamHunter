@@ -14,12 +14,13 @@ The left lower region remains a floating movement stick. The right lower region 
 - Hold for 0.18 seconds: **Charge**. The stick ring fills while the hunter is charging.
 - Release a Charge: **Charged Hew**. Charge duration sets its bonus damage.
 - Pull downward while charging: **Brace**. It cancels the charge into the short defensive body check.
+- Hold again inside the late Charged Hew window with a full Resolve mark: **Sundering Fall**. Pull downward instead to replace that finisher with Brace.
 
 The boss part selector stays in the upper-right corner for this weapon so it is outside the combat-stick region.
 
 ## Combat role
 
-The weapon has slow, high-reach cleaves and is rewarded for using readable openings. A fully charged hit earns Resolve, and Resolve permits the committed Sundering Fall finisher. Brace is an escape route from a charge that trades damage for a short damage-reduction window.
+The weapon has slow, high-reach cleaves and is rewarded for using readable openings. A fully charged hit earns Resolve, and Resolve permits the committed Sundering Fall finisher. Brace is an escape route from a charge or a late Charged Hew that trades damage for a short damage-reduction window. The hunt opens with a brief gesture hint; the deeper charged-cut route is learned through its visible Resolve mark and recovery window.
 
 ## Integration
 

@@ -326,6 +326,9 @@ func show_hunt(hunt_id: String = "moor", weapon_id: String = "blade") -> void:
 	root.get_node("Action_cycle_target").visible = false
 	var pause_button := _button("Ⅱ", Rect2(899 + right_offset, 16, 43, 40), func(): _show_pause())
 	pause_button.name = "PauseButton"
+	if weapon_id == "blade":
+		flash_label.add_theme_font_size_override("font_size", 18)
+		flash("blade_touch_hint")
 
 func update_hud(hunter: Node, boss: Node, parts: int, show_boss: bool) -> void:
 	if health_fill == null or not is_instance_valid(health_fill):

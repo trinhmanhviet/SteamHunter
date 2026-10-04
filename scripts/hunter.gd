@@ -260,8 +260,10 @@ func start_dodge() -> bool:
 	return true
 
 func start_blade_charge() -> bool:
-	if weapon_type != "blade" or not current_action.is_empty() or dodge_time > 0.0 or heal_time > 0.0 or health <= 0:
+	if weapon_type != "blade" or dodge_time > 0.0 or heal_time > 0.0 or health <= 0:
 		return false
+	if not current_action.is_empty():
+		return request_action("heavy")
 	charge_time = maxf(charge_time, 0.01)
 	weapon_drawn = true
 	idle_combat_time = 0.0
@@ -278,17 +280,32 @@ func advance_blade_charge(delta: float) -> bool:
 func release_blade_charge() -> bool:
 	if weapon_type != "blade" or charge_time <= 0.0:
 		return false
-	var held_charge := charge_time
+	var held_charge: float = [0.0, 0.38, 0.70, 1.0][blade_charge_stage()]
 	charge_time = 0.0
-	var released := start_action("charged_hew", held_charge / 1.15)
+	var released := start_action("charged_hew", held_charge)
 	queue_redraw()
 	return released
 
+func blade_charge_stage() -> int:
+	if charge_time >= 0.90:
+		return 3
+	if charge_time >= 0.55:
+		return 2
+	if charge_time >= 0.22:
+		return 1
+	return 0
+
 func brace_blade_charge() -> bool:
-	if weapon_type != "blade" or charge_time <= 0.0:
+	if weapon_type != "blade":
 		return false
-	charge_time = 0.0
-	var braced := start_action("shoulder_brace")
+	if charge_time > 0.0:
+		charge_time = 0.0
+		var braced := start_action("shoulder_brace")
+		queue_redraw()
+		return braced
+	if current_action.is_empty():
+		return false
+	var braced := request_action("special")
 	queue_redraw()
 	return braced
 

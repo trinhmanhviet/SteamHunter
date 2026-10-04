@@ -60,6 +60,7 @@ func _run() -> void:
 	_check(hunt_stick.position == Vector2.ZERO and hunt_stick.size == ui.root.size, "joystick touch surface covers hunt viewport")
 	_check(blade_stick != null and blade_stick.size == ui.root.size, "Great Cleaver gets a full right-side combat stick surface")
 	_check(ui.root.get_node_or_null("Action_attack") == null and ui.root.get_node_or_null("Action_heavy") == null and ui.root.get_node_or_null("Action_special") == null and ui.root.get_node_or_null("Action_dodge") == null, "Great Cleaver removes the four combat buttons")
+	_check(ui.flash_label.text == ui.t("blade_touch_hint"), "Great Cleaver shows its short gesture guide when a hunt begins")
 	_check(jump.position.x > 600.0, "jump remains in the right-side support cluster")
 	_touch(hunt_stick, 1, true, Vector2(105, 425))
 	_drag(hunt_stick, 1, Vector2(160, 425))

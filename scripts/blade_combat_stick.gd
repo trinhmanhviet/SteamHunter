@@ -116,7 +116,12 @@ func _draw() -> void:
 	draw_arc(visual_center, visual_radius * 0.67, 0.0, TAU, 40, Color(0.76, 0.82, 0.72, 0.22), 1.5, true)
 	if charging:
 		var charge_ratio := clampf((held_time - HOLD_TO_CHARGE) / 0.97, 0.0, 1.0)
-		draw_arc(visual_center, visual_radius * 0.82, -PI * 0.5, -PI * 0.5 + TAU * charge_ratio, 32, Color("#efcd73"), 5.0, true)
+		var charge_color := Color("#cfa968")
+		if charge_ratio >= 0.72:
+			charge_color = Color("#ffe29a")
+		elif charge_ratio >= 0.37:
+			charge_color = Color("#e48e4e")
+		draw_arc(visual_center, visual_radius * 0.82, -PI * 0.5, -PI * 0.5 + TAU * charge_ratio, 32, charge_color, 5.0, true)
 	var knob_center := visual_center + pull * 0.66
 	draw_circle(knob_center, visual_radius * 0.42, Color(0.02, 0.05, 0.08, 0.75))
 	draw_circle(knob_center, visual_radius * 0.35, KNOB_COLOR if not charging else Color("#8d6435"))
