@@ -171,11 +171,11 @@ Commit as `feat: add mobile weapon special controls`.
 
 Set version name to `0.7.0` and version code to `14`.
 
-- [ ] **Step 2: Run the complete automated suite**
+- [x] **Step 2: Run the complete automated suite**
 
 Run every `tests/test_*.gd` with the Godot console binary. Expected: each exits 0 with no `FAIL:`, `SCRIPT ERROR`, or parser error.
 
-- [ ] **Step 3: Export and install the APK**
+- [x] **Step 3: Export and install the APK**
 
 Run:
 
