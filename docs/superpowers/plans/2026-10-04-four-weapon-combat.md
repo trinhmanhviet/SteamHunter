@@ -190,6 +190,6 @@ Expected: export succeeds and ADB prints `Success`.
 
 Launch `org.mistandiron.suongvasat`, exercise each weapon from the forge and one hunt, capture a forge screenshot, then inspect logcat for `FATAL EXCEPTION`, `SCRIPT ERROR`, and `Parse Error`. Expected: none found; version dump reports code 14 and name 0.7.0.
 
-- [ ] **Step 5: Commit and push the verified slice**
+- [x] **Step 5: Commit and push the verified slice**
 
 Commit remaining tracked changes as `release: ship four weapon combat slice`, push `main` to `origin`, and verify `git ls-remote origin refs/heads/main` matches local `HEAD`.
