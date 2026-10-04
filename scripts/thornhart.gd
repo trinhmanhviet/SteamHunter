@@ -43,6 +43,17 @@ func _ready() -> void:
 func part_ids() -> Array[String]:
 	return ["antler", "hoof"]
 
+func attack_ids() -> Array[String]:
+	var moves: Array[String] = []
+	if not bool(part_status("hoof").get("broken", false)):
+		moves.append("charge")
+	moves.append("stomp")
+	if not armor_broken:
+		moves.append("thorns")
+		if phase == 2:
+			moves.append("briar_lash")
+	return moves
+
 func part_status(part_id: String) -> Dictionary:
 	return body_parts.status(part_id)
 
@@ -64,6 +75,7 @@ func attack_profile(kind: String) -> Dictionary:
 	match kind:
 		"charge": return {"damage": 24, "reach": 95.0 if part_status("hoof")["broken"] else 125.0, "speed": (240.0 if phase == 1 else 330.0) if part_status("hoof")["broken"] else (320.0 if phase == 1 else 440.0)}
 		"stomp": return {"damage": 20, "reach": 112.0, "speed": 0.0}
+		"briar_lash": return {"damage": 22, "reach": 146.0, "speed": 0.0}
 		_: return {"damage": 17 if armor_broken else 28, "reach": 130.0 if armor_broken else 178.0, "speed": 0.0}
 
 func receive_hit(amount: int, kind: String, part_id: String = "antler") -> void:
@@ -116,7 +128,8 @@ func _physics_process(delta: float) -> void:
 		attacked.emit(attack_kind, int(profile["damage"]) + (5 if phase == 2 else 0), float(profile["reach"]))
 	if sprite != null:
 		sprite.flip_h = facing > 0
-		sprite.position.y = -67.5 + sin(walk_time * 5.5) * (2.5 if state == "idle" else 1.0)
+		var lowered := 7.0 if state == "exhausted" else 0.0
+		sprite.position.y = -67.5 + lowered + sin(walk_time * 5.5) * (2.5 if state == "idle" else 1.0)
 		sprite.modulate = Color("#ffe3b2") if hit_flash > 0.0 else (Color("#b5ba9a") if armor_broken else Color.WHITE)
 	queue_redraw()
 
@@ -125,25 +138,41 @@ func advance_state() -> void:
 		"idle":
 			attack_kind = _next_attack()
 			state = "windup"
-			state_time = 0.88 if phase == 1 else 0.58
+			state_time = 0.94 if attack_kind == "briar_lash" else (0.88 if phase == 1 else 0.58)
 		"windup":
 			state = "strike"
 			state_time = 0.34 if attack_kind == "charge" else 0.28
 		"strike":
-			state = "recover"
-			state_time = 0.85 if phase == 1 else 0.55
+			if attack_kind == "charge" and phase == 2 and not armor_broken and (attack_count + 1) % 3 == 0:
+				attack_kind = "briar_lash"
+				state = "combo_wait"
+				state_time = 0.32
+			else:
+				_finish_attack()
+		"combo_wait":
+			state = "strike"
+			state_time = 0.30
 		"recover":
 			state = "idle"
 			state_time = 0.75 if phase == 1 else 0.44
+		"exhausted":
+			state = "idle"
+			state_time = 0.62
 
 func _next_attack() -> String:
-	attack_count += 1
-	if target != null and absf(target.global_position.x - global_position.x) > 270.0:
+	var moves := attack_ids()
+	if target != null and absf(target.global_position.x - global_position.x) > 270.0 and "charge" in moves:
 		return "charge"
-	match attack_count % 3:
-		0: return "thorns"
-		1: return "stomp"
-		_: return "charge"
+	return moves[attack_count % moves.size()]
+
+func _finish_attack() -> void:
+	attack_count += 1
+	if attack_count % 4 == 0:
+		state = "exhausted"
+		state_time = 1.3
+	else:
+		state = "recover"
+		state_time = 0.85 if phase == 1 else 0.55
 
 func _draw() -> void:
 	if selected_part in part_ids():
@@ -152,12 +181,14 @@ func _draw() -> void:
 		var color := Color("#dc7854") if marked["wounded"] else (Color("#8a9395") if marked["broken"] else Color("#e7bd70"))
 		draw_arc(spot, 17.0, 0.0, TAU, 26, color, 2.5)
 		draw_line(spot + Vector2(-5, 0), spot + Vector2(5, 0), color, 1.5)
-	if state != "windup" and state != "strike":
+	if state not in ["windup", "strike", "combo_wait"]:
 		return
-	var glow := Color(0.54, 0.81, 0.31, 0.37 if state == "windup" else 0.61)
+	var glow := Color(0.54, 0.81, 0.31, 0.37 if state != "strike" else 0.61)
 	if attack_kind == "charge":
 		draw_rect(Rect2(Vector2(90 if facing > 0 else -380, -12), Vector2(290, 10)), glow)
 	elif attack_kind == "stomp":
 		draw_arc(Vector2(0, -10), 126, 0.0, PI, 30, glow, 8.0)
+	elif attack_kind == "briar_lash":
+		draw_arc(Vector2(facing * 40, -58), 150, -1.05 if facing > 0 else PI - 1.05, 1.05 if facing > 0 else PI + 1.05, 34, glow, 10.0)
 	else:
 		draw_arc(Vector2(0, -60), 192, 0.0, TAU, 50, glow, 6.0)
