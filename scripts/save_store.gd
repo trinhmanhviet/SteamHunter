@@ -1,10 +1,18 @@
 extends RefCounted
 
 const SAVE_PATH := "user://mist_and_iron_save.json"
-const SCHEMA_VERSION := 4
+const SCHEMA_VERSION := 5
 const Rules = preload("res://scripts/rules.gd")
 
 static func defaults() -> Dictionary:
+	var weapon_tunings := {}
+	var tuning_equipped := {}
+	for weapon_id in Rules.weapon_ids():
+		var owned := {}
+		for tuning_id in Rules.tuning_ids():
+			owned[tuning_id] = tuning_id == "plain"
+		weapon_tunings[weapon_id] = owned
+		tuning_equipped[weapon_id] = "plain"
 	return {
 		"schema_version": SCHEMA_VERSION,
 		"language": "en",
@@ -20,6 +28,8 @@ static func defaults() -> Dictionary:
 		"bestiary": {},
 		"armor_owned": {"field": true, "ember": false, "thorn": false},
 		"armor_equipped": "field",
+		"weapon_tunings": weapon_tunings,
+		"tuning_equipped": tuning_equipped,
 		"companion_unlocked": false,
 		"settings": {"music_volume": 1.0, "sound_volume": 1.0, "touch_scale": 1.0, "reduced_flash": false}
 	}
@@ -130,6 +140,24 @@ static func _clean(input: Dictionary) -> Dictionary:
 	var armor_equipped := str(input.get("armor_equipped", "field"))
 	if not armor_owned.get(armor_equipped, false):
 		armor_equipped = "field"
+	var raw_tunings = input.get("weapon_tunings", {})
+	if not raw_tunings is Dictionary:
+		raw_tunings = {}
+	var raw_equipped = input.get("tuning_equipped", {})
+	if not raw_equipped is Dictionary:
+		raw_equipped = {}
+	var weapon_tunings := {}
+	var tuning_equipped := {}
+	for weapon_id in Rules.weapon_ids():
+		var raw_weapon = raw_tunings.get(weapon_id, {})
+		if not raw_weapon is Dictionary:
+			raw_weapon = {}
+		var owned := {}
+		for tuning_id in Rules.tuning_ids():
+			owned[tuning_id] = true if tuning_id == "plain" else raw_weapon.get(tuning_id, false) == true
+		weapon_tunings[weapon_id] = owned
+		var selected := str(raw_equipped.get(weapon_id, "plain"))
+		tuning_equipped[weapon_id] = selected if bool(owned.get(selected, false)) else "plain"
 	var raw_settings = input.get("settings", {})
 	if not raw_settings is Dictionary:
 		raw_settings = {}
@@ -154,6 +182,8 @@ static func _clean(input: Dictionary) -> Dictionary:
 		"bestiary": bestiary,
 		"armor_owned": armor_owned,
 		"armor_equipped": armor_equipped,
+		"weapon_tunings": weapon_tunings,
+		"tuning_equipped": tuning_equipped,
 		"companion_unlocked": input.get("companion_unlocked", false) == true,
 		"settings": settings
 	}

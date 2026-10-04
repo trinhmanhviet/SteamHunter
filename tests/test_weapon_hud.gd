@@ -12,7 +12,7 @@ func _run() -> void:
 	_check(InputMap.has_action("special"), "project exposes the weapon special input")
 	var ui = GameUI.new()
 	root.add_child(ui)
-	ui.show_hunt("moor")
+	ui.show_hunt("moor", "counter")
 	var special = ui.root.get_node_or_null("Action_special")
 	_check(special != null, "hunt HUD has a touch Special button")
 	if special != null:

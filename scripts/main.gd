@@ -24,6 +24,7 @@ var herb_sprites: Array[Sprite2D] = []
 var hunt_parts := 0
 var hunt_elapsed := 0.0
 var selected_part := ""
+var boss_status_buildup := 0.0
 var ui: CanvasLayer
 var music: AudioStreamPlayer
 
@@ -58,6 +59,9 @@ func _ready() -> void:
 	ui.coats_pressed.connect(open_coats)
 	ui.weapons_pressed.connect(open_weapons)
 	ui.coat_pressed.connect(choose_coat)
+	ui.tuning_menu_pressed.connect(open_tuning)
+	ui.tuning_pressed.connect(choose_tuning)
+	ui.blade_command.connect(_on_blade_command)
 	ui.language_pressed.connect(switch_language)
 	ui.retry_pressed.connect(start_hunt)
 	ui.camp_pressed.connect(return_to_camp)
@@ -80,6 +84,7 @@ func start_hunt(hunt_id: String = "") -> void:
 	_play_music("hunt")
 	hunt_parts = 0
 	hunt_elapsed = 0.0
+	boss_status_buildup = 0.0
 	herbs.clear()
 	herb_sprites.clear()
 	for at_x in active_hunt["herb_x"]:
@@ -101,6 +106,7 @@ func start_hunt(hunt_id: String = "") -> void:
 	hunter.forge_level = int(progress["forge_level"])
 	hunter.weapon_type = str(progress["equipped"])
 	hunter.armor_type = str(progress.get("armor_equipped", "field"))
+	hunter.tuning_type = str(progress.get("tuning_equipped", {}).get(hunter.weapon_type, "plain"))
 	world.add_child(hunter)
 	hunter.struck.connect(_on_hunter_struck)
 	hunter.healed.connect(_on_hunter_healed)
@@ -136,7 +142,7 @@ func start_hunt(hunt_id: String = "") -> void:
 	boss.part_broken.connect(_on_part_broken)
 	boss.wound_opened.connect(_on_wound_opened)
 	boss.defeated.connect(_on_boss_defeated)
-	ui.show_hunt(selected_hunt)
+	ui.show_hunt(selected_hunt, hunter.weapon_type)
 	queue_redraw()
 
 func _process(_delta: float) -> void:
@@ -155,6 +161,23 @@ func cycle_target_part() -> void:
 	selected_part = str(ids[(current_index + 1) % ids.size()])
 	boss.selected_part = selected_part
 	ui.update_target(selected_part, boss.part_status(selected_part))
+
+func _on_blade_command(command: String) -> void:
+	if mode != "hunt" or hunter == null or not is_instance_valid(hunter) or hunter.weapon_type != "blade":
+		return
+	match command:
+		"cut":
+			hunter.request_action("light")
+		"lift":
+			hunter.request_action("light", true)
+		"dodge":
+			hunter.start_dodge()
+		"charge_start":
+			hunter.start_blade_charge()
+		"charge_release":
+			hunter.release_blade_charge()
+		"brace":
+			hunter.brace_blade_charge()
 
 func return_to_camp() -> void:
 	get_tree().paused = false
@@ -185,10 +208,38 @@ func open_coats() -> void:
 	ui.show_coats(progress)
 
 func open_weapons() -> void:
-	if mode != "coats":
+	if mode not in ["coats", "tuning"]:
 		return
 	mode = "gear"
 	ui.show_gear(progress)
+
+func open_tuning() -> void:
+	if mode != "gear":
+		return
+	mode = "tuning"
+	ui.show_tuning(progress)
+
+func choose_tuning(tuning_id: String) -> void:
+	if mode != "tuning" or tuning_id not in Rules.tuning_ids():
+		return
+	var weapon_id := str(progress.get("equipped", "blade"))
+	var all_owned: Dictionary = progress["weapon_tunings"]
+	var owned: Dictionary = all_owned[weapon_id]
+	if not bool(owned.get(tuning_id, false)):
+		if not Rules.can_craft_tuning(progress, weapon_id, tuning_id):
+			return
+		var recipe := Rules.tuning_recipe(tuning_id)
+		progress["parts"] = int(progress["parts"]) - int(recipe.get("parts", 0))
+		var material := str(recipe.get("material", ""))
+		if not material.is_empty():
+			var inventory: Dictionary = progress["inventory"]
+			inventory[material] = int(inventory.get(material, 0)) - int(recipe.get("count", 0))
+		owned[tuning_id] = true
+		_play_sound("forge")
+	var equipped: Dictionary = progress["tuning_equipped"]
+	equipped[weapon_id] = tuning_id
+	_save()
+	ui.show_tuning(progress)
 
 func choose_coat(coat_id: String) -> void:
 	if mode != "coats" or coat_id not in Rules.coat_ids():
@@ -287,7 +338,8 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 			continue
 		var dx: float = rat.global_position.x - hunter.global_position.x
 		if dx * hunter.facing >= -15.0 and absf(dx) < reach + 40.0 and absf(rat.global_position.y - hunter.global_position.y) < 86.0:
-			rat.receive_hit(damage)
+			var tuned_damage := Rules.tuned_damage(damage, hunter.weapon_type, hunter.tuning_type, 1.0)
+			rat.receive_hit(tuned_damage)
 			landed = true
 	if boss != null and is_instance_valid(boss) and boss.health > 0:
 		var dx: float = boss.global_position.x - hunter.global_position.x
@@ -295,12 +347,35 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 			var target_position: Vector2 = boss.part_world_position(selected_part)
 			var target_dx := target_position.x - hunter.global_position.x
 			if target_dx * hunter.facing >= -25.0 and absf(target_dx) < reach + 40.0 and absf(target_position.y - hunter.global_position.y) < 155.0:
-				boss.receive_hit(damage, part_kind, selected_part)
+				boss.receive_hit(_tuned_damage_for_boss(damage), part_kind, selected_part)
+				_apply_tuning_status()
 				boss.queue_redraw()
 				landed = true
 	if landed:
 		hunter.confirm_hit(kind)
 		_play_sound("hit")
+
+func _tuned_damage_for_boss(base_damage: int) -> int:
+	if hunter == null:
+		return base_damage
+	var element := Rules.tuning_element(hunter.tuning_type)
+	var matchup := 1.0 if element in ["", "raw"] else Catalog.element_multiplier(selected_hunt, element)
+	return Rules.tuned_damage(base_damage, hunter.weapon_type, hunter.tuning_type, matchup)
+
+func _apply_tuning_status() -> bool:
+	if hunter == null or boss == null or not is_instance_valid(boss) or boss.health <= 0:
+		return false
+	var gain := Rules.tuning_status_gain(hunter.weapon_type, hunter.tuning_type, Catalog.status_multiplier(selected_hunt, "snare"))
+	if gain <= 0.0:
+		return false
+	boss_status_buildup += gain
+	if boss_status_buildup < Catalog.status_threshold(selected_hunt, "snare"):
+		return false
+	boss_status_buildup = 0.0
+	if boss.has_method("apply_status") and boss.apply_status("snare", 1.35):
+		ui.flash("snared")
+		return true
+	return false
 
 func _on_rat_attack(damage: int, rat: Node2D) -> void:
 	if mode == "hunt" and hunter != null and is_instance_valid(rat) and hunter.health > 0:

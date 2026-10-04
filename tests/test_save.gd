@@ -9,7 +9,7 @@ func _initialize() -> void:
 	var loaded: Dictionary = Store.decode(encoded)
 	_check(loaded["language"] == original["language"] and loaded["parts"] == original["parts"] and loaded["forge_level"] == original["forge_level"] and loaded["hunts_won"] == original["hunts_won"], "progress roundtrip")
 	_check(loaded["equipped"] == "blade", "legacy save gains a weapon")
-	_check(loaded.get("schema_version") == 4, "legacy save migrates to schema 4")
+	_check(loaded.get("schema_version") == 5, "legacy save migrates to schema 5")
 	_check(loaded.get("chapter") == 1, "legacy save starts at chapter one")
 	_check(loaded.get("completed_hunts") == [], "aggregate old wins do not invent specific cleared hunts")
 	_check(loaded.get("inventory") == {}, "legacy save receives an empty material inventory")
@@ -17,6 +17,8 @@ func _initialize() -> void:
 	_check(loaded.get("bestiary") == {}, "legacy save receives a discovery book")
 	_check(loaded.get("armor_owned") == {"field": true, "ember": false, "thorn": false}, "legacy save receives the starter coat catalog")
 	_check(loaded.get("armor_equipped") == "field", "legacy save equips the field coat")
+	_check(loaded.get("weapon_tunings", {}).get("blade", {}).get("plain") == true, "legacy save owns the plain blade tuning")
+	_check(loaded.get("tuning_equipped", {}).get("blade") == "plain", "legacy save equips plain tuning")
 	_check(loaded.get("settings") is Dictionary, "legacy save receives settings")
 	var expanded := Store.defaults()
 	expanded["chapter"] = 3

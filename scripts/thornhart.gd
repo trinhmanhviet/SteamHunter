@@ -53,6 +53,13 @@ func part_world_position(part_id: String) -> Vector2:
 		return global_position + Vector2(-facing * 40, -22)
 	return global_position
 
+func apply_status(status_id: String, duration: float) -> bool:
+	if state == "dead" or status_id != "snare":
+		return false
+	state = "recover"
+	state_time = maxf(state_time, duration)
+	return true
+
 func attack_profile(kind: String) -> Dictionary:
 	match kind:
 		"charge": return {"damage": 24, "reach": 95.0 if part_status("hoof")["broken"] else 125.0, "speed": (240.0 if phase == 1 else 330.0) if part_status("hoof")["broken"] else (320.0 if phase == 1 else 440.0)}

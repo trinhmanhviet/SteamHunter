@@ -56,6 +56,13 @@ func part_world_position(part_id: String) -> Vector2:
 		return global_position + Vector2(facing * 8, -61)
 	return global_position
 
+func apply_status(status_id: String, duration: float) -> bool:
+	if state == "dead" or status_id != "snare":
+		return false
+	state = "recover"
+	state_time = maxf(state_time, duration)
+	return true
+
 func can_rebound() -> bool:
 	return not bool(part_status("horn").get("broken", false))
 

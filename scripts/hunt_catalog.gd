@@ -19,6 +19,9 @@ const HUNTS := {
 		"region_key": "moor_region",
 		"tip_key": "hunt_tip",
 		"trophy_id": "ash_plate",
+		"elements": {"heat": 0.35, "shock": 1.35},
+		"statuses": {"snare": 0.80},
+		"snare_threshold": 52.0,
 		"base_reward": 3
 	},
 	"briarwood": {
@@ -33,6 +36,9 @@ const HUNTS := {
 		"region_key": "briarwood_region",
 		"tip_key": "briarwood_tip",
 		"trophy_id": "thorn_antler",
+		"elements": {"heat": 1.45, "shock": 0.75},
+		"statuses": {"snare": 0.45},
+		"snare_threshold": 65.0,
 		"base_reward": 5
 	},
 	"ashbell": {
@@ -47,6 +53,9 @@ const HUNTS := {
 		"region_key": "moor_region",
 		"tip_key": "ashbell_tip",
 		"trophy_id": "bell_core",
+		"elements": {"heat": 1.0, "shock": 0.30},
+		"statuses": {"snare": 1.35},
+		"snare_threshold": 45.0,
 		"base_reward": 7
 	}
 }
@@ -68,3 +77,19 @@ static func trophy_reward(id: String, armor_broken: bool) -> Dictionary:
 	if hunt.is_empty() or not hunt.has("trophy_id"):
 		return {}
 	return {"id": str(hunt["trophy_id"]), "count": 2 if armor_broken else 1}
+
+static func element_multiplier(id: String, element_id: String) -> float:
+	var hunt := get_hunt(id)
+	var elements: Dictionary = hunt.get("elements", {}) if hunt.get("elements", {}) is Dictionary else {}
+	return maxf(0.0, float(elements.get(element_id, 1.0)))
+
+static func status_multiplier(id: String, status_id: String) -> float:
+	var hunt := get_hunt(id)
+	var statuses: Dictionary = hunt.get("statuses", {}) if hunt.get("statuses", {}) is Dictionary else {}
+	return maxf(0.0, float(statuses.get(status_id, 1.0)))
+
+static func status_threshold(id: String, status_id: String) -> float:
+	var hunt := get_hunt(id)
+	if status_id == "snare":
+		return maxf(1.0, float(hunt.get("snare_threshold", 50.0)))
+	return 50.0

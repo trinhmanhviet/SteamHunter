@@ -17,6 +17,14 @@ const COATS := {
 	}
 }
 
+const TUNINGS := {
+	"plain": {"recipe": {"parts": 0, "material": "", "count": 0}, "element": "", "potency": 0.0},
+	"tempered": {"recipe": {"parts": 5, "material": "", "count": 0}, "element": "raw", "potency": 5.0},
+	"ember": {"recipe": {"parts": 3, "material": "ash_plate", "count": 2}, "element": "heat", "potency": 8.0},
+	"briar": {"recipe": {"parts": 3, "material": "thorn_antler", "count": 2}, "status": "snare", "potency": 15.0},
+	"resonant": {"recipe": {"parts": 3, "material": "bell_core", "count": 2}, "element": "shock", "potency": 7.0}
+}
+
 static func weapon_ids() -> Array[String]:
 	return Catalog.weapon_ids()
 
@@ -114,3 +122,50 @@ static func coat_damage(amount: int, coat_id: String) -> int:
 
 static func coat_dodge_cost(coat_id: String) -> float:
 	return float(coat(coat_id).get("dodge_cost", 22.0))
+
+static func tuning_ids() -> Array[String]:
+	return ["plain", "tempered", "ember", "briar", "resonant"]
+
+static func tuning(tuning_id: String) -> Dictionary:
+	return TUNINGS.get(tuning_id, TUNINGS["plain"])
+
+static func tuning_recipe(tuning_id: String) -> Dictionary:
+	return tuning(tuning_id).get("recipe", {}).duplicate(true)
+
+static func can_craft_tuning(progress: Dictionary, weapon_id: String, tuning_id: String) -> bool:
+	if weapon_id not in weapon_ids() or tuning_id not in tuning_ids() or tuning_id == "plain":
+		return false
+	var all_owned = progress.get("weapon_tunings", {})
+	if all_owned is Dictionary:
+		var weapon_owned = all_owned.get(weapon_id, {})
+		if weapon_owned is Dictionary and bool(weapon_owned.get(tuning_id, false)):
+			return false
+	var recipe := tuning_recipe(tuning_id)
+	var inventory = progress.get("inventory", {})
+	if not inventory is Dictionary:
+		return false
+	var material := str(recipe.get("material", ""))
+	var material_ready := material.is_empty() or int(inventory.get(material, 0)) >= int(recipe.get("count", 0))
+	return int(progress.get("parts", 0)) >= int(recipe.get("parts", 0)) and material_ready
+
+static func tuning_element(tuning_id: String) -> String:
+	return str(tuning(tuning_id).get("element", ""))
+
+static func tuned_damage(base_damage: int, weapon_id: String, tuning_id: String, matchup: float) -> int:
+	if base_damage <= 0:
+		return 0
+	var data := tuning(tuning_id)
+	var element := str(data.get("element", ""))
+	if element.is_empty():
+		return base_damage
+	if element == "raw":
+		return base_damage + roundi(float(data.get("potency", 0.0)))
+	var scale := float(weapon(weapon_id).get("element_scale", 1.0))
+	return base_damage + maxi(0, roundi(float(data.get("potency", 0.0)) * scale * maxf(0.0, matchup)))
+
+static func tuning_status_gain(weapon_id: String, tuning_id: String, matchup: float) -> float:
+	var data := tuning(tuning_id)
+	if str(data.get("status", "")) != "snare":
+		return 0.0
+	var scale := float(weapon(weapon_id).get("status_scale", 1.0))
+	return float(data.get("potency", 0.0)) * scale * maxf(0.0, matchup)

@@ -19,6 +19,7 @@ var max_stamina := 100.0
 var forge_level := 0
 var weapon_type := "blade"
 var armor_type := "field"
+var tuning_type := "plain"
 var facing := 1
 var invincible_time := 0.0
 var dodge_time := 0.0
@@ -99,11 +100,10 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("attack") and heal_time <= 0.0:
 			request_action("light", absf(axis) > 0.45, not is_on_floor())
 		if weapon_type == "blade":
-			if Input.is_action_pressed("heavy") and current_action.is_empty() and heal_time <= 0.0:
-				charge_time = minf(1.15, charge_time + delta)
+			if Input.is_action_pressed("heavy"):
+				advance_blade_charge(delta)
 			elif charge_time > 0.0:
-				start_action("charged_hew", charge_time / 1.15)
-				charge_time = 0.0
+				release_blade_charge()
 		elif Input.is_action_just_pressed("heavy") and heal_time <= 0.0:
 			request_action("heavy", absf(axis) > 0.45, not is_on_floor())
 		if Input.is_action_just_pressed("jump") and is_on_floor() and dodge_time <= 0.0 and heal_time <= 0.0 and current_action.is_empty():
@@ -258,6 +258,39 @@ func start_dodge() -> bool:
 	dodge_time = 0.26
 	invincible_time = maxf(invincible_time, 0.34)
 	return true
+
+func start_blade_charge() -> bool:
+	if weapon_type != "blade" or not current_action.is_empty() or dodge_time > 0.0 or heal_time > 0.0 or health <= 0:
+		return false
+	charge_time = maxf(charge_time, 0.01)
+	weapon_drawn = true
+	idle_combat_time = 0.0
+	queue_redraw()
+	return true
+
+func advance_blade_charge(delta: float) -> bool:
+	if delta <= 0.0 or not start_blade_charge():
+		return false
+	charge_time = minf(1.15, charge_time + delta)
+	queue_redraw()
+	return true
+
+func release_blade_charge() -> bool:
+	if weapon_type != "blade" or charge_time <= 0.0:
+		return false
+	var held_charge := charge_time
+	charge_time = 0.0
+	var released := start_action("charged_hew", held_charge / 1.15)
+	queue_redraw()
+	return released
+
+func brace_blade_charge() -> bool:
+	if weapon_type != "blade" or charge_time <= 0.0:
+		return false
+	charge_time = 0.0
+	var braced := start_action("shoulder_brace")
+	queue_redraw()
+	return braced
 
 func start_attack(kind: String, charge: float) -> bool:
 	var action_id := Rules.entry_action(weapon_type) if kind == "quick" else str(Rules.weapon(weapon_type)["heavy"])

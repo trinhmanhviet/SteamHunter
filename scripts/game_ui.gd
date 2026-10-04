@@ -8,21 +8,26 @@ signal forge_pressed
 signal coats_pressed
 signal weapons_pressed
 signal coat_pressed(coat_id: String)
+signal tuning_menu_pressed
+signal tuning_pressed(tuning_id: String)
 signal language_pressed
 signal retry_pressed
 signal camp_pressed
 signal resume_pressed
+signal blade_command(command: String)
 
 const Words = preload("res://scripts/words.gd")
 const Rules = preload("res://scripts/rules.gd")
 const Catalog = preload("res://scripts/hunt_catalog.gd")
 const GameStick = preload("res://scripts/virtual_joystick.gd")
+const BladeCombatStick = preload("res://scripts/blade_combat_stick.gd")
 const TouchActionButton = preload("res://scripts/touch_action_button.gd")
 const HorizontalTouchScroll = preload("res://scripts/horizontal_touch_scroll.gd")
 const REFERENCE_SIZE := Vector2(960, 540)
 
 var language := "en"
 var current_hunt := "moor"
+var current_weapon := "blade"
 var root: Control
 var health_fill: ColorRect
 var stamina_fill: ColorRect
@@ -34,6 +39,7 @@ var boss_group: Control
 var part_label: Label
 var target_label: Label
 var potion_label: Label
+var tuning_label: Label
 var flash_label: Label
 var flash_time := 0.0
 var layout_size := REFERENCE_SIZE
@@ -143,9 +149,12 @@ func show_gear(progress: Dictionary) -> void:
 	var forge_level: int = int(progress.get("forge_level", 0))
 	var forge_cost: int = Rules.forge_cost(forge_level)
 	var forge_text := t("forge_max") if forge_level >= 3 else (t("forge_ready") if int(progress["parts"]) >= forge_cost else t("forge_short")).format({"cost": forge_cost})
-	var coats_button := _button(t("coats_tab"), Rect2(54 + center_offset, 448, 145, 43), func(): coats_pressed.emit())
+	var coats_button := _button(t("coats_tab"), Rect2(54 + center_offset, 448, 118, 43), func(): coats_pressed.emit())
 	coats_button.name = "OpenCoats"
-	var forge_button := _button(forge_text + "  ·  " + t("level") + " " + str(forge_level + 1), Rect2(215 + center_offset, 448, 430, 43), func(): forge_pressed.emit())
+	var tuning_button := _button(t("tuning_tab"), Rect2(182 + center_offset, 448, 118, 43), func(): tuning_menu_pressed.emit())
+	tuning_button.name = "OpenTuning"
+	var forge_button := _button(forge_text + "  ·  " + t("level") + " " + str(forge_level + 1), Rect2(310 + center_offset, 448, 335, 43), func(): forge_pressed.emit())
+	forge_button.add_theme_font_size_override("font_size", 14)
 	forge_button.disabled = forge_level >= 3 or int(progress["parts"]) < forge_cost
 	_button(t("return"), Rect2(705 + center_offset, 448, 200, 43), func(): camp_pressed.emit())
 
@@ -195,8 +204,59 @@ func show_coats(progress: Dictionary) -> void:
 	weapons_button.name = "OpenWeapons"
 	_button(t("return"), Rect2(705 + center_offset, 448, 200, 43), func(): camp_pressed.emit())
 
-func show_hunt(hunt_id: String = "moor") -> void:
+func show_tuning(progress: Dictionary) -> void:
+	_clear()
+	var center_offset := _center_offset()
+	_overlay(Color(0.01, 0.03, 0.06, 0.77))
+	var tuning_panel := _panel(Rect2(30 + center_offset, 26, 900, 488))
+	tuning_panel.name = "TuningPanel"
+	var weapon_id := str(progress.get("equipped", "blade"))
+	_label(t("tuning_title"), Vector2(58 + center_offset, 45), Vector2(390, 45), 32, Color("#f1cf89"))
+	_label(t(weapon_id + "_name"), Vector2(58 + center_offset, 82), Vector2(390, 28), 17, Color("#c0d1cc"))
+	_label(t("parts") + ": " + str(progress.get("parts", 0)), Vector2(700 + center_offset, 52), Vector2(200, 30), 19, Color("#d9dfc9"))
+	var stock: Dictionary = progress.get("inventory", {}) if progress.get("inventory", {}) is Dictionary else {}
+	_label(t("ash_plate") + ": " + str(stock.get("ash_plate", 0)) + "  •  " + t("thorn_antler") + ": " + str(stock.get("thorn_antler", 0)) + "  •  " + t("bell_core") + ": " + str(stock.get("bell_core", 0)), Vector2(390 + center_offset, 82), Vector2(510, 24), 12, Color("#c0d1cc"))
+	var cards := Control.new()
+	cards.name = "TuningCards"
+	cards.position = Vector2(54 + center_offset, 116)
+	cards.size = Vector2(852, 310)
+	cards.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(cards)
+	var colors := {"plain": Color("#667078"), "tempered": Color("#d1b87b"), "ember": Color("#e76f3c"), "briar": Color("#78934c"), "resonant": Color("#65a9c2")}
+	var ids := Rules.tuning_ids()
+	var all_owned: Dictionary = progress.get("weapon_tunings", {}).get(weapon_id, {})
+	var equipped := str(progress.get("tuning_equipped", {}).get(weapon_id, "plain"))
+	for index in range(ids.size()):
+		var tuning_id: String = ids[index]
+		var x := index * 170.0
+		_panel(Rect2(x, 0, 158, 302), cards)
+		var swatch := ColorRect.new()
+		swatch.position = Vector2(x + 39, 22)
+		swatch.size = Vector2(80, 80)
+		swatch.color = colors[tuning_id]
+		swatch.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		cards.add_child(swatch)
+		_label(t(tuning_id + "_tuning_name"), Vector2(x + 10, 116), Vector2(138, 30), 16, Color("#f1cf89"), cards)
+		var description := _label(t(tuning_id + "_tuning_desc"), Vector2(x + 10, 148), Vector2(138, 70), 12, Color("#c8d4c7"), cards)
+		description.clip_text = true
+		var owned: bool = bool(all_owned.get(tuning_id, tuning_id == "plain"))
+		var selected := equipped == tuning_id
+		var recipe := Rules.tuning_recipe(tuning_id)
+		var material := str(recipe.get("material", ""))
+		var recipe_text := t("craft_tuning_parts").format({"parts": recipe.get("parts", 0)}) if material.is_empty() else t("craft_tuning_material").format({"parts": recipe.get("parts", 0), "count": recipe.get("count", 0), "material": t(material)})
+		var action_text := t("equipped") if selected else (t("equip") if owned else (recipe_text if Rules.can_craft_tuning(progress, weapon_id, tuning_id) else t("need_tuning")))
+		var action_button := _button(action_text, Rect2(x + 10, 246, 138, 42), func(): tuning_pressed.emit(tuning_id), cards)
+		action_button.name = "Tuning_" + tuning_id
+		action_button.add_theme_font_size_override("font_size", 11)
+		action_button.clip_text = true
+		action_button.disabled = selected or (not owned and not Rules.can_craft_tuning(progress, weapon_id, tuning_id))
+	var weapons_button := _button(t("weapons_tab"), Rect2(54 + center_offset, 448, 200, 43), func(): weapons_pressed.emit())
+	weapons_button.name = "OpenWeapons"
+	_button(t("return"), Rect2(705 + center_offset, 448, 200, 43), func(): camp_pressed.emit())
+
+func show_hunt(hunt_id: String = "moor", weapon_id: String = "blade") -> void:
 	current_hunt = hunt_id
+	current_weapon = weapon_id
 	_clear()
 	var right_offset := _right_offset()
 	var center_offset := _center_offset()
@@ -213,6 +273,7 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	resource_fill = _bar(Rect2(106, 99, 0, 12), Color("#a87bd4"))
 	part_label = _label(t("parts") + ": 0", Vector2(20, 149), Vector2(300, 25), 16, Color("#f1cf89"))
 	potion_label = _label(t("potion") + ": 2", Vector2(20, 176), Vector2(300, 25), 16, Color("#b9e4a5"))
+	tuning_label = _label("", Vector2(20, 203), Vector2(300, 25), 15, Color("#9fd9e5"))
 	boss_group = Control.new()
 	boss_group.position = Vector2(359 + center_offset, 19)
 	boss_group.size = Vector2(450, 60)
@@ -248,12 +309,21 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	root.add_child(stick)
 	_action_button(t("drink"), Rect2(646 + right_offset, 330, 66, 66), "heal")
 	_action_button(t("jump"), Rect2(620 + right_offset, 421, 78, 78), "jump")
-	_action_button(t("special"), Rect2(744 + right_offset, 235, 72, 72), "special")
-	_action_button(t("heavy"), Rect2(744 + right_offset, 315, 86, 86), "heavy")
-	_action_button(t("dodge"), Rect2(710 + right_offset, 420, 78, 78), "dodge")
-	_action_button(t("target_cycle"), Rect2(849 + right_offset, 295, 66, 66), "cycle_target")
+	if weapon_id == "blade":
+		var blade_stick := BladeCombatStick.new()
+		blade_stick.name = "BladeCombatStick"
+		blade_stick.position = Vector2.ZERO
+		blade_stick.size = layout_size
+		blade_stick.exclusion_rects = [Rect2(646 + right_offset, 330, 66, 66), Rect2(620 + right_offset, 421, 78, 78)]
+		blade_stick.blade_command.connect(func(command: String): blade_command.emit(command))
+		root.add_child(blade_stick)
+	else:
+		_action_button(t("special"), Rect2(744 + right_offset, 235, 72, 72), "special")
+		_action_button(t("heavy"), Rect2(744 + right_offset, 315, 86, 86), "heavy")
+		_action_button(t("dodge"), Rect2(710 + right_offset, 420, 78, 78), "dodge")
+		_action_button(t("attack"), Rect2(811 + right_offset, 395, 108, 108), "attack", true)
+	_action_button(t("target_cycle"), Rect2(849 + right_offset, 92 if weapon_id == "blade" else 295, 66, 66), "cycle_target")
 	root.get_node("Action_cycle_target").visible = false
-	_action_button(t("attack"), Rect2(811 + right_offset, 395, 108, 108), "attack", true)
 	var pause_button := _button("Ⅱ", Rect2(899 + right_offset, 16, 43, 40), func(): _show_pause())
 	pause_button.name = "PauseButton"
 
@@ -272,6 +342,7 @@ func update_hud(hunter: Node, boss: Node, parts: int, show_boss: bool) -> void:
 		resource_fill.size.x = 208.0 * clampf(hunter.weapon_resource / maximum, 0.0, 1.0)
 	part_label.text = t("parts") + ": " + str(parts)
 	potion_label.text = t("potion") + ": " + str(hunter.potions)
+	tuning_label.text = t("tuning_hud") + ": " + t(hunter.tuning_type + "_tuning_name")
 	boss_group.visible = show_boss and boss != null and is_instance_valid(boss)
 	var target_button := root.get_node_or_null("Action_cycle_target")
 	if target_button != null:
@@ -338,7 +409,7 @@ func _show_pause() -> void:
 func _close_pause() -> void:
 	get_tree().paused = false
 	resume_pressed.emit()
-	show_hunt(current_hunt)
+	show_hunt(current_hunt, current_weapon)
 
 func _clear() -> void:
 	if root == null:
@@ -361,6 +432,7 @@ func _clear() -> void:
 	part_label = null
 	target_label = null
 	potion_label = null
+	tuning_label = null
 	flash_label = null
 
 func _right_offset() -> float:
