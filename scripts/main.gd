@@ -63,6 +63,7 @@ func _ready() -> void:
 	ui.tuning_pressed.connect(choose_tuning)
 	ui.blade_command.connect(_on_blade_command)
 	ui.counter_command.connect(_on_counter_command)
+	ui.twins_command.connect(_on_twins_command)
 	ui.language_pressed.connect(switch_language)
 	ui.retry_pressed.connect(start_hunt)
 	ui.camp_pressed.connect(return_to_camp)
@@ -193,6 +194,21 @@ func _on_counter_command(command: String) -> void:
 		"focus_arc":
 			hunter.request_action("heavy")
 		"counter_guard":
+			hunter.request_action("special")
+
+func _on_twins_command(command: String) -> void:
+	if mode != "hunt" or hunter == null or not is_instance_valid(hunter) or hunter.weapon_type != "twins":
+		return
+	match command:
+		"cut":
+			hunter.request_action("light")
+		"rush":
+			hunter.request_action("light", true)
+		"dodge":
+			hunter.start_dodge()
+		"fan":
+			hunter.request_action("heavy")
+		"overdrive":
 			hunter.request_action("special")
 
 func return_to_camp() -> void:

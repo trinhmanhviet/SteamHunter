@@ -45,6 +45,12 @@ func _run() -> void:
 	game.hunter.attack_cooldown = 0.0
 	game._on_counter_command("counter_guard")
 	_check(game.hunter.current_action == "counter_guard", "downward held combat-stick route opens Counter Guard")
+	game.hunter.advance_action(game.hunter.attack_time + 0.01)
+	game.hunter.attack_cooldown = 0.0
+	game.hunter.weapon_type = "twins"
+	game.hunter.weapon_resource = 60.0
+	game._on_twins_command("overdrive")
+	_check(game.hunter.current_action == "overdrive_flurry" and game.hunter.weapon_resource == 0.0, "held upward combat-stick route spends Tempo on Twin Fangs Overdrive")
 	game.queue_free()
 	await process_frame
 	quit()

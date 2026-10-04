@@ -16,6 +16,7 @@ signal camp_pressed
 signal resume_pressed
 signal blade_command(command: String)
 signal counter_command(command: String)
+signal twins_command(command: String)
 
 const Words = preload("res://scripts/words.gd")
 const Rules = preload("res://scripts/rules.gd")
@@ -23,6 +24,7 @@ const Catalog = preload("res://scripts/hunt_catalog.gd")
 const GameStick = preload("res://scripts/virtual_joystick.gd")
 const BladeCombatStick = preload("res://scripts/blade_combat_stick.gd")
 const CounterCombatStick = preload("res://scripts/counter_combat_stick.gd")
+const TwinsCombatStick = preload("res://scripts/twins_combat_stick.gd")
 const TouchActionButton = preload("res://scripts/touch_action_button.gd")
 const HorizontalTouchScroll = preload("res://scripts/horizontal_touch_scroll.gd")
 const REFERENCE_SIZE := Vector2(960, 540)
@@ -327,16 +329,24 @@ func show_hunt(hunt_id: String = "moor", weapon_id: String = "blade") -> void:
 		counter_stick.exclusion_rects = [Rect2(646 + right_offset, 330, 66, 66), Rect2(620 + right_offset, 421, 78, 78)]
 		counter_stick.counter_command.connect(func(command: String): counter_command.emit(command))
 		root.add_child(counter_stick)
+	elif weapon_id == "twins":
+		var twins_stick := TwinsCombatStick.new()
+		twins_stick.name = "TwinsCombatStick"
+		twins_stick.position = Vector2.ZERO
+		twins_stick.size = layout_size
+		twins_stick.exclusion_rects = [Rect2(646 + right_offset, 330, 66, 66), Rect2(620 + right_offset, 421, 78, 78)]
+		twins_stick.twins_command.connect(func(command: String): twins_command.emit(command))
+		root.add_child(twins_stick)
 	else:
 		_action_button(t("special"), Rect2(744 + right_offset, 235, 72, 72), "special")
 		_action_button(t("heavy"), Rect2(744 + right_offset, 315, 86, 86), "heavy")
 		_action_button(t("dodge"), Rect2(710 + right_offset, 420, 78, 78), "dodge")
 		_action_button(t("attack"), Rect2(811 + right_offset, 395, 108, 108), "attack", true)
-	_action_button(t("target_cycle"), Rect2(849 + right_offset, 92 if weapon_id in ["blade", "counter"] else 295, 66, 66), "cycle_target")
+	_action_button(t("target_cycle"), Rect2(849 + right_offset, 92 if weapon_id in ["blade", "counter", "twins"] else 295, 66, 66), "cycle_target")
 	root.get_node("Action_cycle_target").visible = false
 	var pause_button := _button("Ⅱ", Rect2(899 + right_offset, 16, 43, 40), func(): _show_pause())
 	pause_button.name = "PauseButton"
-	if weapon_id in ["blade", "counter"]:
+	if weapon_id in ["blade", "counter", "twins"]:
 		flash_label.add_theme_font_size_override("font_size", 18)
 		flash(weapon_id + "_touch_hint")
 
