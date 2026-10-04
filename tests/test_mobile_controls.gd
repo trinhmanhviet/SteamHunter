@@ -70,7 +70,7 @@ func _run() -> void:
 	_check(Input.get_action_strength("move_right") > 0.0 and Input.is_action_pressed("attack"), "move and strike work together")
 	ui.show_camp({"equipped":"blade", "weapons":{"blade":true,"pike":false,"maul":false}, "parts":0, "forge_level":0})
 	_check(Input.get_axis("move_left", "move_right") == 0.0 and not Input.is_action_pressed("attack"), "leaving hunt clears held controls")
-	var regular_camp_panel = ui.root.get_node_or_null("HuntSelectPanel")
+	var regular_camp_panel = ui.root.get_node_or_null("CampMenuPanel")
 	_check(regular_camp_panel != null and regular_camp_panel.position.x == 626.0, "16:9 camp panel keeps approved position")
 	ui.queue_free()
 
@@ -94,7 +94,7 @@ func _run() -> void:
 
 	var wide_progress := {"equipped":"blade", "weapons":{"blade":true,"pike":false,"maul":false}, "parts":0, "forge_level":0, "hunts_won":0}
 	wide_ui.show_camp(wide_progress)
-	var wide_camp_panel = wide_ui.root.get_node_or_null("HuntSelectPanel")
+	var wide_camp_panel = wide_ui.root.get_node_or_null("CampMenuPanel")
 	var wide_camp_title = wide_ui.root.get_node_or_null("CampTitle")
 	_check(wide_camp_panel != null and wide_camp_panel.position.x == 890.0, "camp selection stays attached to wide right edge")
 	_check(wide_camp_title != null and wide_camp_title.position.x == 450.0, "camp title follows wide viewport center")

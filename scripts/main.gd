@@ -51,6 +51,7 @@ func _ready() -> void:
 	add_child(ui)
 	ui.set_language(str(progress["language"]))
 	ui.hunt_pressed.connect(start_hunt)
+	ui.hunt_board_pressed.connect(open_hunt_board)
 	ui.gear_pressed.connect(open_gear)
 	ui.weapon_pressed.connect(choose_weapon)
 	ui.forge_pressed.connect(forge_blade)
@@ -166,6 +167,12 @@ func open_gear() -> void:
 		return
 	mode = "gear"
 	ui.show_gear(progress)
+
+func open_hunt_board() -> void:
+	if mode != "camp":
+		return
+	mode = "hunt_board"
+	ui.show_hunt_board(progress)
 
 func choose_weapon(weapon_id: String) -> void:
 	if mode != "gear" or weapon_id not in Rules.weapon_ids():
@@ -288,10 +295,18 @@ func _on_boss_attack(kind: String, damage: int, reach: float) -> void:
 
 func _on_armor_broken() -> void:
 	_play_sound("break")
-	ui.flash("antler_break" if selected_hunt == "briarwood" else "break")
+	match selected_hunt:
+		"briarwood": ui.flash("antler_break")
+		"ashbell": ui.flash("bell_break")
+		_: ui.flash("break")
 
 func _on_part_broken(part_id: String) -> void:
-	if part_id != ("antler" if selected_hunt == "briarwood" else "vent"):
+	var primary_part := "vent"
+	if selected_hunt == "briarwood":
+		primary_part = "antler"
+	elif selected_hunt == "ashbell":
+		primary_part = "chamber"
+	if part_id != primary_part:
 		_play_sound("break")
 		ui.flash("part_broken")
 

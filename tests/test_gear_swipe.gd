@@ -17,6 +17,10 @@ func _run() -> void:
 	var cards: Control = scroll.get_node("WeaponCards")
 	_check(cards.mouse_filter == Control.MOUSE_FILTER_PASS, "card surface passes touch drags to the horizontal scroller")
 	_check(scroll.scroll_deadzone <= 8, "weapon swipe starts after a short deliberate drag")
+	_check(scroll.horizontal_scroll_mode == ScrollContainer.SCROLL_MODE_SHOW_NEVER, "weapon cards swipe without exposing a scrollbar")
+	for child in cards.get_children():
+		if child is Button:
+			_check(child.mouse_filter == Control.MOUSE_FILTER_PASS, "weapon buttons pass swipe gestures to the card scroller")
 	var start := Vector2(520, 100)
 	_send_touch(scroll, 12, true, start)
 	_send_drag(scroll, 12, start - Vector2(220, 0), Vector2(-220, 0))

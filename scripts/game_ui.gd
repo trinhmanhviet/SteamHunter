@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 signal hunt_pressed(hunt_id: String)
+signal hunt_board_pressed
 signal gear_pressed
 signal weapon_pressed(weapon_id: String)
 signal forge_pressed
@@ -57,32 +58,38 @@ func show_camp(progress: Dictionary) -> void:
 	var camp_title := _label(t("title"), Vector2(318 + center_offset, 24), Vector2(600, 60), 46, Color("#f4d99b"))
 	camp_title.name = "CampTitle"
 	_label(t("subtitle"), Vector2(319 + center_offset, 81), Vector2(590, 31), 21, Color("#c5d6ca"))
-	var hunt_panel := _panel(Rect2(626 + right_offset, 125, 306, 365))
-	hunt_panel.name = "HuntSelectPanel"
-	_label(t("choose_hunt"), Vector2(648 + right_offset, 141), Vector2(270, 33), 24, Color("#f1cf89"))
-	var hunt_scroll := ScrollContainer.new()
-	hunt_scroll.position = Vector2(647 + right_offset, 184)
-	hunt_scroll.size = Vector2(264, 164)
-	hunt_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
-	hunt_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
-	root.add_child(hunt_scroll)
-	var hunt_list := Control.new()
-	hunt_list.custom_minimum_size = Vector2(264, Catalog.ids().size() * 82)
-	hunt_scroll.add_child(hunt_list)
-	var index := 0
-	for hunt_id in Catalog.ids():
-		var hunt: Dictionary = Catalog.get_hunt(hunt_id)
-		var button := _button(t(str(hunt["hunt_name_key"])) + "  ·  " + t(str(hunt["region_key"])), Rect2(0, index * 82, 264, 45), func(): hunt_pressed.emit(hunt_id), hunt_list)
-		button.name = "Hunt_" + hunt_id
-		button.add_theme_font_size_override("font_size", 16)
-		_label(t(str(hunt["tip_key"])), Vector2(1, index * 82 + 47), Vector2(260, 30), 13, Color("#c0d1cc"), hunt_list)
-		index += 1
-	_button(t("gear_button") + ": " + t(str(progress.get("equipped", "blade")) + "_name"), Rect2(647 + right_offset, 353, 264, 42), func(): gear_pressed.emit())
-	_label(t("parts") + ": " + str(progress.get("parts", 0)) + "   •   " + t("level") + ": " + str(int(progress.get("forge_level", 0)) + 1), Vector2(648 + right_offset, 408), Vector2(270, 28), 16, Color("#f1cf89"))
-	_label(t("hunt_count").format({"count": progress.get("hunts_won", 0)}), Vector2(648 + right_offset, 440), Vector2(270, 26), 15, Color("#c0d1cc"))
+	var menu_panel := _panel(Rect2(626 + right_offset, 125, 306, 365))
+	menu_panel.name = "CampMenuPanel"
+	_label(t("camp_services"), Vector2(648 + right_offset, 145), Vector2(264, 34), 24, Color("#f1cf89"))
+	var hunt_button := _button(t("hunt_board"), Rect2(647 + right_offset, 196, 264, 62), func(): hunt_board_pressed.emit())
+	hunt_button.name = "OpenHuntBoard"
+	_label(t("choose_hunt"), Vector2(650 + right_offset, 264), Vector2(258, 30), 14, Color("#c0d1cc"))
+	var forge_menu_button := _button(t("forge_menu"), Rect2(647 + right_offset, 310, 264, 62), func(): gear_pressed.emit())
+	forge_menu_button.name = "OpenForge"
+	_label(t("equipped") + ": " + t(str(progress.get("equipped", "blade")) + "_name"), Vector2(650 + right_offset, 379), Vector2(258, 28), 14, Color("#c0d1cc"))
+	_label(t("parts") + ": " + str(progress.get("parts", 0)) + "   •   " + t("level") + ": " + str(int(progress.get("forge_level", 0)) + 1), Vector2(648 + right_offset, 421), Vector2(270, 28), 16, Color("#f1cf89"))
+	_label(t("hunt_count").format({"count": progress.get("hunts_won", 0)}), Vector2(648 + right_offset, 451), Vector2(270, 26), 15, Color("#c0d1cc"))
 	_button(t("lang"), Rect2(24, 473, 172, 40), func(): language_pressed.emit())
 	if not OS.has_feature("mobile"):
 		_label(t("controls"), Vector2(20, 510), Vector2(910, 24), 13, Color("#d7d9c1"))
+
+func show_hunt_board(_progress: Dictionary) -> void:
+	_clear()
+	var center_offset := _center_offset()
+	_overlay(Color(0.01, 0.03, 0.06, 0.72))
+	var board := _panel(Rect2(100 + center_offset, 50, 760, 440))
+	board.name = "HuntBoardPanel"
+	_label(t("hunt_board"), Vector2(126 + center_offset, 70), Vector2(708, 44), 32, Color("#f1cf89"))
+	var index := 0
+	for hunt_id in Catalog.ids():
+		var hunt: Dictionary = Catalog.get_hunt(hunt_id)
+		var y := 126.0 + index * 96.0
+		var button := _button(t(str(hunt["hunt_name_key"])) + "  ·  " + t(str(hunt["region_key"])), Rect2(126 + center_offset, y, 708, 52), func(): hunt_pressed.emit(hunt_id))
+		button.name = "Hunt_" + hunt_id
+		button.add_theme_font_size_override("font_size", 19)
+		_label(t(str(hunt["tip_key"])), Vector2(136 + center_offset, y + 56), Vector2(688, 28), 14, Color("#c0d1cc"))
+		index += 1
+	_button(t("return"), Rect2(634 + center_offset, 434, 200, 42), func(): camp_pressed.emit())
 
 func show_gear(progress: Dictionary) -> void:
 	_clear()
@@ -97,7 +104,7 @@ func show_gear(progress: Dictionary) -> void:
 	weapon_scroll.name = "WeaponScroll"
 	weapon_scroll.position = Vector2(48 + center_offset, 104)
 	weapon_scroll.size = Vector2(864, 324)
-	weapon_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+	weapon_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_SHOW_NEVER
 	weapon_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	weapon_scroll.scroll_deadzone = 8
 	root.add_child(weapon_scroll)
@@ -128,6 +135,7 @@ func show_gear(progress: Dictionary) -> void:
 		var action_text := t("equipped") if equipped else (t("equip") if owned else (t("craft_weapon") if int(progress["parts"]) >= cost else t("need_parts")).format({"cost": cost}))
 		var action_button := _button(action_text, Rect2(x + 16, 261, 240, 42), func(): weapon_pressed.emit(weapon_id), card_strip)
 		action_button.name = "Weapon_" + weapon_id
+		action_button.mouse_filter = Control.MOUSE_FILTER_PASS
 		action_button.disabled = equipped or (not owned and int(progress["parts"]) < cost)
 	var forge_level: int = int(progress.get("forge_level", 0))
 	var forge_cost: int = Rules.forge_cost(forge_level)

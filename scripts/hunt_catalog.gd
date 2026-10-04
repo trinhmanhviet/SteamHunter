@@ -4,6 +4,7 @@ const Cinderback = preload("res://scripts/cinderback.gd")
 const MireRat = preload("res://scripts/mire_rat.gd")
 const Thornhart = preload("res://scripts/thornhart.gd")
 const Bristlehog = preload("res://scripts/bristlehog.gd")
+const AshbellRam = preload("res://scripts/ashbell_ram.gd")
 
 const HUNTS := {
 	"moor": {
@@ -31,11 +32,24 @@ const HUNTS := {
 		"region_key": "briarwood_region",
 		"tip_key": "briarwood_tip",
 		"base_reward": 5
+	},
+	"ashbell": {
+		"biome": "moor",
+		"boss_script": AshbellRam,
+		"small_script": MireRat,
+		"herb_x": [430.0, 1420.0, 2350.0],
+		"small_x": [650.0, 1180.0, 1760.0, 2250.0],
+		"boss_x": 2700.0,
+		"boss_name_key": "ashbell_name",
+		"hunt_name_key": "ashbell_name",
+		"region_key": "moor_region",
+		"tip_key": "ashbell_tip",
+		"base_reward": 7
 	}
 }
 
 static func ids() -> Array[String]:
-	return ["moor", "briarwood"]
+	return ["moor", "briarwood", "ashbell"]
 
 static func get_hunt(id: String) -> Dictionary:
 	return HUNTS.get(id, {})

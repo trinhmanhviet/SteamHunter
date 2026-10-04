@@ -13,6 +13,10 @@ func _run() -> void:
 	root.add_child(game)
 	await process_frame
 	_check(game.mode == "camp", "game opens at camp")
+	game.open_hunt_board()
+	_check(game.mode == "hunt_board" and game.ui.root.get_node_or_null("HuntBoardPanel") != null, "camp opens the hunt board as its own screen")
+	game.return_to_camp()
+	_check(game.mode == "camp" and game.ui.root.get_node_or_null("CampMenuPanel") != null, "hunt board returns to the camp service menu")
 	game.start_hunt()
 	await physics_frame
 	_check(game.mode == "hunt" and game.hunter != null, "hunt starts with a hunter")

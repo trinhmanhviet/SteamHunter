@@ -5,9 +5,11 @@ var failures := 0
 
 func _initialize() -> void:
 	var ids: Array = Catalog.ids()
-	_check(ids == ["moor", "briarwood"], "both hunts listed in camp order")
+	_check(ids == ["moor", "briarwood", "ashbell"], "three large-monster hunts are listed in camp order")
 	_check(Catalog.get_hunt("briarwood")["boss_name_key"] == "thornhart_name", "forest uses its own beast name")
+	_check(Catalog.get_hunt("ashbell")["boss_name_key"] == "ashbell_name", "third hunt uses the Ashbell identity")
 	_check(Catalog.reward("briarwood", true) > Catalog.reward("moor", false), "forest antler break earns extra parts")
+	_check(Catalog.reward("ashbell", true) == 8, "Ashbell chamber break adds to its seven-part base reward")
 	_check(Catalog.reward("moor", false, 1) == Catalog.reward("moor", false) + 1, "secondary part break adds one reward")
 	for id in ids:
 		var hunt: Dictionary = Catalog.get_hunt(id)
