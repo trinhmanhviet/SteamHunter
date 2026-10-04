@@ -141,23 +141,23 @@ Commit as `feat: connect weapon actions to monster hit zones`.
 - Modify: `tests/test_mobile_controls.gd`
 - Create: `tests/test_weapon_hud.gd`
 
-- [ ] **Step 1: Write failing control and HUD tests**
+- [x] **Step 1: Write failing control and HUD tests**
 
 Assert that `show_hunt` creates `Action_special`, preserves the existing right-side hierarchy, and creates a resource label/bar whose text and fill update from the Hunter weapon resource. Assert leaving the hunt clears held `special` input.
 
-- [ ] **Step 2: Run the UI tests and verify red**
+- [x] **Step 2: Run the UI tests and verify red**
 
 Expected: `Action_special` and resource controls are absent.
 
-- [ ] **Step 3: Add the input and responsive presentation**
+- [x] **Step 3: Add the input and responsive presentation**
 
 Add keyboard input action `special` on physical key I. Put the Special touch control between Heal and Heavy without covering Attack, Dodge, Jump, Target, or Pause. Add localized `SPECIAL`, `RESOLVE`, `FOCUS`, `TEMPO`, and `GUARD` labels. Extend `update_hud` to show `hunter.resource_name()` and the current/max value.
 
-- [ ] **Step 4: Run all UI and localization tests**
+- [x] **Step 4: Run all UI and localization tests**
 
 Expected: mobile controls, HUD, forge, and camp tests exit 0 at reference and wide aspect sizes.
 
-- [ ] **Step 5: Commit touch combat UI**
+- [x] **Step 5: Commit touch combat UI**
 
 Commit as `feat: add mobile weapon special controls`.
 
@@ -167,7 +167,7 @@ Commit as `feat: add mobile weapon special controls`.
 - Modify: `export_presets.cfg`
 - Create: `build/MistAndIron-debug.apk` (ignored build artifact)
 
-- [ ] **Step 1: Bump Android version**
+- [x] **Step 1: Bump Android version**
 
 Set version name to `0.7.0` and version code to `14`.
 

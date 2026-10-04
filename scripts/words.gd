@@ -15,9 +15,9 @@ const TEXT := {
 		"forge_done": "Your blade bites deeper!", "back": "BACK", "resume": "RESUME", "retry": "TRY AGAIN",
 		"return": "BACK TO CAMP", "victory": "HUNT COMPLETE", "defeat": "THE HUNT ENDS",
 		"victory_body": "You brought back {parts} iron parts.", "defeat_body": "Rest by the fire and set out again.",
-		"controls": "A/D MOVE  •  SPACE JUMP  •  J STRIKE  •  HOLD L HEAVY  •  K DODGE",
+		"controls": "A/D MOVE  •  SPACE JUMP  •  J STRIKE  •  L HEAVY  •  I SPECIAL  •  K DODGE",
 		"break": "VENT BROKEN!", "part_broken": "PART BROKEN!", "wound_open": "WOUND OPEN", "target": "TARGET", "target_cycle": "AIM", "part_vent": "BACK VENT", "part_tail": "TAIL", "part_antler": "ANTLERS", "part_hoof": "HOOF",
-		"dodge": "DODGE", "jump": "JUMP", "attack": "HIT", "heavy": "HEAVY",
+		"dodge": "DODGE", "jump": "JUMP", "attack": "HIT", "heavy": "HEAVY", "special": "SPECIAL", "resolve": "RESOLVE", "focus": "FOCUS", "tempo": "TEMPO", "guard": "GUARD",
 		"pause": "PAUSED", "collected": "+1 IRON PART", "press": "PRESS TO HUNT", "potion": "HERB DRAUGHT", "drink": "DRINK", "herb": "+1 HERB DRAUGHT", "healed": "WOUNDS MENDED",
 		"forge_max": "Forge at full heat", "new_hunt": "Cinderback grows fiercer with each hunt",
 		"hunt_count": "HUNTS WON: {count}", "sound": "SOUND"
@@ -36,9 +36,9 @@ const TEXT := {
 		"forge_done": "Dao của bạn bén hơn!", "back": "QUAY LẠI", "resume": "CHƠI TIẾP", "retry": "SĂN LẠI",
 		"return": "VỀ LỀU", "victory": "SĂN XONG", "defeat": "BẠN NGÃ RỒI",
 		"victory_body": "Bạn mang về {parts} mảnh sắt.", "defeat_body": "Nghỉ bên bếp lửa rồi đi săn lại.",
-		"controls": "A/D ĐI  •  SPACE NHẢY  •  J CHÉM  •  GIỮ L CHÉM MẠNH  •  K LĂN",
+		"controls": "A/D ĐI  •  SPACE NHẢY  •  J CHÉM  •  L ĐÒN NẶNG  •  I ĐẶC BIỆT  •  K LĂN",
 		"break": "VỠ LƯNG!", "part_broken": "ĐIỂM NHẮM HỎNG!", "wound_open": "RÁCH MỞ", "target": "ĐIỂM NHẮM", "target_cycle": "NHẮM", "part_vent": "LỖ HƠI", "part_tail": "ĐUÔI", "part_antler": "CẶP SỪNG", "part_hoof": "MÓNG",
-		"dodge": "LĂN", "jump": "NHẢY", "attack": "CHÉM", "heavy": "CHÉM MẠNH",
+		"dodge": "LĂN", "jump": "NHẢY", "attack": "CHÉM", "heavy": "ĐÒN NẶNG", "special": "ĐẶC BIỆT", "resolve": "QUYẾT TÂM", "focus": "NHỊP", "tempo": "ĐÀ", "guard": "KHIÊN",
 		"pause": "DỪNG", "collected": "+1 MẢNH SẮT", "press": "BẤM ĐỂ ĐI SĂN", "potion": "NƯỚC LÁ", "drink": "UỐNG", "herb": "+1 NƯỚC LÁ", "healed": "ĐỠ ĐAU RỒI",
 		"forge_max": "Đã rèn hết mức", "new_hunt": "Lưng Than sẽ dữ hơn sau mỗi lần săn",
 		"hunt_count": "ĐÃ SĂN THẮNG: {count}", "sound": "TIẾNG"

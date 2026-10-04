@@ -9,7 +9,7 @@ func _initialize() -> void:
 	var loaded: Dictionary = Store.decode(encoded)
 	_check(loaded["language"] == original["language"] and loaded["parts"] == original["parts"] and loaded["forge_level"] == original["forge_level"] and loaded["hunts_won"] == original["hunts_won"], "progress roundtrip")
 	_check(loaded["equipped"] == "blade", "legacy save gains a weapon")
-	_check(loaded.get("schema_version") == 2, "legacy save migrates to schema 2")
+	_check(loaded.get("schema_version") == 3, "legacy save migrates to schema 3")
 	_check(loaded.get("chapter") == 1, "legacy save starts at chapter one")
 	_check(loaded.get("completed_hunts") == [], "aggregate old wins do not invent specific cleared hunts")
 	_check(loaded.get("inventory") == {}, "legacy save receives an empty material inventory")

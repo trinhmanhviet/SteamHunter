@@ -21,6 +21,9 @@ var current_hunt := "moor"
 var root: Control
 var health_fill: ColorRect
 var stamina_fill: ColorRect
+var resource_fill: ColorRect
+var resource_back: ColorRect
+var resource_label: Label
 var boss_fill: ColorRect
 var boss_group: Control
 var part_label: Label
@@ -135,7 +138,7 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	_clear()
 	var right_offset := _right_offset()
 	var center_offset := _center_offset()
-	var hunt_hud := _panel(Rect2(18, 16, 312, 99))
+	var hunt_hud := _panel(Rect2(18, 16, 312, 126))
 	hunt_hud.name = "HuntHud"
 	_label(t("health"), Vector2(30, 22), Vector2(68, 24), 15, Color("#f4d99b"))
 	_label(t("stamina"), Vector2(30, 61), Vector2(68, 24), 15, Color("#f4d99b"))
@@ -143,8 +146,11 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	health_fill = _bar(Rect2(106, 30, 208, 14), Color("#d95752"))
 	_bar(Rect2(106, 69, 208, 14), Color("#304744"))
 	stamina_fill = _bar(Rect2(106, 69, 208, 14), Color("#d8b965"))
-	part_label = _label(t("parts") + ": 0", Vector2(20, 121), Vector2(300, 25), 16, Color("#f1cf89"))
-	potion_label = _label(t("potion") + ": 2", Vector2(20, 148), Vector2(300, 25), 16, Color("#b9e4a5"))
+	resource_label = _label("", Vector2(30, 91), Vector2(72, 22), 13, Color("#d8b8ef"))
+	resource_back = _bar(Rect2(106, 99, 208, 12), Color("#342f45"))
+	resource_fill = _bar(Rect2(106, 99, 0, 12), Color("#a87bd4"))
+	part_label = _label(t("parts") + ": 0", Vector2(20, 149), Vector2(300, 25), 16, Color("#f1cf89"))
+	potion_label = _label(t("potion") + ": 2", Vector2(20, 176), Vector2(300, 25), 16, Color("#b9e4a5"))
 	boss_group = Control.new()
 	boss_group.position = Vector2(359 + center_offset, 19)
 	boss_group.size = Vector2(450, 60)
@@ -180,6 +186,7 @@ func show_hunt(hunt_id: String = "moor") -> void:
 	root.add_child(stick)
 	_action_button(t("drink"), Rect2(646 + right_offset, 330, 66, 66), "heal")
 	_action_button(t("jump"), Rect2(620 + right_offset, 421, 78, 78), "jump")
+	_action_button(t("special"), Rect2(744 + right_offset, 235, 72, 72), "special")
 	_action_button(t("heavy"), Rect2(744 + right_offset, 315, 86, 86), "heavy")
 	_action_button(t("dodge"), Rect2(710 + right_offset, 420, 78, 78), "dodge")
 	_action_button(t("target_cycle"), Rect2(849 + right_offset, 295, 66, 66), "cycle_target")
@@ -193,6 +200,14 @@ func update_hud(hunter: Node, boss: Node, parts: int, show_boss: bool) -> void:
 		return
 	health_fill.size.x = 208.0 * float(hunter.health) / float(hunter.max_health)
 	stamina_fill.size.x = 208.0 * hunter.stamina / 100.0
+	var maximum: float = hunter.resource_max()
+	var shows_resource: bool = maximum > 0.0 and not hunter.resource_name().is_empty()
+	resource_label.visible = shows_resource
+	resource_back.visible = shows_resource
+	resource_fill.visible = shows_resource
+	if shows_resource:
+		resource_label.text = t(hunter.resource_name())
+		resource_fill.size.x = 208.0 * clampf(hunter.weapon_resource / maximum, 0.0, 1.0)
 	part_label.text = t("parts") + ": " + str(parts)
 	potion_label.text = t("potion") + ": " + str(hunter.potions)
 	boss_group.visible = show_boss and boss != null and is_instance_valid(boss)
@@ -263,7 +278,7 @@ func _close_pause() -> void:
 func _clear() -> void:
 	if root == null:
 		return
-	for action in ["move_left", "move_right", "jump", "dodge", "attack", "heavy", "heal"]:
+	for action in ["move_left", "move_right", "jump", "dodge", "attack", "heavy", "special", "heal"]:
 		Input.action_release(action)
 	for child in root.get_children():
 		if child.has_method("release_touch"):
@@ -272,6 +287,9 @@ func _clear() -> void:
 		child.queue_free()
 	health_fill = null
 	stamina_fill = null
+	resource_fill = null
+	resource_back = null
+	resource_label = null
 	boss_fill = null
 	boss_group = null
 	part_label = null
