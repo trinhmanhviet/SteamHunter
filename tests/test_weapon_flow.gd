@@ -34,6 +34,17 @@ func _run() -> void:
 	game.hunter.advance_blade_charge(0.8)
 	game._on_blade_command("charge_release")
 	_check(game.hunter.current_action == "charged_hew" and game.hunter.attack_charge > 0.65, "combat-stick charge routes into a powered Great Cleaver cut")
+	game.hunter.advance_action(game.hunter.attack_time + 0.01)
+	game.hunter.attack_cooldown = 0.0
+	game.hunter.weapon_type = "counter"
+	game.hunter.weapon_resource = 100.0
+	game.hunter.weapon_drawn = false
+	game._on_counter_command("cut")
+	_check(game.hunter.current_action == "draw_cut", "combat-stick cut routes into Warden Sabre draw cut")
+	game.hunter.advance_action(game.hunter.attack_time + 0.01)
+	game.hunter.attack_cooldown = 0.0
+	game._on_counter_command("counter_guard")
+	_check(game.hunter.current_action == "counter_guard", "downward held combat-stick route opens Counter Guard")
 	game.queue_free()
 	await process_frame
 	quit()

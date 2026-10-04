@@ -13,10 +13,10 @@ func _run() -> void:
 	var ui = GameUI.new()
 	root.add_child(ui)
 	ui.show_hunt("moor", "counter")
-	var special = ui.root.get_node_or_null("Action_special")
-	_check(special != null, "hunt HUD has a touch Special button")
-	if special != null:
-		_check(special.position.x < ui.root.get_node("Action_attack").position.x, "Special stays beside the primary attack cluster")
+	var counter_stick = ui.root.get_node_or_null("CounterCombatStick")
+	_check(counter_stick != null and counter_stick.size == ui.root.size, "Warden Sabre gets a full right-side combat stick surface")
+	_check(ui.root.get_node_or_null("Action_attack") == null and ui.root.get_node_or_null("Action_heavy") == null and ui.root.get_node_or_null("Action_special") == null and ui.root.get_node_or_null("Action_dodge") == null, "Warden Sabre removes the four combat buttons")
+	_check(ui.flash_label.text == ui.t("counter_touch_hint"), "Warden Sabre shows its gesture guide when a hunt begins")
 	var hunter = Hunter.new()
 	hunter.weapon_type = "counter"
 	root.add_child(hunter)
@@ -25,10 +25,8 @@ func _run() -> void:
 	hunter.weapon_resource = 50.0
 	ui.update_hud(hunter, null, 0, false)
 	_check(ui.resource_fill != null and is_equal_approx(ui.resource_fill.size.x, 104.0), "resource bar shows half of a 100-point meter")
-	if InputMap.has_action("special"):
-		Input.action_press("special")
-		ui.show_camp({"equipped":"blade", "weapons":{"blade":true}, "parts":0, "forge_level":0, "hunts_won":0})
-		_check(not Input.is_action_pressed("special"), "leaving a hunt releases Special")
+	ui.show_camp({"equipped":"blade", "weapons":{"blade":true}, "parts":0, "forge_level":0, "hunts_won":0})
+	_check(ui.root.get_node_or_null("CounterCombatStick") == null, "leaving a hunt removes the Sabre combat stick")
 	hunter.queue_free()
 	ui.queue_free()
 	quit(1 if failures > 0 else 0)
