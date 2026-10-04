@@ -43,6 +43,14 @@ func _ready() -> void:
 func part_ids() -> Array[String]:
 	return ["vent", "tail"]
 
+func attack_ids() -> Array[String]:
+	var moves: Array[String] = ["rush"]
+	if not bool(part_status("tail").get("broken", false)):
+		moves.append("sweep")
+	if not armor_broken:
+		moves.append("burst")
+	return moves
+
 func part_status(part_id: String) -> Dictionary:
 	return body_parts.status(part_id)
 
@@ -116,7 +124,8 @@ func _physics_process(delta: float) -> void:
 		attacked.emit(attack_kind, int(profile["damage"]) + (6 if phase == 2 else 0), float(profile["reach"]))
 	if sprite != null:
 		sprite.flip_h = facing < 0
-		sprite.position.y = -57.5 + sin(walk_time * 5.0) * (2.0 if state == "idle" else 1.0)
+		var lowered := 6.0 if state == "exhausted" else 0.0
+		sprite.position.y = -57.5 + lowered + sin(walk_time * 5.0) * (2.0 if state == "idle" else 1.0)
 		sprite.modulate = Color("#ffc7a2") if hit_flash > 0.0 else (Color("#b9c7c7") if armor_broken else Color.WHITE)
 	queue_redraw()
 
@@ -130,20 +139,28 @@ func advance_state() -> void:
 			state = "strike"
 			state_time = 0.32 if attack_kind == "rush" else 0.28
 		"strike":
-			state = "recover"
-			state_time = 0.82 if phase == 1 else 0.54
+			_finish_attack()
 		"recover":
 			state = "idle"
 			state_time = 0.7 if phase == 1 else 0.38
+		"exhausted":
+			state = "idle"
+			state_time = 0.62
 
 func _next_attack() -> String:
-	attack_count += 1
 	if target != null and absf(target.global_position.x - global_position.x) > 240.0:
 		return "rush"
-	match attack_count % 3:
-		0: return "burst"
-		1: return "sweep"
-		_: return "rush"
+	var moves := attack_ids()
+	return moves[attack_count % moves.size()]
+
+func _finish_attack() -> void:
+	attack_count += 1
+	if attack_count % 4 == 0:
+		state = "exhausted"
+		state_time = 1.3
+	else:
+		state = "recover"
+		state_time = 0.82 if phase == 1 else 0.54
 
 func _draw() -> void:
 	if selected_part in part_ids():

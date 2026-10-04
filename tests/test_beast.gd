@@ -6,9 +6,11 @@ var failures := 0
 func _initialize() -> void:
 	var beast = Beast.new()
 	_check(beast.health == beast.max_health, "beast starts at full health")
+	_check(beast.has_method("attack_ids") and beast.attack_ids() == ["rush", "sweep", "burst"], "Cinderback begins with three readable attacks")
 	beast.receive_hit(30, "heavy")
 	beast.receive_hit(30, "heavy")
 	_check(beast.armor_broken, "two heavy strikes can break the vent")
+	_check(not "burst" in beast.attack_ids(), "broken vent removes the fire burst from Cinderback's moves")
 	beast.receive_hit(140, "heavy")
 	_check(beast.phase == 2, "wounded beast enters faster second phase")
 	beast.receive_hit(999, "quick")
@@ -24,6 +26,10 @@ func _initialize() -> void:
 		tail_beast.receive_hit(30, "heavy", "tail")
 		_check(tail_beast.part_status("tail")["broken"] and not tail_beast.armor_broken, "tail breaks independently of vent")
 		_check(tail_beast.attack_profile("sweep")["reach"] < 112.0, "broken tail shortens sweep")
+		_check(not "sweep" in tail_beast.attack_ids(), "broken tail removes the sweep from Cinderback's moves")
+		tail_beast.attack_count = 3
+		tail_beast._finish_attack()
+		_check(tail_beast.state == "exhausted" and tail_beast.state_time >= 1.2, "Cinderback becomes exhausted after four attacks")
 	beast.free()
 	tail_beast.free()
 	quit(1 if failures > 0 else 0)
