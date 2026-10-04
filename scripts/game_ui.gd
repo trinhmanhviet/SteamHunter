@@ -5,6 +5,9 @@ signal hunt_board_pressed
 signal gear_pressed
 signal weapon_pressed(weapon_id: String)
 signal forge_pressed
+signal coats_pressed
+signal weapons_pressed
+signal coat_pressed(coat_id: String)
 signal language_pressed
 signal retry_pressed
 signal camp_pressed
@@ -140,8 +143,56 @@ func show_gear(progress: Dictionary) -> void:
 	var forge_level: int = int(progress.get("forge_level", 0))
 	var forge_cost: int = Rules.forge_cost(forge_level)
 	var forge_text := t("forge_max") if forge_level >= 3 else (t("forge_ready") if int(progress["parts"]) >= forge_cost else t("forge_short")).format({"cost": forge_cost})
-	var forge_button := _button(forge_text + "  ·  " + t("level") + " " + str(forge_level + 1), Rect2(54 + center_offset, 448, 510, 43), func(): forge_pressed.emit())
+	var coats_button := _button(t("coats_tab"), Rect2(54 + center_offset, 448, 145, 43), func(): coats_pressed.emit())
+	coats_button.name = "OpenCoats"
+	var forge_button := _button(forge_text + "  ·  " + t("level") + " " + str(forge_level + 1), Rect2(215 + center_offset, 448, 430, 43), func(): forge_pressed.emit())
 	forge_button.disabled = forge_level >= 3 or int(progress["parts"]) < forge_cost
+	_button(t("return"), Rect2(705 + center_offset, 448, 200, 43), func(): camp_pressed.emit())
+
+func show_coats(progress: Dictionary) -> void:
+	_clear()
+	var center_offset := _center_offset()
+	_overlay(Color(0.01, 0.03, 0.06, 0.77))
+	var coat_panel := _panel(Rect2(30 + center_offset, 26, 900, 488))
+	coat_panel.name = "CoatPanel"
+	_label(t("coat_title"), Vector2(58 + center_offset, 45), Vector2(360, 48), 34, Color("#f1cf89"))
+	_label(t("parts") + ": " + str(progress.get("parts", 0)), Vector2(690 + center_offset, 48), Vector2(210, 30), 19, Color("#d9dfc9"))
+	var stock: Dictionary = progress.get("inventory", {}) if progress.get("inventory", {}) is Dictionary else {}
+	_label(t("ash_plate") + ": " + str(stock.get("ash_plate", 0)) + "  •  " + t("thorn_antler") + ": " + str(stock.get("thorn_antler", 0)) + "  •  " + t("bell_core") + ": " + str(stock.get("bell_core", 0)), Vector2(390 + center_offset, 77), Vector2(510, 24), 12, Color("#c0d1cc"))
+	var cards := Control.new()
+	cards.name = "CoatCards"
+	cards.position = Vector2(54 + center_offset, 104)
+	cards.size = Vector2(852, 324)
+	cards.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(cards)
+	var ids := Rules.coat_ids()
+	for index in range(ids.size()):
+		var coat_id: String = ids[index]
+		var data := Rules.coat(coat_id)
+		var x := index * 284.0
+		_panel(Rect2(x, 0, 268, 318), cards)
+		var portrait := Sprite2D.new()
+		portrait.name = "Portrait_" + coat_id
+		portrait.texture = load(str(data["art"]))
+		portrait.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		portrait.position = Vector2(x + 134, 99)
+		var portrait_scale := minf(196.0 / portrait.texture.get_width(), 166.0 / portrait.texture.get_height())
+		portrait.scale = Vector2.ONE * portrait_scale
+		cards.add_child(portrait)
+		_label(t(coat_id + "_coat_name"), Vector2(x + 14, 184), Vector2(240, 31), 20, Color("#f1cf89"), cards)
+		_label(t(coat_id + "_coat_desc"), Vector2(x + 14, 215), Vector2(240, 45), 13, Color("#c8d4c7"), cards)
+		var owned: bool = bool(progress.get("armor_owned", {}).get(coat_id, coat_id == "field"))
+		var equipped: bool = str(progress.get("armor_equipped", "field")) == coat_id
+		var recipe := Rules.coat_recipe(coat_id)
+		var recipe_text := t("craft_coat").format({"parts": recipe.get("parts", 0), "count": recipe.get("count", 0), "material": t(str(recipe.get("material", "")))})
+		var action_text := t("equipped") if equipped else (t("equip") if owned else (recipe_text if Rules.can_craft_coat(progress, coat_id) else t("need_coat").format({"material": t(str(recipe.get("material", "")))})))
+		var action_button := _button(action_text, Rect2(x + 14, 266, 240, 42), func(): coat_pressed.emit(coat_id), cards)
+		action_button.name = "Coat_" + coat_id
+		action_button.add_theme_font_size_override("font_size", 13)
+		action_button.clip_text = true
+		action_button.disabled = equipped or (not owned and not Rules.can_craft_coat(progress, coat_id))
+	var weapons_button := _button(t("weapons_tab"), Rect2(54 + center_offset, 448, 200, 43), func(): weapons_pressed.emit())
+	weapons_button.name = "OpenWeapons"
 	_button(t("return"), Rect2(705 + center_offset, 448, 200, 43), func(): camp_pressed.emit())
 
 func show_hunt(hunt_id: String = "moor") -> void:
@@ -210,7 +261,7 @@ func update_hud(hunter: Node, boss: Node, parts: int, show_boss: bool) -> void:
 	if health_fill == null or not is_instance_valid(health_fill):
 		return
 	health_fill.size.x = 208.0 * float(hunter.health) / float(hunter.max_health)
-	stamina_fill.size.x = 208.0 * hunter.stamina / 100.0
+	stamina_fill.size.x = 208.0 * hunter.stamina / hunter.max_stamina
 	var maximum: float = hunter.resource_max()
 	var shows_resource: bool = maximum > 0.0 and not hunter.resource_name().is_empty()
 	resource_label.visible = shows_resource
@@ -255,7 +306,7 @@ func _process(delta: float) -> void:
 		if flash_time <= 0.0 and flash_label != null and is_instance_valid(flash_label):
 			flash_label.text = ""
 
-func show_result(victory: bool, parts: int) -> void:
+func show_result(victory: bool, parts: int, trophy_id: String = "", trophy_count: int = 0) -> void:
 	_clear()
 	var center_offset := _center_offset()
 	_overlay(Color(0.01, 0.03, 0.06, 0.70))
@@ -263,6 +314,9 @@ func show_result(victory: bool, parts: int) -> void:
 	result_panel.name = "ResultPanel"
 	_label(t("victory") if victory else t("defeat"), Vector2(263 + center_offset, 145), Vector2(434, 63), 35, Color("#f1cf89"))
 	_label(t("victory_body").format({"parts": parts}) if victory else t("defeat_body"), Vector2(270 + center_offset, 223), Vector2(420, 57), 19, Color("#d9e0d1"))
+	if victory and not trophy_id.is_empty() and trophy_count > 0:
+		var trophy := _label(t("trophy_reward").format({"count": trophy_count, "material": t(trophy_id)}), Vector2(270 + center_offset, 278), Vector2(420, 32), 18, Color("#f1cf89"))
+		trophy.name = "TrophyRewardLabel"
 	_button(t("retry"), Rect2(286 + center_offset, 330, 180, 55), func(): retry_pressed.emit())
 	_button(t("return"), Rect2(497 + center_offset, 330, 180, 55), func(): camp_pressed.emit())
 
@@ -295,6 +349,7 @@ func _clear() -> void:
 		if child.has_method("release_touch"):
 			child.release_touch()
 			child.set_process_input(false)
+		root.remove_child(child)
 		child.queue_free()
 	health_fill = null
 	stamina_fill = null

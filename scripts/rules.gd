@@ -2,6 +2,21 @@ extends RefCounted
 
 const Catalog = preload("res://scripts/weapon_catalog.gd")
 
+const COATS := {
+	"field": {
+		"art": "res://art/field_coat.png", "recipe": {"parts": 0, "material": "", "count": 0},
+		"max_health": 100, "max_stamina": 100.0, "damage_scale": 1.0, "dodge_cost": 22.0
+	},
+	"ember": {
+		"art": "res://art/ember_coat.png", "recipe": {"parts": 4, "material": "ash_plate", "count": 2},
+		"max_health": 125, "max_stamina": 100.0, "damage_scale": 0.85, "dodge_cost": 22.0
+	},
+	"thorn": {
+		"art": "res://art/thorn_vest.png", "recipe": {"parts": 4, "material": "thorn_antler", "count": 2},
+		"max_health": 100, "max_stamina": 120.0, "damage_scale": 0.95, "dodge_cost": 16.0
+	}
+}
+
 static func weapon_ids() -> Array[String]:
 	return Catalog.weapon_ids()
 
@@ -67,3 +82,35 @@ static func forge_cost(forge_level: int) -> int:
 
 static func hunt_reward(armor_broken: bool) -> int:
 	return 4 if armor_broken else 3
+
+static func coat_ids() -> Array[String]:
+	return ["field", "ember", "thorn"]
+
+static func coat(coat_id: String) -> Dictionary:
+	return COATS.get(coat_id, COATS["field"])
+
+static func coat_recipe(coat_id: String) -> Dictionary:
+	return coat(coat_id).get("recipe", {}).duplicate(true)
+
+static func can_craft_coat(progress: Dictionary, coat_id: String) -> bool:
+	if coat_id not in coat_ids() or coat_id == "field":
+		return false
+	var recipe := coat_recipe(coat_id)
+	var inventory = progress.get("inventory", {})
+	if not inventory is Dictionary:
+		return false
+	return int(progress.get("parts", 0)) >= int(recipe["parts"]) and int(inventory.get(str(recipe["material"]), 0)) >= int(recipe["count"])
+
+static func coat_max_health(coat_id: String) -> int:
+	return int(coat(coat_id).get("max_health", 100))
+
+static func coat_max_stamina(coat_id: String) -> float:
+	return float(coat(coat_id).get("max_stamina", 100.0))
+
+static func coat_damage(amount: int, coat_id: String) -> int:
+	if amount <= 0:
+		return 0
+	return maxi(1, roundi(amount * float(coat(coat_id).get("damage_scale", 1.0))))
+
+static func coat_dodge_cost(coat_id: String) -> float:
+	return float(coat(coat_id).get("dodge_cost", 22.0))

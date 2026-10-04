@@ -18,6 +18,7 @@ const HUNTS := {
 		"hunt_name_key": "hunt_name",
 		"region_key": "moor_region",
 		"tip_key": "hunt_tip",
+		"trophy_id": "ash_plate",
 		"base_reward": 3
 	},
 	"briarwood": {
@@ -31,6 +32,7 @@ const HUNTS := {
 		"hunt_name_key": "thornhart_name",
 		"region_key": "briarwood_region",
 		"tip_key": "briarwood_tip",
+		"trophy_id": "thorn_antler",
 		"base_reward": 5
 	},
 	"ashbell": {
@@ -44,6 +46,7 @@ const HUNTS := {
 		"hunt_name_key": "ashbell_name",
 		"region_key": "moor_region",
 		"tip_key": "ashbell_tip",
+		"trophy_id": "bell_core",
 		"base_reward": 7
 	}
 }
@@ -59,3 +62,9 @@ static func reward(id: String, armor_broken: bool, extra_breaks: int = 0) -> int
 	if hunt.is_empty():
 		return 0
 	return int(hunt["base_reward"]) + (1 if armor_broken else 0) + maxi(0, extra_breaks)
+
+static func trophy_reward(id: String, armor_broken: bool) -> Dictionary:
+	var hunt := get_hunt(id)
+	if hunt.is_empty() or not hunt.has("trophy_id"):
+		return {}
+	return {"id": str(hunt["trophy_id"]), "count": 2 if armor_broken else 1}

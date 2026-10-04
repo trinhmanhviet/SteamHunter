@@ -55,6 +55,9 @@ func _ready() -> void:
 	ui.gear_pressed.connect(open_gear)
 	ui.weapon_pressed.connect(choose_weapon)
 	ui.forge_pressed.connect(forge_blade)
+	ui.coats_pressed.connect(open_coats)
+	ui.weapons_pressed.connect(open_weapons)
+	ui.coat_pressed.connect(choose_coat)
 	ui.language_pressed.connect(switch_language)
 	ui.retry_pressed.connect(start_hunt)
 	ui.camp_pressed.connect(return_to_camp)
@@ -97,6 +100,7 @@ func start_hunt(hunt_id: String = "") -> void:
 	hunter.position = Vector2(250, Moor.GROUND_Y)
 	hunter.forge_level = int(progress["forge_level"])
 	hunter.weapon_type = str(progress["equipped"])
+	hunter.armor_type = str(progress.get("armor_equipped", "field"))
 	world.add_child(hunter)
 	hunter.struck.connect(_on_hunter_struck)
 	hunter.healed.connect(_on_hunter_healed)
@@ -173,6 +177,36 @@ func open_hunt_board() -> void:
 		return
 	mode = "hunt_board"
 	ui.show_hunt_board(progress)
+
+func open_coats() -> void:
+	if mode != "gear":
+		return
+	mode = "coats"
+	ui.show_coats(progress)
+
+func open_weapons() -> void:
+	if mode != "coats":
+		return
+	mode = "gear"
+	ui.show_gear(progress)
+
+func choose_coat(coat_id: String) -> void:
+	if mode != "coats" or coat_id not in Rules.coat_ids():
+		return
+	var owned: Dictionary = progress["armor_owned"]
+	if not bool(owned.get(coat_id, false)):
+		if not Rules.can_craft_coat(progress, coat_id):
+			return
+		var recipe := Rules.coat_recipe(coat_id)
+		progress["parts"] = int(progress["parts"]) - int(recipe["parts"])
+		var inventory: Dictionary = progress["inventory"]
+		var material := str(recipe["material"])
+		inventory[material] = int(inventory.get(material, 0)) - int(recipe["count"])
+		owned[coat_id] = true
+		_play_sound("forge")
+	progress["armor_equipped"] = coat_id
+	_save()
+	ui.show_coats(progress)
 
 func choose_weapon(weapon_id: String) -> void:
 	if mode != "gear" or weapon_id not in Rules.weapon_ids():
@@ -319,6 +353,11 @@ func _on_boss_defeated() -> void:
 	var extra_breaks := maxi(0, int(boss.body_parts.broken_count()) - (1 if boss.armor_broken else 0))
 	var reward: int = Catalog.reward(selected_hunt, boss.armor_broken, extra_breaks) + hunt_parts
 	progress["parts"] = int(progress["parts"]) + reward
+	var trophy := Catalog.trophy_reward(selected_hunt, boss.armor_broken)
+	if not trophy.is_empty():
+		var inventory: Dictionary = progress["inventory"]
+		var trophy_id := str(trophy["id"])
+		inventory[trophy_id] = int(inventory.get(trophy_id, 0)) + int(trophy["count"])
 	progress["hunts_won"] = int(progress["hunts_won"]) + 1
 	var completed: Array = progress["completed_hunts"]
 	if selected_hunt not in completed:
@@ -334,7 +373,7 @@ func _on_boss_defeated() -> void:
 	mode = "result"
 	_play_sound("forge")
 	hunter.has_control = false
-	ui.show_result(true, reward)
+	ui.show_result(true, reward, str(trophy.get("id", "")), int(trophy.get("count", 0)))
 
 func _on_hunter_died() -> void:
 	if mode != "hunt":

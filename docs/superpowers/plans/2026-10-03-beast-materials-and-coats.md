@@ -6,8 +6,8 @@
 
 **Tech Stack:** Godot 4.7.2, GDScript, ImageGen bitmap art, Android SDK.
 
-1. Write failing tests for trophy rewards, old-save migration, coat recipes, and combat effects.
-2. Implement catalog, save schema, and pure coat rules; run tests green.
-3. Write failing end-to-end tests for hunt rewards and coat purchase/equip; connect game flow and gear UI.
-4. Add three original coat illustrations and show them in cards; render and inspect the gear screen.
-5. Run the full test suite, export and sign APK, install on the phone, and inspect the armor tab and Android logs.
+1. [x] Write failing tests for trophy rewards, old-save migration, coat recipes, and combat effects.
+2. [x] Implement catalog, save schema, and pure coat rules; run tests green.
+3. [x] Write failing end-to-end tests for hunt rewards and coat purchase/equip; connect game flow and gear UI.
+4. [x] Add three original coat illustrations and show them in cards; render and inspect the gear screen.
+5. [x] Run the full test suite, export and sign APK, install on the phone, and inspect the armor tab and Android logs.

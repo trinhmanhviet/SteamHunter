@@ -28,6 +28,7 @@ func _run() -> void:
 	await process_frame
 	_check(game.mode == "result", "Ashbell defeat ends the hunt")
 	_check(int(game.progress["parts"]) >= 8, "Ashbell and chamber break grant the intended reward")
+	_check(game.progress["inventory"].get("bell_core", 0) == 2, "broken chamber grants two Bell Cores")
 	_check("ashbell" in game.progress["completed_hunts"], "third hunt completion persists")
 	_check(game.progress["hunt_records"].get("ashbell", {}).get("wins") == 1, "third hunt has its own record")
 	game.start_hunt()

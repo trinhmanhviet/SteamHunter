@@ -15,8 +15,10 @@ const SHEATH_DELAY := 3.5
 var max_health := 100
 var health := 100
 var stamina := 100.0
+var max_stamina := 100.0
 var forge_level := 0
 var weapon_type := "blade"
+var armor_type := "field"
 var facing := 1
 var invincible_time := 0.0
 var dodge_time := 0.0
@@ -46,6 +48,10 @@ var hit_stop_time := 0.0
 var hit_confirmed := false
 
 func _ready() -> void:
+	max_health = Rules.coat_max_health(armor_type)
+	health = max_health
+	max_stamina = Rules.coat_max_stamina(armor_type)
+	stamina = max_stamina
 	var shape := CollisionShape2D.new()
 	var body := RectangleShape2D.new()
 	body.size = Vector2(28, 72)
@@ -75,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		hit_stop_time = maxf(0.0, hit_stop_time - delta)
 		_update_art(0.0)
 		return
-	stamina = minf(100.0, stamina + delta * (9.0 if charge_time > 0.0 else 19.0))
+	stamina = minf(max_stamina, stamina + delta * (9.0 if charge_time > 0.0 else 19.0))
 	if current_action == "guard_set":
 		stamina = maxf(0.0, stamina - delta * 8.0)
 		if stamina <= 0.0:
@@ -245,9 +251,10 @@ func resource_max() -> float:
 	return float(Rules.weapon(weapon_type).get("resource_max", 0.0))
 
 func start_dodge() -> bool:
-	if not Rules.can_spend_stamina(stamina, 22.0) or dodge_time > 0.0 or heal_time > 0.0 or health <= 0 or not current_action.is_empty():
+	var dodge_cost := Rules.coat_dodge_cost(armor_type)
+	if not Rules.can_spend_stamina(stamina, dodge_cost) or dodge_time > 0.0 or heal_time > 0.0 or health <= 0 or not current_action.is_empty():
 		return false
-	stamina -= 22.0
+	stamina -= dodge_cost
 	dodge_time = 0.26
 	invincible_time = maxf(invincible_time, 0.34)
 	return true
@@ -309,7 +316,7 @@ func _force_action(action_id: String) -> void:
 
 func _apply_damage(amount: int, immunity: float, interrupt: bool) -> void:
 	heal_time = 0.0
-	health = maxi(0, health - amount)
+	health = maxi(0, health - Rules.coat_damage(amount, armor_type))
 	invincible_time = immunity
 	hurt_time = 0.22
 	velocity.x = -facing * 165.0

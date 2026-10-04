@@ -26,6 +26,7 @@ func _run() -> void:
 	await process_frame
 	_check(game.mode == "result", "forest boss defeat ends hunt")
 	_check(int(game.progress["parts"]) >= 5, "forest gives a distinct reward")
+	_check(game.progress["inventory"].get("thorn_antler", 0) == 2, "broken antlers grant two Thorn Antlers")
 	_check("briarwood" in game.progress["completed_hunts"], "forest victory is recorded for story progress")
 	_check(game.progress["hunt_records"].get("briarwood", {}).get("wins") == 1, "forest victory increments its own record")
 	game.start_hunt()

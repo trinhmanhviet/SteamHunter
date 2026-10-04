@@ -1,7 +1,7 @@
 extends RefCounted
 
 const SAVE_PATH := "user://mist_and_iron_save.json"
-const SCHEMA_VERSION := 3
+const SCHEMA_VERSION := 4
 const Rules = preload("res://scripts/rules.gd")
 
 static func defaults() -> Dictionary:
@@ -18,8 +18,8 @@ static func defaults() -> Dictionary:
 		"hunt_records": {},
 		"inventory": {},
 		"bestiary": {},
-		"armor_owned": {},
-		"armor_equipped": "",
+		"armor_owned": {"field": true, "ember": false, "thorn": false},
+		"armor_equipped": "field",
 		"companion_unlocked": false,
 		"settings": {"music_volume": 1.0, "sound_volume": 1.0, "touch_scale": 1.0, "reduced_flash": false}
 	}
@@ -123,9 +123,13 @@ static func _clean(input: Dictionary) -> Dictionary:
 	var bestiary: Dictionary = raw_bestiary.duplicate(true) if raw_bestiary is Dictionary else {}
 	var raw_armor = input.get("armor_owned", {})
 	var armor_owned := {}
-	if raw_armor is Dictionary:
-		for id in raw_armor:
-			armor_owned[str(id)] = raw_armor[id] == true
+	if not raw_armor is Dictionary:
+		raw_armor = {}
+	for id in Rules.coat_ids():
+		armor_owned[id] = true if id == "field" else raw_armor.get(id, false) == true
+	var armor_equipped := str(input.get("armor_equipped", "field"))
+	if not armor_owned.get(armor_equipped, false):
+		armor_equipped = "field"
 	var raw_settings = input.get("settings", {})
 	if not raw_settings is Dictionary:
 		raw_settings = {}
@@ -149,7 +153,7 @@ static func _clean(input: Dictionary) -> Dictionary:
 		"inventory": inventory,
 		"bestiary": bestiary,
 		"armor_owned": armor_owned,
-		"armor_equipped": str(input.get("armor_equipped", "")),
+		"armor_equipped": armor_equipped,
 		"companion_unlocked": input.get("companion_unlocked", false) == true,
 		"settings": settings
 	}
