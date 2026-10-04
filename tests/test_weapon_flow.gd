@@ -51,6 +51,12 @@ func _run() -> void:
 	game.hunter.weapon_resource = 60.0
 	game._on_twins_command("overdrive")
 	_check(game.hunter.current_action == "overdrive_flurry" and game.hunter.weapon_resource == 0.0, "held upward combat-stick route spends Tempo on Twin Fangs Overdrive")
+	game.hunter.advance_action(game.hunter.attack_time + 0.01)
+	game.hunter.attack_cooldown = 0.0
+	game.hunter.weapon_type = "pike"
+	game.hunter.weapon_resource = 100.0
+	game._on_pike_command("guard")
+	_check(game.hunter.current_action == "guard_set" and game.hunter.guard_time > 0.0, "held downward combat-stick route raises Bastion Pike guard")
 	game.queue_free()
 	await process_frame
 	quit()

@@ -64,6 +64,7 @@ func _ready() -> void:
 	ui.blade_command.connect(_on_blade_command)
 	ui.counter_command.connect(_on_counter_command)
 	ui.twins_command.connect(_on_twins_command)
+	ui.pike_command.connect(_on_pike_command)
 	ui.language_pressed.connect(switch_language)
 	ui.retry_pressed.connect(start_hunt)
 	ui.camp_pressed.connect(return_to_camp)
@@ -209,6 +210,21 @@ func _on_twins_command(command: String) -> void:
 		"fan":
 			hunter.request_action("heavy")
 		"overdrive":
+			hunter.request_action("special")
+
+func _on_pike_command(command: String) -> void:
+	if mode != "hunt" or hunter == null or not is_instance_valid(hunter) or hunter.weapon_type != "pike":
+		return
+	match command:
+		"thrust":
+			hunter.request_action("light")
+		"drive":
+			hunter.request_action("light", true)
+		"hop":
+			hunter.start_dodge()
+		"bash":
+			hunter.request_action("heavy")
+		"guard":
 			hunter.request_action("special")
 
 func return_to_camp() -> void:
