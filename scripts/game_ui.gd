@@ -14,6 +14,7 @@ const Rules = preload("res://scripts/rules.gd")
 const Catalog = preload("res://scripts/hunt_catalog.gd")
 const GameStick = preload("res://scripts/virtual_joystick.gd")
 const TouchActionButton = preload("res://scripts/touch_action_button.gd")
+const HorizontalTouchScroll = preload("res://scripts/horizontal_touch_scroll.gd")
 const REFERENCE_SIZE := Vector2(960, 540)
 
 var language := "en"
@@ -92,16 +93,18 @@ func show_gear(progress: Dictionary) -> void:
 	_label(t("gear_title"), Vector2(58 + center_offset, 45), Vector2(420, 48), 34, Color("#f1cf89"))
 	_label(t("parts") + ": " + str(progress.get("parts", 0)), Vector2(658 + center_offset, 52), Vector2(245, 33), 21, Color("#d9dfc9"))
 	var ids := Rules.weapon_ids()
-	var weapon_scroll := ScrollContainer.new()
+	var weapon_scroll := HorizontalTouchScroll.new()
 	weapon_scroll.name = "WeaponScroll"
 	weapon_scroll.position = Vector2(48 + center_offset, 104)
 	weapon_scroll.size = Vector2(864, 324)
 	weapon_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
 	weapon_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	weapon_scroll.scroll_deadzone = 8
 	root.add_child(weapon_scroll)
 	var card_strip := Control.new()
 	card_strip.name = "WeaponCards"
 	card_strip.custom_minimum_size = Vector2(ids.size() * 290.0 - 18.0, 310.0)
+	card_strip.mouse_filter = Control.MOUSE_FILTER_PASS
 	weapon_scroll.add_child(card_strip)
 	for index in range(ids.size()):
 		var weapon_id: String = ids[index]
