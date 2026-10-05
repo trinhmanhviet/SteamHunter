@@ -6,6 +6,8 @@ const Hunter = preload("res://scripts/hunter.gd")
 const Catalog = preload("res://scripts/hunt_catalog.gd")
 const Moor = preload("res://scripts/moor.gd")
 const GameUI = preload("res://scripts/game_ui.gd")
+const SMALL_ENEMY_STRIKE_REACH := 82.0
+const SMALL_ENEMY_STRIKE_HALF_HEIGHT := 28.0
 
 var mode := "camp"
 var selected_hunt := "moor"
@@ -427,7 +429,9 @@ func _apply_tuning_status() -> bool:
 
 func _on_rat_attack(damage: int, rat: Node2D) -> void:
 	if mode == "hunt" and hunter != null and is_instance_valid(rat) and hunter.health > 0:
-		if absf(rat.global_position.x - hunter.global_position.x) < 82.0:
+		var horizontal_gap := absf(rat.global_position.x - hunter.global_position.x)
+		var vertical_gap := absf(rat.global_position.y - hunter.global_position.y)
+		if horizontal_gap < SMALL_ENEMY_STRIKE_REACH and vertical_gap <= SMALL_ENEMY_STRIKE_HALF_HEIGHT:
 			hunter.take_hit(damage)
 			_play_sound("hit")
 
