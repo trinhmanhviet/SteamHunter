@@ -26,6 +26,8 @@ func _run() -> void:
 	_check(ram.attack_profile("charge")["speed"] < intact_charge["speed"], "broken horn slows the charge")
 	_check(ram.attack_profile("horn_swing")["reach"] < intact_swing["reach"], "broken horn shortens the swing")
 	_check(not ram.can_rebound(), "broken horn disables the rebound combo")
+	ram.receive_hit(110, "heavy", "chamber")
+	_check(ram.state == "knockdown" and ram.state_time >= 1.5, "breaking both Ashbell parts knocks it down")
 
 	var chamber_ram = AshbellRam.new()
 	root.add_child(chamber_ram)

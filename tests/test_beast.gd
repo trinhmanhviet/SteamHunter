@@ -11,6 +11,8 @@ func _initialize() -> void:
 	beast.receive_hit(30, "heavy")
 	_check(beast.armor_broken, "two heavy strikes can break the vent")
 	_check(not "burst" in beast.attack_ids(), "broken vent removes the fire burst from Cinderback's moves")
+	beast.receive_hit(90, "heavy", "tail")
+	_check(beast.state == "knockdown" and beast.state_time >= 1.5, "breaking both Cinderback parts knocks it down")
 	beast.receive_hit(140, "heavy")
 	_check(beast.phase == 2, "wounded beast enters faster second phase")
 	beast.receive_hit(999, "quick")

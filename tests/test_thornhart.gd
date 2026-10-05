@@ -30,6 +30,8 @@ func _run() -> void:
 		_check(hoof_stag.attack_profile("charge")["reach"] < 125.0, "broken hoof shortens charge")
 		_check(hoof_stag.attack_profile("charge")["speed"] < 320.0, "broken hoof slows charge")
 		_check(not "charge" in hoof_stag.attack_ids(), "broken hoof removes the charge from Thornhart's moves")
+		hoof_stag.receive_hit(70, "heavy", "antler")
+		_check(hoof_stag.state == "knockdown" and hoof_stag.state_time >= 1.5, "breaking both Thornhart parts knocks it down")
 		hoof_stag.attack_count = 3
 		hoof_stag._finish_attack()
 		_check(hoof_stag.state == "exhausted" and hoof_stag.state_time >= 1.2, "Thornhart becomes exhausted after four attack sequences")

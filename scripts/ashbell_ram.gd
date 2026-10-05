@@ -109,7 +109,10 @@ func receive_hit(amount: int, kind: String, part_id: String = "chamber") -> void
 			armor_broken = true
 			armor_shattered.emit()
 		part_broken.emit(part_id)
-	if part_hit["stagger"] and health > 0:
+		if body_parts.broken_count() >= 2 and health > 0:
+			state = "knockdown"
+			state_time = 1.8
+	if part_hit["stagger"] and health > 0 and state != "knockdown":
 		state = "recover"
 		state_time = maxf(state_time, 1.0)
 	if health <= max_health / 2:
@@ -144,7 +147,7 @@ func _physics_process(delta: float) -> void:
 			attacked.emit(attack_kind, int(profile["damage"]) + (4 if phase == 2 else 0), float(profile["reach"]))
 	if sprite != null:
 		sprite.flip_h = facing > 0
-		var lowered := 8.0 if state == "exhausted" else 0.0
+		var lowered := 18.0 if state == "knockdown" else (8.0 if state == "exhausted" else 0.0)
 		sprite.position.y = -69.0 + lowered + sin(walk_time * 5.0) * (2.2 if state == "idle" else 0.8)
 		sprite.modulate = Color("#ffe0b1") if hit_flash > 0.0 else (Color("#aeb6b8") if armor_broken else Color.WHITE)
 	queue_redraw()
@@ -175,6 +178,9 @@ func advance_state() -> void:
 		"exhausted":
 			state = "idle"
 			state_time = 0.55
+		"knockdown":
+			state = "idle"
+			state_time = 0.60
 
 func _finish_attack() -> void:
 	attack_count += 1
