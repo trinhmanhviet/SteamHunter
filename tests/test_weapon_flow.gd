@@ -36,6 +36,17 @@ func _run() -> void:
 	_check(game.hunter.current_action == "charged_hew" and game.hunter.attack_charge > 0.65, "combat-stick charge routes into a powered Great Cleaver cut")
 	game.hunter.advance_action(game.hunter.attack_time + 0.01)
 	game.hunter.attack_cooldown = 0.0
+	game._on_blade_command("charge_start")
+	game.hunter.advance_blade_charge(0.25)
+	game._on_blade_command("anvil_rise")
+	_check(game.hunter.current_action == "anvil_rise" and game.hunter.charge_time == 0.0, "held upward combat-stick route cancels charge into Anvil Rise")
+	game.hunter.advance_action(0.35)
+	game.boss.global_position = game.hunter.global_position + Vector2(72, 0)
+	var health_before_clash: int = game.hunter.health
+	game._on_boss_attack("charge", 24, 95.0)
+	_check(game.hunter.current_action == "crossbite" and game.hunter.health == health_before_clash, "Anvil Rise cancels an overlapping boss attack into Crossbite")
+	game.hunter.advance_action(game.hunter.attack_time + 0.01)
+	game.hunter.attack_cooldown = 0.0
 	game.hunter.weapon_type = "counter"
 	game.hunter.weapon_resource = 100.0
 	game.hunter.weapon_drawn = false

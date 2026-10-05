@@ -40,6 +40,7 @@ var stamina_fill: ColorRect
 var resource_fill: ColorRect
 var resource_back: ColorRect
 var resource_label: Label
+var blade_route_pips: Array[ColorRect] = []
 var boss_fill: ColorRect
 var boss_group: Control
 var part_label: Label
@@ -277,6 +278,18 @@ func show_hunt(hunt_id: String = "moor", weapon_id: String = "blade") -> void:
 	resource_label = _label("", Vector2(30, 91), Vector2(72, 22), 13, Color("#d8b8ef"))
 	resource_back = _bar(Rect2(106, 99, 208, 12), Color("#342f45"))
 	resource_fill = _bar(Rect2(106, 99, 0, 12), Color("#a87bd4"))
+	if weapon_id == "blade":
+		var route_group := Control.new()
+		route_group.name = "BladeRoutePips"
+		route_group.position = Vector2(124, 134)
+		root.add_child(route_group)
+		for index in range(3):
+			var pip := ColorRect.new()
+			pip.position = Vector2(index * 24, 0)
+			pip.size = Vector2(16, 5)
+			pip.color = Color.WHITE
+			route_group.add_child(pip)
+			blade_route_pips.append(pip)
 	part_label = _label(t("parts") + ": 0", Vector2(20, 149), Vector2(300, 25), 16, Color("#f1cf89"))
 	potion_label = _label(t("potion") + ": 2", Vector2(20, 176), Vector2(300, 25), 16, Color("#b9e4a5"))
 	tuning_label = _label("", Vector2(20, 203), Vector2(300, 25), 15, Color("#9fd9e5"))
@@ -373,6 +386,9 @@ func update_hud(hunter: Node, boss: Node, parts: int, show_boss: bool) -> void:
 	if shows_resource:
 		resource_label.text = t(hunter.resource_name())
 		resource_fill.size.x = 208.0 * clampf(hunter.weapon_resource / maximum, 0.0, 1.0)
+	if hunter.weapon_type == "blade":
+		for index in range(blade_route_pips.size()):
+			blade_route_pips[index].modulate = Color("#f1cf89") if index <= hunter.blade_route_index else Color("#5c5042")
 	part_label.text = t("parts") + ": " + str(parts)
 	potion_label.text = t("potion") + ": " + str(hunter.potions)
 	tuning_label.text = t("tuning_hud") + ": " + t(hunter.tuning_type + "_tuning_name")
@@ -460,6 +476,7 @@ func _clear() -> void:
 	resource_fill = null
 	resource_back = null
 	resource_label = null
+	blade_route_pips.clear()
 	boss_fill = null
 	boss_group = null
 	part_label = null

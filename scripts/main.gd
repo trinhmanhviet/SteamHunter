@@ -183,6 +183,8 @@ func _on_blade_command(command: String) -> void:
 			hunter.release_blade_charge()
 		"brace":
 			hunter.brace_blade_charge()
+		"anvil_rise":
+			hunter.start_anvil_rise()
 
 func _on_counter_command(command: String) -> void:
 	if mode != "hunt" or hunter == null or not is_instance_valid(hunter) or hunter.weapon_type != "counter":
@@ -447,6 +449,11 @@ func _on_boss_attack(kind: String, damage: int, reach: float) -> void:
 	if kind == "rush" or kind == "charge":
 		in_range = absf(dx) < reach + 16.0
 	if in_range and absf(hunter.global_position.y - boss.global_position.y) < 125.0:
+		var attack_width := reach + (16.0 if kind == "rush" or kind == "charge" else 72.0)
+		var attack_rect := Rect2(boss.global_position + Vector2(-attack_width, -125.0), Vector2(attack_width * 2.0, 250.0))
+		if hunter.try_anvil_clash(attack_rect):
+			_play_sound("hit")
+			return
 		hunter.take_hit(damage)
 		_play_sound("hit")
 

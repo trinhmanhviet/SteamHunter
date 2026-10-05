@@ -25,6 +25,13 @@ func _run() -> void:
 	hunter.weapon_resource = 50.0
 	ui.update_hud(hunter, null, 0, false)
 	_check(ui.resource_fill != null and is_equal_approx(ui.resource_fill.size.x, 104.0), "resource bar shows half of a 100-point meter")
+	ui.show_hunt("moor", "blade")
+	hunter.weapon_type = "blade"
+	hunter.blade_route_index = 2
+	ui.update_hud(hunter, null, 0, false)
+	var route_pips = ui.root.get_node_or_null("BladeRoutePips")
+	_check(route_pips != null and route_pips.get_child_count() == 3, "Great Cleaver HUD has three compact route pips")
+	_check(route_pips.get_child(2).modulate == Color("#f1cf89"), "third route pip lights when Sundering Fall is ready")
 	ui.show_camp({"equipped":"blade", "weapons":{"blade":true}, "parts":0, "forge_level":0, "hunts_won":0})
 	_check(ui.root.get_node_or_null("CounterCombatStick") == null, "leaving a hunt removes the Sabre combat stick")
 	ui.show_hunt("moor", "twins")

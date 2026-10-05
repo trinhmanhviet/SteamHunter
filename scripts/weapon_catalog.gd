@@ -34,7 +34,8 @@ static func _ensure() -> void:
 				"draw_hew": {"light": "low_cleave", "heavy": "charged_hew"},
 				"low_cleave": {"light": "rising_cleave", "heavy": "charged_hew"},
 				"rising_cleave": {"heavy": "charged_hew"},
-				"charged_hew": {"heavy": "sundering_fall", "special": "shoulder_brace"},
+				"charged_hew": {"heavy": "furnace_hew", "special": "shoulder_brace"},
+				"furnace_hew": {"heavy": "sundering_fall", "special": "shoulder_brace"},
 				"roll_reaper": {"light": "low_cleave"}
 			},
 			"actions": {
@@ -42,8 +43,11 @@ static func _ensure() -> void:
 				"low_cleave": _a(15, 132.0, 0.48, 0.24, 0.34, 13.0, 0.0, 0.0, 18.0, "heavy", 0.060, 82.0, 28.0),
 				"rising_cleave": _a(18, 142.0, 0.56, 0.29, 0.40, 16.0, 0.0, 0.0, 8.0, "heavy", 0.070, 95.0, 34.0),
 				"shoulder_brace": _a(7, 78.0, 0.34, 0.18, 0.28, 10.0, 0.0, 0.0, 36.0, "blunt", 0.040, 45.0, 38.0),
-				"charged_hew": _a(20, 150.0, 0.72, 0.48, 0.61, 28.0, 0.0, 0.0, 0.0, "heavy", 0.095, 125.0, 52.0, 18),
-				"sundering_fall": _a(42, 164.0, 0.88, 0.55, 0.74, 34.0, 0.0, 1.0, 12.0, "heavy", 0.125, 180.0, 82.0),
+				"charged_hew": _a(20, 150.0, 0.72, 0.48, 0.61, 18.0, 0.0, 0.0, 0.0, "heavy", 0.095, 125.0, 52.0, 18),
+				"furnace_hew": _a(31, 158.0, 0.80, 0.52, 0.67, 22.0, 0.0, 0.0, 4.0, "heavy", 0.110, 151.0, 67.0, 22),
+				"sundering_fall": _a(42, 164.0, 0.88, 0.55, 0.74, 25.0, 0.0, 1.0, 12.0, "heavy", 0.125, 180.0, 82.0),
+				"anvil_rise": _a(23, 146.0, 0.66, 0.34, 0.46, 24.0, 0.0, 0.0, 0.0, "heavy", 0.085, 108.0, 46.0),
+				"crossbite": _a(28, 136.0, 0.50, 0.24, 0.34, 19.0, 0.0, 0.0, 38.0, "heavy", 0.090, 122.0, 54.0),
 				"roll_reaper": _a(14, 118.0, 0.38, 0.18, 0.28, 10.0, 0.0, 0.0, 62.0, "heavy", 0.050, 68.0, 24.0),
 				"aerial_drop": _a(24, 105.0, 0.58, 0.31, 0.48, 18.0, 0.0, 0.0, 35.0, "heavy", 0.085, 118.0, 56.0)
 			}

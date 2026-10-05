@@ -50,6 +50,9 @@ var guard_time := 0.0
 var counter_time := 0.0
 var hit_stop_time := 0.0
 var hit_confirmed := false
+var blade_route_index := 0
+var blade_charge_overcharged := false
+var blade_brace_absorbed := false
 
 func _ready() -> void:
 	max_health = Rules.coat_max_health(armor_type)
@@ -210,6 +213,8 @@ func _begin_action(action_id: String, charge: float, spend_costs: bool) -> bool:
 		counter_time = attack_time
 	if action_id == "guard_set" or action_id == "shoulder_brace":
 		guard_time = attack_time
+	if action_id == "shoulder_brace":
+		blade_brace_absorbed = false
 	queue_redraw()
 	return true
 
@@ -249,6 +254,13 @@ func confirm_hit(action_id: String) -> bool:
 	if weapon_type == "blade" and action_id == "charged_hew" and attack_charge >= 0.85:
 		gain = 1.0
 	weapon_resource = minf(resource_max(), weapon_resource + gain)
+	if weapon_type == "blade":
+		if action_id == "charged_hew":
+			blade_route_index = 1
+		elif action_id == "furnace_hew" or action_id == "crossbite":
+			blade_route_index = 2
+		elif action_id == "sundering_fall":
+			blade_route_index = 0
 	hit_stop_time = maxf(hit_stop_time, float(data.get("hit_stop", 0.0)))
 	return true
 
@@ -272,7 +284,10 @@ func _great_cleaver_hit_zone(action_id: String) -> Dictionary:
 		"low_cleave": return {"min_x": 4.0, "max_x": 132.0, "min_y": -88.0, "max_y": 18.0}
 		"rising_cleave": return {"min_x": -8.0, "max_x": 142.0, "min_y": -160.0, "max_y": 22.0}
 		"charged_hew": return {"min_x": 8.0, "max_x": 150.0, "min_y": -112.0, "max_y": 26.0}
+		"furnace_hew": return {"min_x": 4.0, "max_x": 158.0, "min_y": -96.0, "max_y": 30.0}
 		"sundering_fall": return {"min_x": 0.0, "max_x": 164.0, "min_y": -136.0, "max_y": 36.0}
+		"anvil_rise": return {"min_x": -8.0, "max_x": 146.0, "min_y": -166.0, "max_y": 22.0}
+		"crossbite": return {"min_x": 2.0, "max_x": 136.0, "min_y": -104.0, "max_y": 24.0}
 		"roll_reaper": return {"min_x": 10.0, "max_x": 118.0, "min_y": -82.0, "max_y": 18.0}
 		"aerial_drop": return {"min_x": -10.0, "max_x": 105.0, "min_y": -162.0, "max_y": 28.0}
 		"shoulder_brace": return {"min_x": -10.0, "max_x": 78.0, "min_y": -74.0, "max_y": 22.0}
@@ -301,6 +316,8 @@ func start_blade_charge() -> bool:
 		return false
 	if not current_action.is_empty():
 		return request_action("heavy")
+	if charge_time <= 0.0:
+		blade_charge_overcharged = false
 	charge_time = maxf(charge_time, 0.01)
 	weapon_drawn = true
 	idle_combat_time = 0.0
@@ -310,16 +327,20 @@ func start_blade_charge() -> bool:
 func advance_blade_charge(delta: float) -> bool:
 	if delta <= 0.0 or not start_blade_charge():
 		return false
-	charge_time = minf(1.15, charge_time + delta)
+	charge_time = minf(1.18, charge_time + delta)
+	if charge_time >= 1.10:
+		blade_charge_overcharged = true
 	queue_redraw()
 	return true
 
 func release_blade_charge() -> bool:
 	if weapon_type != "blade" or charge_time <= 0.0:
 		return false
-	var held_charge: float = [0.0, 0.38, 0.70, 1.0][blade_charge_stage()]
+	var held_charge: float = 0.70 if blade_charge_overcharged else [0.0, 0.38, 0.70, 1.0][blade_charge_stage()]
+	var action_id := _blade_route_action()
 	charge_time = 0.0
-	var released := start_action("charged_hew", held_charge)
+	blade_charge_overcharged = false
+	var released := start_action(action_id, held_charge)
 	queue_redraw()
 	return released
 
@@ -331,6 +352,12 @@ func blade_charge_stage() -> int:
 	if charge_time >= 0.22:
 		return 1
 	return 0
+
+func blade_charge_spent() -> bool:
+	return blade_charge_overcharged
+
+func _blade_route_action() -> String:
+	return ["charged_hew", "furnace_hew", "sundering_fall"][clampi(blade_route_index, 0, 2)]
 
 func brace_blade_charge() -> bool:
 	if weapon_type != "blade":
@@ -345,6 +372,25 @@ func brace_blade_charge() -> bool:
 	var braced := request_action("special")
 	queue_redraw()
 	return braced
+
+func start_anvil_rise() -> bool:
+	if weapon_type != "blade":
+		return false
+	charge_time = 0.0
+	blade_charge_overcharged = false
+	return start_action("anvil_rise")
+
+func try_anvil_clash(attack_rect: Rect2) -> bool:
+	if weapon_type != "blade" or current_action != "anvil_rise" or not attack_fired:
+		return false
+	var zone := _great_cleaver_hit_zone("anvil_rise")
+	var left := minf(float(zone["min_x"]) * facing, float(zone["max_x"]) * facing)
+	var right := maxf(float(zone["min_x"]) * facing, float(zone["max_x"]) * facing)
+	var blade_rect := Rect2(global_position + Vector2(left, float(zone["min_y"])), Vector2(right - left, float(zone["max_y"]) - float(zone["min_y"])))
+	if not blade_rect.intersects(attack_rect):
+		return false
+	_force_action("crossbite")
+	return true
 
 func start_attack(kind: String, charge: float) -> bool:
 	var action_id := Rules.entry_action(weapon_type) if kind == "quick" else str(Rules.weapon(weapon_type)["heavy"])
@@ -387,8 +433,10 @@ func take_hit(amount: int) -> void:
 		if health > 0:
 			_force_action("counter_thrust")
 		return
-	if weapon_type == "blade" and guard_time > 0.0 and current_action == "shoulder_brace":
-		_apply_damage(maxi(1, roundi(amount * 0.5)), 0.30, false)
+	if weapon_type == "blade" and guard_time > 0.0 and current_action == "shoulder_brace" and not blade_brace_absorbed:
+		blade_brace_absorbed = true
+		blade_route_index = mini(2, blade_route_index + 1)
+		_apply_damage(maxi(1, roundi(amount * 0.4)), 0.30, false)
 		return
 	_apply_damage(amount, 0.75, true)
 

@@ -12,6 +12,8 @@ func _initialize() -> void:
 	_check(not hunter.can_strike_point(Vector2(-35, -45), "charged_hew", 150.0, 0.0, 0.0), "charged cleave cannot hit behind the hunter")
 	_check(hunter.can_strike_point(Vector2(176, -112), "sundering_fall", 164.0, 18.0, 12.0), "Sundering Fall owns the longest forward hit zone")
 	_check(hunter.can_strike_point(Vector2(75, -18), "aerial_drop", 105.0, 0.0, 0.0), "aerial drop reaches the ground below its arc")
+	_check(hunter.can_strike_point(Vector2(86, -146), "anvil_rise", 146.0, 0.0, 0.0), "Anvil Rise reaches an incoming high attack")
+	_check(hunter.can_strike_point(Vector2(112, -72), "crossbite", 136.0, 0.0, 0.0), "Crossbite owns its short forward punish zone")
 	hunter.free()
 	quit(1 if failures > 0 else 0)
 

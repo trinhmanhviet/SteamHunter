@@ -19,6 +19,8 @@ var pull := Vector2.ZERO
 var held_time := 0.0
 var charging := false
 var braced := false
+var anvil_primed := false
+var charge_visual_time := 0.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -26,7 +28,10 @@ func _ready() -> void:
 	queue_redraw()
 
 func _process(delta: float) -> void:
+	if charging:
+		charge_visual_time += delta
 	advance_hold(delta)
+	queue_redraw()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
@@ -37,6 +42,8 @@ func _input(event: InputEvent) -> void:
 			held_time = 0.0
 			charging = false
 			braced = false
+			anvil_primed = false
+			charge_visual_time = 0.0
 			visible = true
 			queue_redraw()
 		elif not event.pressed and event.index == finger_index:
@@ -46,16 +53,23 @@ func _input(event: InputEvent) -> void:
 		if charging and pull.y >= DODGE_PULL:
 			charging = false
 			braced = true
+			charge_visual_time = 0.0
 			Input.action_release("heavy")
 			blade_command.emit("brace")
+		elif charging and pull.y <= -DODGE_PULL:
+			charging = false
+			anvil_primed = true
+			charge_visual_time = 0.0
+			Input.action_release("heavy")
 		queue_redraw()
 
 func advance_hold(delta: float) -> void:
-	if finger_index < 0 or charging or braced or delta <= 0.0:
+	if finger_index < 0 or charging or braced or anvil_primed or delta <= 0.0:
 		return
 	held_time += delta
 	if held_time >= HOLD_TO_CHARGE:
 		charging = true
+		charge_visual_time = 0.0
 		Input.action_press("heavy")
 		blade_command.emit("charge_start")
 		queue_redraw()
@@ -67,12 +81,16 @@ func release_touch() -> void:
 	held_time = 0.0
 	charging = false
 	braced = false
+	anvil_primed = false
+	charge_visual_time = 0.0
 	visible = false
 	queue_redraw()
 
 func _finish_gesture() -> void:
 	if braced:
 		pass
+	elif anvil_primed:
+		blade_command.emit("anvil_rise")
 	elif charging:
 		blade_command.emit("charge_release")
 	elif pull.y >= DODGE_PULL:
@@ -115,13 +133,17 @@ func _draw() -> void:
 	draw_arc(visual_center, visual_radius, 0.0, TAU, 48, RIM_COLOR, 3.0, true)
 	draw_arc(visual_center, visual_radius * 0.67, 0.0, TAU, 40, Color(0.76, 0.82, 0.72, 0.22), 1.5, true)
 	if charging:
-		var charge_ratio := clampf((held_time - HOLD_TO_CHARGE) / 0.97, 0.0, 1.0)
+		var charge_ratio := clampf(charge_visual_time / 0.97, 0.0, 1.0)
 		var charge_color := Color("#cfa968")
-		if charge_ratio >= 0.72:
+		if charge_visual_time >= 0.92:
 			charge_color = Color("#ffe29a")
-		elif charge_ratio >= 0.37:
+		elif charge_visual_time >= 0.55:
 			charge_color = Color("#e48e4e")
 		draw_arc(visual_center, visual_radius * 0.82, -PI * 0.5, -PI * 0.5 + TAU * charge_ratio, 32, charge_color, 5.0, true)
+		for beat in [0.22, 0.55, 0.90]:
+			var angle: float = -PI * 0.5 + TAU * float(beat) / 0.97
+			var mark := visual_center + Vector2(cos(angle), sin(angle)) * visual_radius * 0.82
+			draw_circle(mark, 3.0, Color("#ffe29a") if charge_visual_time >= beat else Color("#67513c"))
 	var knob_center := visual_center + pull * 0.66
 	draw_circle(knob_center, visual_radius * 0.42, Color(0.02, 0.05, 0.08, 0.75))
 	draw_circle(knob_center, visual_radius * 0.35, KNOB_COLOR if not charging else Color("#8d6435"))
