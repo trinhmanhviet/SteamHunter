@@ -11,8 +11,8 @@ const JUMP_SPEED := -700.0
 const GRAVITY := 1900.0
 const ART_HEIGHT := 90.0
 const SHEATH_DELAY := 3.5
-const GREAT_CLEAVER_FRAME_WIDTH := 543.0
-const GREAT_CLEAVER_FRAME_HEIGHT := 724.0
+const GREAT_CLEAVER_FRAME_WIDTH := 128.0
+const GREAT_CLEAVER_FRAME_HEIGHT := 128.0
 
 var max_health := 100
 var health := 100
@@ -67,23 +67,18 @@ func _ready() -> void:
 	add_child(shape)
 	sprite = Sprite2D.new()
 	var weapon_data := Rules.weapon(weapon_type)
-	sprite.texture = load(str(weapon_data["art"]))
+	if weapon_type == "blade":
+		sprite.texture = load("res://art/great_cleaver_hunter_poses.png")
+		sprite.region_enabled = true
+		sprite.region_rect = Rect2(0.0, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
+	else:
+		sprite.texture = load(str(weapon_data["art"]))
 	sprite.modulate = weapon_data.get("tint", Color.WHITE)
 	var pixel_scale := ART_HEIGHT / float(sprite.texture.get_height())
 	sprite.scale = Vector2(pixel_scale, pixel_scale)
 	sprite.position = Vector2(0, -ART_HEIGHT / 2.0)
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(sprite)
-	if weapon_type == "blade":
-		blade_sprite = Sprite2D.new()
-		blade_sprite.texture = load("res://art/great_cleaver_poses.png")
-		blade_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		blade_sprite.region_enabled = true
-		blade_sprite.region_rect = Rect2(0.0, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
-		blade_sprite.scale = Vector2.ONE * 0.18
-		blade_sprite.position = Vector2(22.0, -65.0)
-		blade_sprite.z_index = 2
-		add_child(blade_sprite)
 	weapon_resource = float(weapon_data.get("resource_start", 0.0))
 
 func _physics_process(delta: float) -> void:
@@ -483,7 +478,7 @@ func _update_art(delta: float) -> void:
 	queue_redraw()
 
 func _update_great_cleaver_art() -> void:
-	if blade_sprite == null:
+	if weapon_type != "blade" or sprite == null:
 		return
 	var pose := 0
 	if charge_time > 0.0:
@@ -497,18 +492,16 @@ func _update_great_cleaver_art() -> void:
 			pose = 2
 		else:
 			pose = 3
-	blade_sprite.region_rect = Rect2(GREAT_CLEAVER_FRAME_WIDTH * pose, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
-	blade_sprite.flip_h = facing < 0
+	sprite.region_rect = Rect2(GREAT_CLEAVER_FRAME_WIDTH * pose, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
 	match pose:
 		1:
-			blade_sprite.position = Vector2(4.0 * facing, -82.0)
+			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
 		2:
-			blade_sprite.position = Vector2(34.0 * facing, -48.0)
+			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
 		3:
-			blade_sprite.position = Vector2(28.0 * facing, -43.0)
+			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
 		_:
-			blade_sprite.position = Vector2(22.0 * facing, -65.0)
-	blade_sprite.visible = sprite.visible
+			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
 
 func _draw() -> void:
 	if charge_time > 0.18:
