@@ -68,7 +68,7 @@ func _ready() -> void:
 	sprite = Sprite2D.new()
 	var weapon_data := Rules.weapon(weapon_type)
 	if weapon_type == "blade":
-		sprite.texture = load("res://art/great_cleaver_hunter_poses.png")
+		sprite.texture = load("res://art/characters/great_cleaver_hunter/sprites/great_cleaver_hunter_spritesheet.png")
 		sprite.region_enabled = true
 		sprite.region_rect = Rect2(0.0, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
 	else:

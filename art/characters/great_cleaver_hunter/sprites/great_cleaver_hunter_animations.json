@@ -1,0 +1,54 @@
+{
+  "character": "great_cleaver_hunter",
+  "frame_size": [
+    128,
+    128
+  ],
+  "pivot": [
+    64,
+    116
+  ],
+  "ground_y": 116,
+  "animations": {
+    "idle": {
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 128,
+          "h": 128
+        }
+      ]
+    },
+    "charge": {
+      "frames": [
+        {
+          "x": 128,
+          "y": 0,
+          "w": 128,
+          "h": 128
+        }
+      ]
+    },
+    "heavy_strike": {
+      "frames": [
+        {
+          "x": 256,
+          "y": 0,
+          "w": 128,
+          "h": 128
+        }
+      ]
+    },
+    "recovery": {
+      "frames": [
+        {
+          "x": 384,
+          "y": 0,
+          "w": 128,
+          "h": 128
+        }
+      ]
+    }
+  }
+}

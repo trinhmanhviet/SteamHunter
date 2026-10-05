@@ -1,0 +1,52 @@
+{
+  "character": "great_cleaver_hunter",
+  "sprite_size": [
+    128,
+    128
+  ],
+  "direction": "right",
+  "target_height": 104,
+  "ground_y": 116,
+  "pivot": [
+    64,
+    116
+  ],
+  "palette_colors": 32,
+  "max_retries": 3,
+  "references": [
+    "reference/master_side.png",
+    "reference/identity.png",
+    "reference/equipment.png",
+    "reference/weapon.png"
+  ],
+  "animations": {
+    "idle": [
+      {
+        "frame": "00",
+        "pose": "At rest with the oversized great cleaver held diagonally down behind her.",
+        "template": "poses/idle/00.png"
+      }
+    ],
+    "charge": [
+      {
+        "frame": "00",
+        "pose": "Charging a heavy overhead cut, feet braced wide and blade lifted straight above her.",
+        "template": "poses/charge/00.png"
+      }
+    ],
+    "heavy_strike": [
+      {
+        "frame": "00",
+        "pose": "Committed forward downward cleave, blade sweeping to the right.",
+        "template": "poses/heavy_strike/00.png"
+      }
+    ],
+    "recovery": [
+      {
+        "frame": "00",
+        "pose": "Low recovery after the heavy cleave, sword near the ground to the right.",
+        "template": "poses/recovery/00.png"
+      }
+    ]
+  }
+}

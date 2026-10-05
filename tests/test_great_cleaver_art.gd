@@ -10,7 +10,7 @@ func _run() -> void:
 	var hunter := Hunter.new()
 	hunter.weapon_type = "blade"
 	root.add_child(hunter)
-	_check(hunter.sprite.texture.resource_path.ends_with("great_cleaver_hunter_poses.png"), "Great Cleaver uses the bright hunter pose sheet")
+	_check(hunter.sprite.texture.resource_path.ends_with("great_cleaver_hunter_spritesheet.png"), "Great Cleaver uses the factory-built hunter pose sheet")
 	_check(hunter.sprite.region_enabled, "Great Cleaver hunter art selects one pose from its sprite sheet")
 	_check(hunter.sprite.region_rect.size == Vector2(128, 128), "Great Cleaver pose cells retain the native 128px canvas")
 	_check(hunter.blade_sprite == null, "Great Cleaver art is a single readable hunter-and-weapon silhouette")
