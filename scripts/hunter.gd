@@ -257,6 +257,30 @@ func current_damage() -> int:
 		return 0
 	return Rules.action_damage(current_action, attack_charge, forge_level, weapon_type)
 
+func can_strike_point(world_point: Vector2, action_id: String, reach: float, horizontal_padding: float = 0.0, vertical_padding: float = 0.0, behind_allowance: float = 25.0) -> bool:
+	var local := world_point - global_position
+	var forward_x := local.x * facing
+	if weapon_type != "blade":
+		return forward_x >= -behind_allowance and absf(forward_x) < reach + horizontal_padding and absf(local.y) < vertical_padding
+	var zone := _great_cleaver_hit_zone(action_id)
+	var rear_slack := minf(behind_allowance, 8.0)
+	return forward_x >= float(zone["min_x"]) - rear_slack and forward_x <= float(zone["max_x"]) + horizontal_padding and local.y >= float(zone["min_y"]) - vertical_padding and local.y <= float(zone["max_y"]) + vertical_padding
+
+func _great_cleaver_hit_zone(action_id: String) -> Dictionary:
+	match action_id:
+		"draw_hew": return {"min_x": -4.0, "max_x": 125.0, "min_y": -98.0, "max_y": 18.0}
+		"low_cleave": return {"min_x": 4.0, "max_x": 132.0, "min_y": -88.0, "max_y": 18.0}
+		"rising_cleave": return {"min_x": -8.0, "max_x": 142.0, "min_y": -160.0, "max_y": 22.0}
+		"charged_hew": return {"min_x": 8.0, "max_x": 150.0, "min_y": -112.0, "max_y": 26.0}
+		"sundering_fall": return {"min_x": 0.0, "max_x": 164.0, "min_y": -136.0, "max_y": 36.0}
+		"roll_reaper": return {"min_x": 10.0, "max_x": 118.0, "min_y": -82.0, "max_y": 18.0}
+		"aerial_drop": return {"min_x": -10.0, "max_x": 105.0, "min_y": -162.0, "max_y": 28.0}
+		"shoulder_brace": return {"min_x": -10.0, "max_x": 78.0, "min_y": -74.0, "max_y": 22.0}
+	return {"min_x": 0.0, "max_x": reach_or_default(action_id), "min_y": -90.0, "max_y": 20.0}
+
+func reach_or_default(action_id: String) -> float:
+	return float(Rules.action(action_id, weapon_type).get("reach", 90.0))
+
 func resource_name() -> String:
 	return str(Rules.weapon(weapon_type).get("resource_name", ""))
 

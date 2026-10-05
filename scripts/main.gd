@@ -386,21 +386,17 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 	for rat in rats:
 		if not is_instance_valid(rat) or rat.health <= 0:
 			continue
-		var dx: float = rat.global_position.x - hunter.global_position.x
-		if dx * hunter.facing >= -15.0 and absf(dx) < reach + 40.0 and absf(rat.global_position.y - hunter.global_position.y) < 86.0:
+		if hunter.can_strike_point(rat.global_position, kind, reach, 40.0, 86.0, 15.0):
 			var tuned_damage := Rules.tuned_damage(damage, hunter.weapon_type, hunter.tuning_type, 1.0)
 			rat.receive_hit(tuned_damage)
 			landed = true
 	if boss != null and is_instance_valid(boss) and boss.health > 0:
-		var dx: float = boss.global_position.x - hunter.global_position.x
-		if dx * hunter.facing >= -25.0 and absf(dx) < reach + 95.0 and absf(boss.global_position.y - hunter.global_position.y) < 115.0:
-			var target_position: Vector2 = boss.part_world_position(selected_part)
-			var target_dx := target_position.x - hunter.global_position.x
-			if target_dx * hunter.facing >= -25.0 and absf(target_dx) < reach + 40.0 and absf(target_position.y - hunter.global_position.y) < 155.0:
-				boss.receive_hit(_tuned_damage_for_boss(damage), part_kind, selected_part)
-				_apply_tuning_status()
-				boss.queue_redraw()
-				landed = true
+		var target_position: Vector2 = boss.part_world_position(selected_part)
+		if hunter.can_strike_point(target_position, kind, reach, 40.0, 155.0, 25.0):
+			boss.receive_hit(_tuned_damage_for_boss(damage), part_kind, selected_part)
+			_apply_tuning_status()
+			boss.queue_redraw()
+			landed = true
 	if landed:
 		hunter.confirm_hit(kind)
 		_play_sound("hit")
