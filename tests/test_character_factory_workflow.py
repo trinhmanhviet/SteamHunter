@@ -4,10 +4,18 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from tools.character_factory_workflow import build_frame_workflow, generate_frame
+from tools.character_factory_workflow import build_frame_workflow, build_master_workflow, generate_frame, locked_prompt
 
 
 class CharacterFactoryWorkflowTests(unittest.TestCase):
+    def test_build_master_workflow_has_no_references_and_saves_alpha(self):
+        graph = build_master_workflow("original pixel art hunter side view", 77, "factory/hunter/master_side")
+
+        self.assertEqual(graph["5"]["inputs"]["images"], {})
+        self.assertEqual(graph["7"]["inputs"]["latent_image"], ["5", 2])
+        self.assertEqual(graph["9"]["inputs"]["filename_prefix"], "factory/hunter/master_side")
+        self.assertEqual(graph["20"]["inputs"]["background"], "Alpha")
+
     def test_build_frame_workflow_uses_master_references_and_pose(self):
         graph = build_frame_workflow(
             ["master.png", "identity.png", "weapon.png", "pose.png"],
@@ -42,6 +50,12 @@ class CharacterFactoryWorkflowTests(unittest.TestCase):
         self.assertEqual(client.uploaded, ["master.png", "identity.png", "weapon.png", "pose.png"])
         self.assertEqual(client.graph["5"]["inputs"]["images"]["image_4"], ["13", 0])
         self.assertEqual(result, {"filename": "frame.png", "subfolder": "factory"})
+
+    def test_body_prompt_forbids_baked_in_weapons_and_keeps_attachment_hand_visible(self):
+        prompt = locked_prompt("standing ready", asset_role="body")
+
+        self.assertIn("Do not draw a weapon", prompt)
+        self.assertIn("right hand", prompt)
 
 
 class RecordingClient:

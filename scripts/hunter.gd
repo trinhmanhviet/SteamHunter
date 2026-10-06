@@ -13,6 +13,10 @@ const ART_HEIGHT := 90.0
 const SHEATH_DELAY := 3.5
 const GREAT_CLEAVER_FRAME_WIDTH := 128.0
 const GREAT_CLEAVER_FRAME_HEIGHT := 128.0
+const GREAT_CLEAVER_BODY_SHEET := "res://art/characters/great_cleaver_hunter/sprites/great_cleaver_hunter_spritesheet.png"
+const GREAT_CLEAVER_BODY_METADATA := "res://art/characters/great_cleaver_hunter/sprites/great_cleaver_hunter_animations.json"
+const GREAT_CLEAVER_WEAPON_TEXTURE := "res://art/weapons/great_cleaver/great_cleaver_base.png"
+const GREAT_CLEAVER_GRIP := Vector2(28.0, 45.0)
 
 var max_health := 100
 var health := 100
@@ -39,6 +43,7 @@ var potions := 2
 var heal_time := 0.0
 var sprite: Sprite2D
 var blade_sprite: Sprite2D
+var blade_attachment_points: Dictionary = {}
 
 var current_action := ""
 var action_elapsed := 0.0
@@ -68,7 +73,7 @@ func _ready() -> void:
 	sprite = Sprite2D.new()
 	var weapon_data := Rules.weapon(weapon_type)
 	if weapon_type == "blade":
-		sprite.texture = load("res://art/characters/great_cleaver_hunter/sprites/great_cleaver_hunter_spritesheet.png")
+		sprite.texture = load(GREAT_CLEAVER_BODY_SHEET)
 		sprite.region_enabled = true
 		sprite.region_rect = Rect2(0.0, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
 	else:
@@ -79,7 +84,18 @@ func _ready() -> void:
 	sprite.position = Vector2(0, -ART_HEIGHT / 2.0)
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(sprite)
+	if weapon_type == "blade":
+		_load_great_cleaver_attachment_points()
+		blade_sprite = Sprite2D.new()
+		blade_sprite.texture = load(GREAT_CLEAVER_WEAPON_TEXTURE)
+		blade_sprite.centered = false
+		blade_sprite.offset = -GREAT_CLEAVER_GRIP
+		blade_sprite.scale = Vector2(pixel_scale, pixel_scale)
+		blade_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		blade_sprite.z_index = 1
+		add_child(blade_sprite)
 	weapon_resource = float(weapon_data.get("resource_start", 0.0))
+	_update_art(0.0)
 
 func _physics_process(delta: float) -> void:
 	advance_heal(delta)
@@ -502,6 +518,29 @@ func _update_great_cleaver_art() -> void:
 			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
 		_:
 			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
+	_update_great_cleaver_weapon(pose)
+
+func _load_great_cleaver_attachment_points() -> void:
+	var file := FileAccess.open(GREAT_CLEAVER_BODY_METADATA, FileAccess.READ)
+	if file == null:
+		return
+	var metadata = JSON.parse_string(file.get_as_text())
+	if metadata is Dictionary:
+		blade_attachment_points = metadata.get("attachment_points", {})
+
+func _update_great_cleaver_weapon(pose: int) -> void:
+	if blade_sprite == null:
+		return
+	var frame_keys := ["idle/00", "charge/00", "heavy_strike/00", "recovery/00"]
+	var hand: Dictionary = blade_attachment_points.get("right_hand", {}).get(frame_keys[pose], {})
+	var pixels: Array = hand.get("position", [76, 78])
+	var attachment := Vector2(float(pixels[0]), float(pixels[1])) - Vector2(64.0, 64.0)
+	attachment.x *= facing
+	blade_sprite.position = sprite.position + attachment * sprite.scale
+	blade_sprite.rotation = float(hand.get("rotation", 0.28)) * facing
+	blade_sprite.scale = Vector2(absf(sprite.scale.x) * facing, absf(sprite.scale.y))
+	blade_sprite.modulate = sprite.modulate
+	blade_sprite.visible = sprite.visible
 
 func _draw() -> void:
 	if charge_time > 0.18:

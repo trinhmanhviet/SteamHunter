@@ -8,7 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from PIL import Image
 
-from tools.character_factory import extract_palette, load_definition, normalize_frame, pack_sheet, qa_frame, visible_bbox
+from tools.character_factory import extract_palette, load_definition, normalize_frame, pack_sheet, qa_frame, visible_bbox, write_godot_spriteframes
 
 
 class CharacterFactoryDefinitionTests(unittest.TestCase):
@@ -54,6 +54,17 @@ class CharacterFactoryDefinitionTests(unittest.TestCase):
 
         self.assertIn("alpha touches canvas border", errors)
 
+    def test_qa_frame_accepts_a_normalized_compliant_frame(self):
+        source = Image.new("RGBA", (80, 100), (0, 0, 0, 0))
+        for y in range(15, 75):
+            for x in range(20, 60):
+                source.putpixel((x, y), (210, 77, 57, 255))
+        normalized = normalize_frame(source, canvas=(128, 128), target_height=104, ground_y=116, palette=[(210, 77, 57)])
+
+        errors = qa_frame(normalized, target_height=104, ground_y=116, palette_colors=32)
+
+        self.assertEqual(errors, [])
+
     def test_pack_sheet_writes_ordered_regions_and_metadata(self):
         directory = Path(__file__).resolve().parents[1] / ".test-tmp-character-factory"
         shutil.rmtree(directory, ignore_errors=True)
@@ -65,13 +76,21 @@ class CharacterFactoryDefinitionTests(unittest.TestCase):
                 Image.new("RGBA", (128, 128), (index * 40, 80, 160, 255)).save(frame_path)
                 animations[name] = [frame_path]
 
-            sheet_path, metadata_path = pack_sheet(animations, directory, "hunter01", pivot=(64, 116), ground_y=116)
+            sheet_path, metadata_path = pack_sheet(
+                animations,
+                directory,
+                "hunter01",
+                pivot=(64, 116),
+                ground_y=116,
+                attachment_points={"right_hand": {"idle/00": {"position": [72, 70], "rotation": 0.2}}},
+            )
             metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
 
             with Image.open(sheet_path) as sheet:
                 self.assertEqual(sheet.size, (512, 128))
             self.assertEqual(metadata["animations"]["charge"]["frames"][0]["x"], 128)
             self.assertEqual(metadata["pivot"], [64, 116])
+            self.assertEqual(metadata["attachment_points"]["right_hand"]["idle/00"]["position"], [72, 70])
         finally:
             shutil.rmtree(directory, ignore_errors=True)
 
@@ -117,6 +136,29 @@ class CharacterFactoryDefinitionTests(unittest.TestCase):
 
         self.assertTrue(any(red > 180 and green < 100 for red, green, _ in palette))
         self.assertTrue(any(blue > 180 and green > 120 for _, green, blue in palette))
+
+    def test_write_godot_spriteframes_exports_animation_regions(self):
+        directory = Path(__file__).resolve().parents[1] / ".test-tmp-character-factory"
+        shutil.rmtree(directory, ignore_errors=True)
+        directory.mkdir()
+        try:
+            metadata_path = directory / "animations.json"
+            metadata_path.write_text(json.dumps({
+                "frame_size": [128, 128],
+                "animations": {
+                    "idle": {"frames": [{"x": 0, "y": 0, "w": 128, "h": 128}]},
+                    "charge": {"frames": [{"x": 128, "y": 0, "w": 128, "h": 128}]},
+                },
+            }), encoding="utf-8")
+
+            tres_path = write_godot_spriteframes(metadata_path, "res://art/characters/hunter/sprites/hunter_spritesheet.png", directory / "hunter.tres", fps=6)
+            content = tres_path.read_text(encoding="utf-8")
+
+            self.assertIn('type="SpriteFrames"', content)
+            self.assertIn('name": &"charge"', content)
+            self.assertIn("region = Rect2(128, 0, 128, 128)", content)
+        finally:
+            shutil.rmtree(directory, ignore_errors=True)
 
 
 if __name__ == "__main__":

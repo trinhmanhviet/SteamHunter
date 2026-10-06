@@ -1,5 +1,6 @@
 {
   "character": "great_cleaver_hunter",
+  "asset_role": "body",
   "sprite_size": [
     128,
     128
@@ -13,38 +14,69 @@
   ],
   "palette_colors": 32,
   "max_retries": 3,
+  "seed": 620941,
+  "fps": 6,
   "references": [
-    "reference/master_side.png",
-    "reference/identity.png",
-    "reference/equipment.png",
-    "reference/weapon.png"
+    "reference/body_master.png"
   ],
+  "attachment_points": {
+    "right_hand": {
+      "idle/00": {
+        "position": [
+          76,
+          78
+        ],
+        "rotation": 0.28
+      },
+      "charge/00": {
+        "position": [
+          71,
+          44
+        ],
+        "rotation": -1.48
+      },
+      "heavy_strike/00": {
+        "position": [
+          80,
+          75
+        ],
+        "rotation": 0.58
+      },
+      "recovery/00": {
+        "position": [
+          77,
+          88
+        ],
+        "rotation": 0.24
+      }
+    }
+  },
   "animations": {
     "idle": [
       {
         "frame": "00",
-        "pose": "At rest with the oversized great cleaver held diagonally down behind her.",
+        "pose": "Calm combat-ready standing pose. Empty right hand rests low in front of the hip, clearly visible and ready to grip a separate weapon attachment.",
         "template": "poses/idle/00.png"
       }
     ],
     "charge": [
       {
         "frame": "00",
-        "pose": "Charging a heavy overhead cut, feet braced wide and blade lifted straight above her.",
+        "pose": "Wide braced charging stance with the empty right hand lifted above the shoulder as if preparing an overhead strike. Keep the empty hand clearly visible.",
         "template": "poses/charge/00.png"
       }
     ],
     "heavy_strike": [
       {
         "frame": "00",
-        "pose": "Committed forward downward cleave, blade sweeping to the right.",
+        "pose": "Forward committed heavy-strike body pose, empty right hand extended across the torso at chest height, legs planted and readable.",
         "template": "poses/heavy_strike/00.png"
       }
     ],
     "recovery": [
       {
         "frame": "00",
-        "pose": "Low recovery after the heavy cleave, sword near the ground to the right.",
+        "pose": "Low balanced recovery stance after a heavy swing. Empty right hand stays visible near the right knee; body proportions match the master exactly.",
         "template": "poses/recovery/00.png"
       }
     ]

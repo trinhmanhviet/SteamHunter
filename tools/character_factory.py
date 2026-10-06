@@ -115,6 +115,7 @@ def pack_sheet(
 	character: str,
 	pivot: tuple[int, int],
 	ground_y: int,
+	attachment_points: dict | None = None,
 ) -> tuple[Path, Path]:
 	"""Pack ordered RGBA frames into one row and write Godot-friendly region metadata."""
 	frames = [(animation, path) for animation, paths in animations.items() for path in paths]
@@ -128,6 +129,7 @@ def pack_sheet(
 		"frame_size": [frame_width, frame_height],
 		"pivot": list(pivot),
 		"ground_y": ground_y,
+		"attachment_points": attachment_points or {},
 		"animations": {name: {"frames": []} for name in animations},
 	}
 	for index, (animation, path) in enumerate(frames):
@@ -143,3 +145,53 @@ def pack_sheet(
 	sheet.save(sheet_path)
 	metadata_path.write_text(json.dumps(metadata, indent=2), encoding="utf-8")
 	return sheet_path, metadata_path
+
+
+def write_godot_spriteframes(metadata_path: Path, texture_resource_path: str, output_path: Path, fps: float = 6.0) -> Path:
+	"""Write a Godot SpriteFrames resource from packed-region metadata."""
+	metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+	subresources: list[str] = []
+	animations: list[str] = []
+	for animation, details in metadata["animations"].items():
+		frame_resources: list[str] = []
+		for index, frame in enumerate(details["frames"]):
+			resource_id = f"Atlas_{animation}_{index}"
+			subresources.extend((
+				f'[sub_resource type="AtlasTexture" id="{resource_id}"]',
+				'atlas = ExtResource("1_sheet")',
+				f'region = Rect2({frame["x"]}, {frame["y"]}, {frame["w"]}, {frame["h"]})',
+				"",
+			))
+			frame_resources.append('{"duration": 1.0, "texture": SubResource("%s")}' % resource_id)
+		loop = "true" if animation in {"idle", "walk", "run"} else "false"
+		animations.append('{"frames": [%s], "loop": %s, "name": &"%s", "speed": %s}' % (", ".join(frame_resources), loop, animation, fps))
+	output_path.parent.mkdir(parents=True, exist_ok=True)
+	content = "\n".join((
+		f'[gd_resource type="SpriteFrames" load_steps={len(subresources) // 4 + 2} format=3]',
+		"",
+		f'[ext_resource type="Texture2D" path="{texture_resource_path}" id="1_sheet"]',
+		"",
+		*subresources,
+		"[resource]",
+		"animations = [" + ", ".join(animations) + "]",
+		"",
+	))
+	output_path.write_text(content, encoding="utf-8")
+	return output_path
+
+
+def write_preview(sheet_path: Path, output_path: Path, scale: int = 4) -> Path:
+	"""Render a checker-backed nearest-neighbor preview for quick visual review."""
+	if scale < 1:
+		raise ValueError("preview scale must be positive")
+	with Image.open(sheet_path) as source:
+		sheet = source.convert("RGBA")
+	preview = Image.new("RGBA", sheet.size, "#60758d")
+	for y in range(0, sheet.height, 16):
+		for x in range(0, sheet.width, 16):
+			if (x // 16 + y // 16) % 2:
+				preview.paste("#536a83", (x, y, x + 16, y + 16))
+	preview.alpha_composite(sheet)
+	output_path.parent.mkdir(parents=True, exist_ok=True)
+	preview.resize((preview.width * scale, preview.height * scale), Image.Resampling.NEAREST).convert("RGB").save(output_path)
+	return output_path

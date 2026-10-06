@@ -9,6 +9,38 @@
     116
   ],
   "ground_y": 116,
+  "attachment_points": {
+    "right_hand": {
+      "idle/00": {
+        "position": [
+          76,
+          78
+        ],
+        "rotation": 0.28
+      },
+      "charge/00": {
+        "position": [
+          71,
+          44
+        ],
+        "rotation": -1.48
+      },
+      "heavy_strike/00": {
+        "position": [
+          80,
+          75
+        ],
+        "rotation": 0.58
+      },
+      "recovery/00": {
+        "position": [
+          77,
+          88
+        ],
+        "rotation": 0.24
+      }
+    }
+  },
   "animations": {
     "idle": {
       "frames": [
