@@ -1,0 +1,26 @@
+{
+  "input": "prototypes\\blender_hunter\\reference\\master_apose_imagegen.png",
+  "generator": "microsoft/TRELLIS-image-large",
+  "trellis_revision": "442aa1e1afb9014e80681d3bf604e8d728a86ee7",
+  "model_revision": "25e0d31ffbebe4b5a97464dd851910efc3002d96",
+  "seed": 834625,
+  "steps": 25,
+  "vertices": 140860,
+  "triangles": 281704,
+  "bounds": [
+    [
+      -0.2726183533668518,
+      -0.12343768030405045,
+      -0.5005685687065125
+    ],
+    [
+      0.2712104022502899,
+      0.11450707167387009,
+      0.4976476728916168
+    ]
+  ],
+  "elapsed_seconds": 47.37,
+  "appearance": "mesh-decoder vertex colours; no baked texture",
+  "rigged": false,
+  "output": "hunter_trellis_vertexcolor.glb"
+}

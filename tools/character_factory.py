@@ -162,7 +162,10 @@ def write_godot_spriteframes(metadata_path: Path, texture_resource_path: str, ou
 				f'region = Rect2({frame["x"]}, {frame["y"]}, {frame["w"]}, {frame["h"]})',
 				"",
 			))
-			frame_resources.append('{"duration": 1.0, "texture": SubResource("%s")}' % resource_id)
+			duration = float(frame.get("duration", 1.0))
+			if duration <= 0:
+				raise ValueError("frame duration must be positive")
+			frame_resources.append('{"duration": %s, "texture": SubResource("%s")}' % (duration, resource_id))
 		loop = "true" if animation in {"idle", "walk", "run"} else "false"
 		animations.append('{"frames": [%s], "loop": %s, "name": &"%s", "speed": %s}' % (", ".join(frame_resources), loop, animation, fps))
 	output_path.parent.mkdir(parents=True, exist_ok=True)

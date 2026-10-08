@@ -1,0 +1,26 @@
+{
+  "source": "prototypes\\blender_hunter\\mesh\\hunter_trellis_vertexcolor.glb",
+  "rigged": false,
+  "rest_height_world": 0.9982162415981293,
+  "longest_imported_axis": 1,
+  "orthographic_scale": 1.2285738358130822,
+  "camera_center_z": 0.49910812079906464,
+  "native_canvas": [
+    128,
+    128
+  ],
+  "rest_height_pixels": 104,
+  "ground_y": 116,
+  "lighting": "flat vertex colour",
+  "outputs": [
+    "front_512.png",
+    "front_128.png",
+    "right_512.png",
+    "right_128.png",
+    "back_512.png",
+    "back_128.png",
+    "left_512.png",
+    "left_128.png"
+  ],
+  "source_colour_space": "srgb"
+}

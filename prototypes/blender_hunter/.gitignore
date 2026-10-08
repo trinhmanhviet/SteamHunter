@@ -1,0 +1,5 @@
+*.blend1
+reference/master_apose.png
+reference/provenance.json
+reference/master_apose_imagegen_v1.png
+generate_reference.py

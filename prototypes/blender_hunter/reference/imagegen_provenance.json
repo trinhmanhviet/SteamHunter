@@ -1,0 +1,10 @@
+{
+  "generator": "ChatGPT built-in ImageGen",
+  "asset": "master_apose_imagegen.png",
+  "role": "front neutral A-pose reference for image-to-3D",
+  "brief": "Simple original steam-forge hunter; short blond hair, short brick-red coat, pale-blue steel armor, cream scarf, navy undersuit; clear adult proportions and compact silhouette; no weapon; orthographic front A-pose.",
+  "background": "plain white, chosen after two alpha-output attempts retained an outer glow",
+  "original_output": "exec-7425b72a-422e-4d9b-9f9b-2d3f24cfaf7a.png",
+  "reference": "art/characters/great_cleaver_hunter/reference/body_master.png",
+  "status": "concept reference only, not a pixel sprite or rigged mesh"
+}

@@ -147,7 +147,7 @@ class CharacterFactoryDefinitionTests(unittest.TestCase):
                 "frame_size": [128, 128],
                 "animations": {
                     "idle": {"frames": [{"x": 0, "y": 0, "w": 128, "h": 128}]},
-                    "charge": {"frames": [{"x": 128, "y": 0, "w": 128, "h": 128}]},
+                    "charge": {"frames": [{"x": 128, "y": 0, "w": 128, "h": 128, "duration": 0.4}]},
                 },
             }), encoding="utf-8")
 
@@ -157,6 +157,7 @@ class CharacterFactoryDefinitionTests(unittest.TestCase):
             self.assertIn('type="SpriteFrames"', content)
             self.assertIn('name": &"charge"', content)
             self.assertIn("region = Rect2(128, 0, 128, 128)", content)
+            self.assertIn('"duration": 0.4', content)
         finally:
             shutil.rmtree(directory, ignore_errors=True)
 

@@ -1,0 +1,19 @@
+{
+  "frames": 9,
+  "maximum_wrist_ik_error_pixels": 0,
+  "palette_colors": 32,
+  "body_canvas": [
+    128,
+    128
+  ],
+  "weapon_canvas": [
+    256,
+    256
+  ],
+  "status": "render experiment; visually review skinning, silhouette and combat timing",
+  "known_limits": [
+    "Landmark distance skinning is provisional and does not provide production deformation quality.",
+    "Flat mesh-decoder colour needs pixel-cluster cleanup.",
+    "6-FPS base plus the authored impact frame; timing is a study, not integrated gameplay timing."
+  ]
+}
