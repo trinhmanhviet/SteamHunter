@@ -116,14 +116,19 @@ def pack_sheet(
 	pivot: tuple[int, int],
 	ground_y: int,
 	attachment_points: dict | None = None,
+	max_columns: int | None = None,
 ) -> tuple[Path, Path]:
-	"""Pack ordered RGBA frames into one row and write Godot-friendly region metadata."""
+	"""Pack ordered RGBA frames with optional row wrapping and write region metadata."""
 	frames = [(animation, path) for animation, paths in animations.items() for path in paths]
 	if not frames:
 		raise ValueError("no frames to pack")
 	first = Image.open(frames[0][1]).convert("RGBA")
 	frame_width, frame_height = first.size
-	sheet = Image.new("RGBA", (frame_width * len(frames), frame_height), (0, 0, 0, 0))
+	if max_columns is not None and max_columns < 1:
+		raise ValueError("max_columns must be positive")
+	columns = min(max_columns or len(frames), len(frames))
+	rows = (len(frames) + columns - 1) // columns
+	sheet = Image.new("RGBA", (frame_width * columns, frame_height * rows), (0, 0, 0, 0))
 	metadata = {
 		"character": character,
 		"frame_size": [frame_width, frame_height],
@@ -136,9 +141,9 @@ def pack_sheet(
 		image = Image.open(path).convert("RGBA")
 		if image.size != (frame_width, frame_height):
 			raise ValueError(f"frame size mismatch: {path}")
-		x = index * frame_width
-		sheet.alpha_composite(image, (x, 0))
-		metadata["animations"][animation]["frames"].append({"x": x, "y": 0, "w": frame_width, "h": frame_height})
+		x, y = (index % columns) * frame_width, (index // columns) * frame_height
+		sheet.alpha_composite(image, (x, y))
+		metadata["animations"][animation]["frames"].append({"x": x, "y": y, "w": frame_width, "h": frame_height})
 	output_dir.mkdir(parents=True, exist_ok=True)
 	sheet_path = output_dir / f"{character}_spritesheet.png"
 	metadata_path = output_dir / f"{character}_animations.json"

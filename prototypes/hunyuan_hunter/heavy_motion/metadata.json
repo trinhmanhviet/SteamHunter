@@ -1,0 +1,757 @@
+{
+  "animation": "heavy_cut",
+  "source_fps": 30,
+  "output_fps_base": 6,
+  "body_canvas": [
+    128,
+    128
+  ],
+  "weapon_canvas": [
+    256,
+    256
+  ],
+  "weapon_canvas_offset": [
+    -64,
+    -64
+  ],
+  "ground_pivot": [
+    64,
+    116
+  ],
+  "body_weapon_depth_holdout": true,
+  "bone_pole_angles": {
+    "R": {
+      "knee": 3.141592653589793,
+      "elbow": 3.141592653589793
+    },
+    "L": {
+      "knee": 0,
+      "elbow": 0
+    }
+  },
+  "skin_binding": "Anatomy-restricted segment weights after UV seam weld, with protected face/palms/soles/coat",
+  "bones_front": {
+    "hips": {
+      "head": [
+        256,
+        279
+      ],
+      "tail": [
+        256,
+        246
+      ]
+    },
+    "spine": {
+      "head": [
+        256,
+        246
+      ],
+      "tail": [
+        256,
+        171
+      ]
+    },
+    "neck": {
+      "head": [
+        256,
+        171
+      ],
+      "tail": [
+        256,
+        136
+      ]
+    },
+    "head": {
+      "head": [
+        256,
+        136
+      ],
+      "tail": [
+        256,
+        76
+      ]
+    },
+    "upper_arm.R": {
+      "head": [
+        189,
+        166
+      ],
+      "tail": [
+        208,
+        235
+      ]
+    },
+    "forearm.R": {
+      "head": [
+        208,
+        235
+      ],
+      "tail": [
+        262,
+        206
+      ]
+    },
+    "hand.R": {
+      "head": [
+        262,
+        206
+      ],
+      "tail": [
+        262,
+        200
+      ]
+    },
+    "upper_arm.L": {
+      "head": [
+        323,
+        166
+      ],
+      "tail": [
+        303,
+        228
+      ]
+    },
+    "forearm.L": {
+      "head": [
+        303,
+        228
+      ],
+      "tail": [
+        242,
+        215
+      ]
+    },
+    "hand.L": {
+      "head": [
+        242,
+        215
+      ],
+      "tail": [
+        242,
+        209
+      ]
+    },
+    "thigh.R": {
+      "head": [
+        225,
+        279
+      ],
+      "tail": [
+        212,
+        351
+      ]
+    },
+    "shin.R": {
+      "head": [
+        212,
+        351
+      ],
+      "tail": [
+        206,
+        433
+      ]
+    },
+    "foot.R": {
+      "head": [
+        206,
+        433
+      ],
+      "tail": [
+        206,
+        454
+      ]
+    },
+    "thigh.L": {
+      "head": [
+        287,
+        279
+      ],
+      "tail": [
+        303,
+        367
+      ]
+    },
+    "shin.L": {
+      "head": [
+        303,
+        367
+      ],
+      "tail": [
+        306,
+        433
+      ]
+    },
+    "foot.L": {
+      "head": [
+        306,
+        433
+      ],
+      "tail": [
+        306,
+        454
+      ]
+    }
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "source_frame": 1,
+      "phase": "ready",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_00.png",
+      "weapon": "weapon/heavy_cut_00.png",
+      "attachment_points": {
+        "right_hand": [
+          72,
+          51
+        ],
+        "left_hand": [
+          64,
+          53
+        ]
+      },
+      "weapon_tip": [
+        166,
+        24
+      ],
+      "weapon_rotation": -0.27970415246363095,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0012
+      },
+      "sole_vertical_error_pixels": 0.00078
+    },
+    {
+      "frame": 1,
+      "source_frame": 6,
+      "phase": "ready",
+      "duration": 0.13333333333333333,
+      "body": "body/heavy_cut_01.png",
+      "weapon": "weapon/heavy_cut_01.png",
+      "attachment_points": {
+        "right_hand": [
+          71,
+          50
+        ],
+        "left_hand": [
+          63,
+          54
+        ]
+      },
+      "weapon_tip": [
+        157,
+        6
+      ],
+      "weapon_rotation": -0.4729066036629292,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0019
+      },
+      "sole_vertical_error_pixels": 0.00167
+    },
+    {
+      "frame": 2,
+      "source_frame": 10,
+      "phase": "anticipation",
+      "duration": 0.03333333333333333,
+      "body": "body/heavy_cut_02.png",
+      "weapon": "weapon/heavy_cut_02.png",
+      "attachment_points": {
+        "right_hand": [
+          70,
+          48
+        ],
+        "left_hand": [
+          64,
+          55
+        ]
+      },
+      "weapon_tip": [
+        135,
+        -24
+      ],
+      "weapon_rotation": -0.8364486591584582,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0018
+      },
+      "sole_vertical_error_pixels": 0.00221
+    },
+    {
+      "frame": 3,
+      "source_frame": 11,
+      "phase": "anticipation",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_03.png",
+      "weapon": "weapon/heavy_cut_03.png",
+      "attachment_points": {
+        "right_hand": [
+          70,
+          48
+        ],
+        "left_hand": [
+          65,
+          54
+        ]
+      },
+      "weapon_tip": [
+        127,
+        -32
+      ],
+      "weapon_rotation": -0.9517302722122685,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0015
+      },
+      "sole_vertical_error_pixels": 0.00221
+    },
+    {
+      "frame": 4,
+      "source_frame": 16,
+      "phase": "anticipation",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_04.png",
+      "weapon": "weapon/heavy_cut_04.png",
+      "attachment_points": {
+        "right_hand": [
+          72,
+          41
+        ],
+        "left_hand": [
+          71,
+          50
+        ]
+      },
+      "weapon_tip": [
+        76,
+        -56
+      ],
+      "weapon_rotation": -1.5295825641365763,
+      "wrist_ik_error_pixels": {
+        "R": 0.0016,
+        "L": 0.002
+      },
+      "sole_vertical_error_pixels": 0.00216
+    },
+    {
+      "frame": 5,
+      "source_frame": 21,
+      "phase": "anticipation",
+      "duration": 0.03333333333333333,
+      "body": "body/heavy_cut_05.png",
+      "weapon": "weapon/heavy_cut_05.png",
+      "attachment_points": {
+        "right_hand": [
+          73,
+          37
+        ],
+        "left_hand": [
+          76,
+          45
+        ]
+      },
+      "weapon_tip": [
+        44,
+        -56
+      ],
+      "weapon_rotation": -1.8730688253750112,
+      "wrist_ik_error_pixels": {
+        "R": 0.0017,
+        "L": 0.0012
+      },
+      "sole_vertical_error_pixels": 0.00211
+    },
+    {
+      "frame": 6,
+      "source_frame": 22,
+      "phase": "charge",
+      "duration": 0.13333333333333333,
+      "body": "body/heavy_cut_06.png",
+      "weapon": "weapon/heavy_cut_06.png",
+      "attachment_points": {
+        "right_hand": [
+          73,
+          37
+        ],
+        "left_hand": [
+          76,
+          45
+        ]
+      },
+      "weapon_tip": [
+        43,
+        -56
+      ],
+      "weapon_rotation": -1.8828384483574299,
+      "wrist_ik_error_pixels": {
+        "R": 0.0016,
+        "L": 0.001
+      },
+      "sole_vertical_error_pixels": 0.0021
+    },
+    {
+      "frame": 7,
+      "source_frame": 26,
+      "phase": "charge",
+      "duration": 0.13333333333333333,
+      "body": "body/heavy_cut_07.png",
+      "weapon": "weapon/heavy_cut_07.png",
+      "attachment_points": {
+        "right_hand": [
+          74,
+          37
+        ],
+        "left_hand": [
+          76,
+          45
+        ]
+      },
+      "weapon_tip": [
+        43,
+        -56
+      ],
+      "weapon_rotation": -1.892546881191539,
+      "wrist_ik_error_pixels": {
+        "R": 0.0016,
+        "L": 0.0009
+      },
+      "sole_vertical_error_pixels": 0.00181
+    },
+    {
+      "frame": 8,
+      "source_frame": 30,
+      "phase": "charge",
+      "duration": 0.03333333333333333,
+      "body": "body/heavy_cut_08.png",
+      "weapon": "weapon/heavy_cut_08.png",
+      "attachment_points": {
+        "right_hand": [
+          74,
+          38
+        ],
+        "left_hand": [
+          76,
+          46
+        ]
+      },
+      "weapon_tip": [
+        44,
+        -55
+      ],
+      "weapon_rotation": -1.8828384483574299,
+      "wrist_ik_error_pixels": {
+        "R": 0.0026,
+        "L": 0.0015
+      },
+      "sole_vertical_error_pixels": 0.00138
+    },
+    {
+      "frame": 9,
+      "source_frame": 31,
+      "phase": "charge",
+      "duration": 0.06666666666666667,
+      "body": "body/heavy_cut_09.png",
+      "weapon": "weapon/heavy_cut_09.png",
+      "attachment_points": {
+        "right_hand": [
+          74,
+          39
+        ],
+        "left_hand": [
+          76,
+          47
+        ]
+      },
+      "weapon_tip": [
+        46,
+        -55
+      ],
+      "weapon_rotation": -1.860299998756285,
+      "wrist_ik_error_pixels": {
+        "R": 0.001,
+        "L": 0.0023
+      },
+      "sole_vertical_error_pixels": 0.00145
+    },
+    {
+      "frame": 10,
+      "source_frame": 33,
+      "phase": "descent",
+      "duration": 0.1,
+      "body": "body/heavy_cut_10.png",
+      "weapon": "weapon/heavy_cut_10.png",
+      "attachment_points": {
+        "right_hand": [
+          76,
+          46
+        ],
+        "left_hand": [
+          74,
+          54
+        ]
+      },
+      "weapon_tip": [
+        101,
+        -48
+      ],
+      "weapon_rotation": -1.3108561866063686,
+      "wrist_ik_error_pixels": {
+        "R": 0.002,
+        "L": 0.002
+      },
+      "sole_vertical_error_pixels": 0.00148
+    },
+    {
+      "frame": 11,
+      "source_frame": 36,
+      "phase": "impact",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_11.png",
+      "weapon": "weapon/heavy_cut_11.png",
+      "attachment_points": {
+        "right_hand": [
+          87,
+          60
+        ],
+        "left_hand": [
+          80,
+          56
+        ]
+      },
+      "weapon_tip": [
+        170,
+        112
+      ],
+      "weapon_rotation": 0.5596815660032787,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0009
+      },
+      "sole_vertical_error_pixels": 0.00292
+    },
+    {
+      "frame": 12,
+      "source_frame": 41,
+      "phase": "impact",
+      "duration": 0.03333333333333333,
+      "body": "body/heavy_cut_12.png",
+      "weapon": "weapon/heavy_cut_12.png",
+      "attachment_points": {
+        "right_hand": [
+          85,
+          62
+        ],
+        "left_hand": [
+          78,
+          57
+        ]
+      },
+      "weapon_tip": [
+        170,
+        110
+      ],
+      "weapon_rotation": 0.5140635658896272,
+      "wrist_ik_error_pixels": {
+        "R": 0.003,
+        "L": 0.0032
+      },
+      "sole_vertical_error_pixels": 0.00167
+    },
+    {
+      "frame": 13,
+      "source_frame": 42,
+      "phase": "follow_through",
+      "duration": 0.13333333333333333,
+      "body": "body/heavy_cut_13.png",
+      "weapon": "weapon/heavy_cut_13.png",
+      "attachment_points": {
+        "right_hand": [
+          84,
+          62
+        ],
+        "left_hand": [
+          77,
+          58
+        ]
+      },
+      "weapon_tip": [
+        170,
+        109
+      ],
+      "weapon_rotation": 0.5001610537476825,
+      "wrist_ik_error_pixels": {
+        "R": 0.0027,
+        "L": 0.0029
+      },
+      "sole_vertical_error_pixels": 0.0016
+    },
+    {
+      "frame": 14,
+      "source_frame": 46,
+      "phase": "follow_through",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_14.png",
+      "weapon": "weapon/heavy_cut_14.png",
+      "attachment_points": {
+        "right_hand": [
+          82,
+          60
+        ],
+        "left_hand": [
+          74,
+          57
+        ]
+      },
+      "weapon_tip": [
+        171,
+        100
+      ],
+      "weapon_rotation": 0.42238663644732694,
+      "wrist_ik_error_pixels": {
+        "R": 0.0023,
+        "L": 0.0024
+      },
+      "sole_vertical_error_pixels": 0.00203
+    },
+    {
+      "frame": 15,
+      "source_frame": 51,
+      "phase": "follow_through",
+      "duration": 0.1,
+      "body": "body/heavy_cut_15.png",
+      "weapon": "weapon/heavy_cut_15.png",
+      "attachment_points": {
+        "right_hand": [
+          79,
+          57
+        ],
+        "left_hand": [
+          71,
+          55
+        ]
+      },
+      "weapon_tip": [
+        174,
+        82
+      ],
+      "weapon_rotation": 0.25732371497108864,
+      "wrist_ik_error_pixels": {
+        "R": 0.0032,
+        "L": 0.0029
+      },
+      "sole_vertical_error_pixels": 0.00193
+    },
+    {
+      "frame": 16,
+      "source_frame": 54,
+      "phase": "recovery",
+      "duration": 0.06666666666666667,
+      "body": "body/heavy_cut_16.png",
+      "weapon": "weapon/heavy_cut_16.png",
+      "attachment_points": {
+        "right_hand": [
+          78,
+          55
+        ],
+        "left_hand": [
+          70,
+          54
+        ]
+      },
+      "weapon_tip": [
+        174,
+        68
+      ],
+      "weapon_rotation": 0.1345979141604667,
+      "wrist_ik_error_pixels": {
+        "R": 0.0007,
+        "L": 0.003
+      },
+      "sole_vertical_error_pixels": 0.00125
+    },
+    {
+      "frame": 17,
+      "source_frame": 56,
+      "phase": "recovery",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_17.png",
+      "weapon": "weapon/heavy_cut_17.png",
+      "attachment_points": {
+        "right_hand": [
+          76,
+          54
+        ],
+        "left_hand": [
+          68,
+          53
+        ]
+      },
+      "weapon_tip": [
+        174,
+        58
+      ],
+      "weapon_rotation": 0.0407936828678654,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0029
+      },
+      "sole_vertical_error_pixels": 0.00116
+    },
+    {
+      "frame": 18,
+      "source_frame": 61,
+      "phase": "recovery",
+      "duration": 0.16666666666666666,
+      "body": "body/heavy_cut_18.png",
+      "weapon": "weapon/heavy_cut_18.png",
+      "attachment_points": {
+        "right_hand": [
+          73,
+          51
+        ],
+        "left_hand": [
+          65,
+          53
+        ]
+      },
+      "weapon_tip": [
+        170,
+        34
+      ],
+      "weapon_rotation": -0.17349572896278162,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0019
+      },
+      "sole_vertical_error_pixels": 0.00107
+    },
+    {
+      "frame": 19,
+      "source_frame": 66,
+      "phase": "recovery",
+      "duration": 0.03333333333333333,
+      "body": "body/heavy_cut_19.png",
+      "weapon": "weapon/heavy_cut_19.png",
+      "attachment_points": {
+        "right_hand": [
+          72,
+          51
+        ],
+        "left_hand": [
+          64,
+          53
+        ]
+      },
+      "weapon_tip": [
+        166,
+        24
+      ],
+      "weapon_rotation": -0.27970415246363095,
+      "wrist_ik_error_pixels": {
+        "R": 0.0008,
+        "L": 0.0012
+      },
+      "sole_vertical_error_pixels": 0.00078
+    }
+  ]
+}

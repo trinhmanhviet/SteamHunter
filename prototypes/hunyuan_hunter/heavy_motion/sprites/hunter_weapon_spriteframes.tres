@@ -1,0 +1,86 @@
+[gd_resource type="SpriteFrames" load_steps=22 format=3]
+
+[ext_resource type="Texture2D" path="res://prototypes/hunyuan_hunter/heavy_motion/sprites/hunter_weapon_spritesheet.png" id="1_sheet"]
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_0"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_1"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_2"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_3"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_4"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_5"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_6"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_7"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_8"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_9"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_10"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_11"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_12"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_13"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_14"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_15"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_16"]
+atlas = ExtResource("1_sheet")
+region = Rect2(0, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_17"]
+atlas = ExtResource("1_sheet")
+region = Rect2(256, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_18"]
+atlas = ExtResource("1_sheet")
+region = Rect2(512, 1024, 256, 256)
+
+[sub_resource type="AtlasTexture" id="Atlas_heavy_cut_19"]
+atlas = ExtResource("1_sheet")
+region = Rect2(768, 1024, 256, 256)
+
+[resource]
+animations = [{"frames": [{"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_0")}, {"duration": 0.8, "texture": SubResource("Atlas_heavy_cut_1")}, {"duration": 0.2, "texture": SubResource("Atlas_heavy_cut_2")}, {"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_3")}, {"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_4")}, {"duration": 0.2, "texture": SubResource("Atlas_heavy_cut_5")}, {"duration": 0.8, "texture": SubResource("Atlas_heavy_cut_6")}, {"duration": 0.8, "texture": SubResource("Atlas_heavy_cut_7")}, {"duration": 0.2, "texture": SubResource("Atlas_heavy_cut_8")}, {"duration": 0.4, "texture": SubResource("Atlas_heavy_cut_9")}, {"duration": 0.6000000000000001, "texture": SubResource("Atlas_heavy_cut_10")}, {"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_11")}, {"duration": 0.2, "texture": SubResource("Atlas_heavy_cut_12")}, {"duration": 0.8, "texture": SubResource("Atlas_heavy_cut_13")}, {"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_14")}, {"duration": 0.6000000000000001, "texture": SubResource("Atlas_heavy_cut_15")}, {"duration": 0.4, "texture": SubResource("Atlas_heavy_cut_16")}, {"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_17")}, {"duration": 1.0, "texture": SubResource("Atlas_heavy_cut_18")}, {"duration": 0.2, "texture": SubResource("Atlas_heavy_cut_19")}], "loop": false, "name": &"heavy_cut", "speed": 6}]

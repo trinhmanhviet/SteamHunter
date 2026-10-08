@@ -1,0 +1,13 @@
+{
+  "source": "hunter_textured.glb",
+  "output": "hunter_clean.glb",
+  "median_kernel": 7,
+  "palette_colors": 22,
+  "vertices_before": [
+    29903
+  ],
+  "vertices_after": [
+    29903
+  ],
+  "geometry_uvs_preserved": true
+}

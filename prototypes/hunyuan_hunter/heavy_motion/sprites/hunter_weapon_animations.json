@@ -1,0 +1,183 @@
+{
+  "character": "hunter_weapon",
+  "frame_size": [
+    256,
+    256
+  ],
+  "pivot": [
+    128,
+    180
+  ],
+  "ground_y": 180,
+  "attachment_points": {},
+  "animations": {
+    "heavy_cut": {
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "ready"
+        },
+        {
+          "x": 256,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "duration": 0.8,
+          "phase": "ready"
+        },
+        {
+          "x": 512,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "duration": 0.2,
+          "phase": "anticipation"
+        },
+        {
+          "x": 768,
+          "y": 0,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "anticipation"
+        },
+        {
+          "x": 0,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "anticipation"
+        },
+        {
+          "x": 256,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "duration": 0.2,
+          "phase": "anticipation"
+        },
+        {
+          "x": 512,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "duration": 0.8,
+          "phase": "charge"
+        },
+        {
+          "x": 768,
+          "y": 256,
+          "w": 256,
+          "h": 256,
+          "duration": 0.8,
+          "phase": "charge"
+        },
+        {
+          "x": 0,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "duration": 0.2,
+          "phase": "charge"
+        },
+        {
+          "x": 256,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "duration": 0.4,
+          "phase": "charge"
+        },
+        {
+          "x": 512,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "duration": 0.6000000000000001,
+          "phase": "descent"
+        },
+        {
+          "x": 768,
+          "y": 512,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "impact"
+        },
+        {
+          "x": 0,
+          "y": 768,
+          "w": 256,
+          "h": 256,
+          "duration": 0.2,
+          "phase": "impact"
+        },
+        {
+          "x": 256,
+          "y": 768,
+          "w": 256,
+          "h": 256,
+          "duration": 0.8,
+          "phase": "follow_through"
+        },
+        {
+          "x": 512,
+          "y": 768,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "follow_through"
+        },
+        {
+          "x": 768,
+          "y": 768,
+          "w": 256,
+          "h": 256,
+          "duration": 0.6000000000000001,
+          "phase": "follow_through"
+        },
+        {
+          "x": 0,
+          "y": 1024,
+          "w": 256,
+          "h": 256,
+          "duration": 0.4,
+          "phase": "recovery"
+        },
+        {
+          "x": 256,
+          "y": 1024,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "recovery"
+        },
+        {
+          "x": 512,
+          "y": 1024,
+          "w": 256,
+          "h": 256,
+          "duration": 1.0,
+          "phase": "recovery"
+        },
+        {
+          "x": 768,
+          "y": 1024,
+          "w": 256,
+          "h": 256,
+          "duration": 0.2,
+          "phase": "recovery"
+        }
+      ]
+    }
+  },
+  "weapon_canvas_offset": [
+    -64,
+    -64
+  ]
+}

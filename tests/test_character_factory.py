@@ -12,6 +12,25 @@ from tools.character_factory import extract_palette, load_definition, normalize_
 
 
 class CharacterFactoryDefinitionTests(unittest.TestCase):
+    def test_pack_sheet_wraps_rows_without_losing_frame_pixels(self):
+        directory = Path(__file__).resolve().parents[1] / ".test-tmp-character-factory-rows"
+        directory.mkdir(exist_ok=True)
+        try:
+            frames = []
+            for index in range(5):
+                path = directory / f"{index}.png"
+                Image.new("RGBA", (128, 128), (index * 40, 80, 160, 255)).save(path)
+                frames.append(path)
+            sheet, meta = pack_sheet({"cut": frames}, directory, "hunter", (64, 116), 116, max_columns=2)
+            data = json.loads(meta.read_text())
+            with Image.open(sheet) as packed:
+                self.assertEqual(packed.size, (256, 384))
+                self.assertEqual(packed.getpixel((1, 129)), (80, 80, 160, 255))
+                self.assertEqual(packed.getpixel((1, 257)), (160, 80, 160, 255))
+            self.assertEqual(data["animations"]["cut"]["frames"][2]["y"], 128)
+        finally:
+            shutil.rmtree(directory, ignore_errors=True)
+
     def test_load_definition_rejects_missing_ground_line(self):
         directory = Path(__file__).resolve().parents[1] / ".test-tmp-character-factory"
         shutil.rmtree(directory, ignore_errors=True)
