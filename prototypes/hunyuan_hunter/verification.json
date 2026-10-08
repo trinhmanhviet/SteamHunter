@@ -1,0 +1,52 @@
+{
+  "servers": {
+    "8188": {
+      "comfyui_version": "0.37.0",
+      "pytorch_version": "2.9.1+cu130",
+      "embedded_python": true
+    },
+    "8189": {
+      "comfyui_version": "0.3.40",
+      "pytorch_version": "2.6.0+cu126",
+      "embedded_python": false
+    }
+  },
+  "jobs": {
+    "shape": "success",
+    "paint": "success"
+  },
+  "sprites": [
+    {
+      "view": "front",
+      "size": [
+        128,
+        128
+      ],
+      "colors": 32
+    },
+    {
+      "view": "right",
+      "size": [
+        128,
+        128
+      ],
+      "colors": 32
+    },
+    {
+      "view": "back",
+      "size": [
+        128,
+        128
+      ],
+      "colors": 31
+    },
+    {
+      "view": "left",
+      "size": [
+        128,
+        128
+      ],
+      "colors": 32
+    }
+  ]
+}

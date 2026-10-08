@@ -41,11 +41,46 @@ def orient_and_center(objects):
     return high.z - low.z, axis
 
 
+def use_unlit_textures(objects):
+    """Use imported base-colour textures, without lighting or vertex-colour overrides."""
+    images = set()
+    for obj in objects:
+        for slot in obj.material_slots:
+            original = slot.material
+            if original is None or not original.use_nodes:
+                raise RuntimeError("Textured comparison requires a UV material")
+            principled = next((node for node in original.node_tree.nodes if node.type == "BSDF_PRINCIPLED"), None)
+            if principled is None:
+                raise RuntimeError("No imported base-colour shader found")
+            base_color = principled.inputs["Base Color"]
+            texture_node = next((link.from_node for link in base_color.links if link.from_node.type == "TEX_IMAGE"), None)
+            if texture_node is None or texture_node.image is None:
+                raise RuntimeError("GLB has no base-colour texture: shape-only output is insufficient")
+            images.add(texture_node.image.name)
+            material = bpy.data.materials.new(original.name + "_UnlitPreview")
+            material.use_nodes = True
+            nodes, links = material.node_tree.nodes, material.node_tree.links
+            nodes.clear()
+            tex = nodes.new("ShaderNodeTexImage")
+            tex.image = texture_node.image
+            tex.interpolation = "Closest"
+            emission = nodes.new("ShaderNodeEmission")
+            emission.inputs["Strength"].default_value = 1
+            output = nodes.new("ShaderNodeOutputMaterial")
+            links.new(tex.outputs["Color"], emission.inputs["Color"])
+            links.new(emission.outputs["Emission"], output.inputs["Surface"])
+            slot.material = material
+    if not images:
+        raise RuntimeError("No texture images found")
+    return sorted(images)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--source-colours", choices=("srgb", "linear"), default="srgb")
+    parser.add_argument("--appearance", choices=("vertex", "texture", "shape"), default="vertex")
     args = parser.parse_args(sys.argv[sys.argv.index("--") + 1:])
     args.output.mkdir(parents=True, exist_ok=True)
     bpy.ops.object.select_all(action="SELECT")
@@ -81,6 +116,15 @@ def main():
     scene.view_settings.look = "None"
     scene.display.render_aa = "OFF"
     scene.render.filter_size = 0.01
+    texture_images = []
+    if args.appearance == "shape":
+        scene.display.shading.color_type = "SINGLE"
+        scene.display.shading.single_color = (.55, .62, .72)
+        scene.display.shading.light = "STUDIO"
+    elif args.appearance == "texture":
+        texture_images = use_unlit_textures(objects)
+        scene.render.engine = "BLENDER_EEVEE_NEXT"
+        scene.eevee.taa_render_samples = 1
     bpy.ops.object.camera_add()
     camera = bpy.context.object
     camera.name = "SpriteCamera"
@@ -109,7 +153,8 @@ def main():
         "rest_height_world": rest_height, "longest_imported_axis": imported_axis,
         "orthographic_scale": scale, "camera_center_z": center_z,
         "native_canvas": [128, 128], "rest_height_pixels": 104, "ground_y": 116,
-        "lighting": "flat vertex colour", "outputs": output_files,
+        "lighting": "unlit base-colour texture" if args.appearance == "texture" else args.appearance,
+        "outputs": output_files, "texture_images": texture_images,
         "source_colour_space": args.source_colours,
     }
     (args.output / "preview_metadata.json").write_text(json.dumps(report, indent=2), encoding="utf-8")

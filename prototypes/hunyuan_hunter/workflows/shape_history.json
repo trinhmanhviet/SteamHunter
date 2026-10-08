@@ -1,0 +1,148 @@
+{
+  "prompt": [
+    0,
+    "aa35ad00-9434-477b-babf-7267754e6b8a",
+    {
+      "1": {
+        "class_type": "LoadImage",
+        "inputs": {
+          "image": "hunter_imagegen_cutout.png"
+        }
+      },
+      "2": {
+        "class_type": "InvertMask",
+        "inputs": {
+          "mask": [
+            "1",
+            1
+          ]
+        }
+      },
+      "3": {
+        "class_type": "Hy3DModelLoader",
+        "inputs": {
+          "model": "hunyuan3d-dit-v2-0-fp16.safetensors",
+          "attention_mode": "sdpa",
+          "cublas_ops": false
+        }
+      },
+      "4": {
+        "class_type": "Hy3DGenerateMesh",
+        "inputs": {
+          "pipeline": [
+            "3",
+            0
+          ],
+          "image": [
+            "1",
+            0
+          ],
+          "mask": [
+            "2",
+            0
+          ],
+          "guidance_scale": 5.5,
+          "steps": 30,
+          "seed": 834625,
+          "scheduler": "FlowMatchEulerDiscreteScheduler",
+          "force_offload": true
+        }
+      },
+      "5": {
+        "class_type": "Hy3DVAEDecode",
+        "inputs": {
+          "vae": [
+            "3",
+            1
+          ],
+          "latents": [
+            "4",
+            0
+          ],
+          "box_v": 1.01,
+          "octree_resolution": 384,
+          "num_chunks": 8000,
+          "mc_level": 0.0,
+          "mc_algo": "mc",
+          "enable_flash_vdm": true,
+          "force_offload": true
+        }
+      },
+      "6": {
+        "class_type": "Hy3DExportMesh",
+        "inputs": {
+          "trimesh": [
+            "5",
+            0
+          ],
+          "filename_prefix": "hunyuan/shape_raw",
+          "file_format": "glb",
+          "save_file": true
+        }
+      },
+      "7": {
+        "class_type": "Hy3DPostprocessMesh",
+        "inputs": {
+          "trimesh": [
+            "5",
+            0
+          ],
+          "remove_floaters": false,
+          "remove_degenerate_faces": true,
+          "reduce_faces": true,
+          "max_facenum": 45000,
+          "smooth_normals": false
+        }
+      },
+      "8": {
+        "class_type": "Hy3DExportMesh",
+        "inputs": {
+          "trimesh": [
+            "7",
+            0
+          ],
+          "filename_prefix": "hunyuan/shape_prepared",
+          "file_format": "glb",
+          "save_file": true
+        }
+      }
+    },
+    {
+      "client_id": "mist-and-iron-hunyuan"
+    },
+    [
+      "8",
+      "6"
+    ]
+  ],
+  "outputs": {},
+  "status": {
+    "status_str": "success",
+    "completed": true,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "aa35ad00-9434-477b-babf-7267754e6b8a",
+          "timestamp": 1791482977131
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "aa35ad00-9434-477b-babf-7267754e6b8a",
+          "timestamp": 1791482977140
+        }
+      ],
+      [
+        "execution_success",
+        {
+          "prompt_id": "aa35ad00-9434-477b-babf-7267754e6b8a",
+          "timestamp": 1791483002222
+        }
+      ]
+    ]
+  },
+  "meta": {}
+}

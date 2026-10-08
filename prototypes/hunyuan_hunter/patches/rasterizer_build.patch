@@ -1,0 +1,13 @@
+diff --git a/hy3dgen/texgen/custom_rasterizer/setup.py b/hy3dgen/texgen/custom_rasterizer/setup.py
+index 649c16e..efd6ba7 100755
+--- a/hy3dgen/texgen/custom_rasterizer/setup.py
++++ b/hy3dgen/texgen/custom_rasterizer/setup.py
+@@ -14,7 +14,7 @@ version = f"0.1.0+torch{torch_version}.{cuda_version}"
+ # build with `python setup.py install`
+ # nvcc is needed
+ 
+-nvcc_args = []
++nvcc_args = ['-allow-unsupported-compiler', '-D_ALLOW_COMPILER_AND_STL_VERSION_MISMATCH']
+ if os.name == 'nt':
+     nvcc_args += ['-Xcompiler', '/Zc:preprocessor']
+ 

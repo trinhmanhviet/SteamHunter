@@ -1,0 +1,27 @@
+{
+  "source": "prototypes\\hunyuan_hunter\\mesh\\hunter_shape_prepared.glb",
+  "rigged": false,
+  "rest_height_world": 1.9702799916267395,
+  "longest_imported_axis": 2,
+  "orthographic_scale": 2.4249599896944485,
+  "camera_center_z": 0.9851399958133698,
+  "native_canvas": [
+    128,
+    128
+  ],
+  "rest_height_pixels": 104,
+  "ground_y": 116,
+  "lighting": "shape",
+  "outputs": [
+    "front_512.png",
+    "front_128.png",
+    "right_512.png",
+    "right_128.png",
+    "back_512.png",
+    "back_128.png",
+    "left_512.png",
+    "left_128.png"
+  ],
+  "texture_images": [],
+  "source_colour_space": "linear"
+}
