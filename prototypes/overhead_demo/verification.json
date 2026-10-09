@@ -1,0 +1,41 @@
+{
+  "package": "org.mistandiron.overheaddemo",
+  "serial": "N9AIOC1546046RZ",
+  "screen": [
+    2448,
+    1080
+  ],
+  "impact_damages": [
+    100,
+    250
+  ],
+  "charge_does_not_damage": true,
+  "runtime_script_errors": [],
+  "landscape": true,
+  "controller_checks": 17,
+  "ui_resource_checks": 161,
+  "godot_failures": 0,
+  "buttons_verified_on_device": true,
+  "windows_export_smoke_exit": 0,
+  "pose_loop_matches": {
+    "body:1-74": true,
+    "weapon:1-74": true,
+    "body:8-9": true,
+    "weapon:8-9": true,
+    "body:9-20": true,
+    "weapon:9-20": true,
+    "body:20-21": true,
+    "weapon:20-21": true
+  },
+  "builds": {
+    "GreatCleaverDemo-0.1.0.apk": {
+      "bytes": 58963451,
+      "sha256": "7e0e8dcc6e2535edb9f6307a6fec5acdd8646d3855459009139b6f9e25b3a7a3"
+    },
+    "GreatCleaverDemo-0.1.0.exe": {
+      "bytes": 104013240,
+      "sha256": "6545bfe94390e3eb8fef413e857d5ad5d7df267d84e606a37c8d36621b52e12d"
+    }
+  },
+  "installed_apk_matches_build": true
+}

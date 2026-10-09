@@ -1,0 +1,1359 @@
+{
+  "fps": 30,
+  "stages": {
+    "ready": [
+      1
+    ],
+    "raise": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "hold": [
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "strike": [
+      21,
+      22,
+      23
+    ],
+    "settle": [
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56
+    ],
+    "recover": [
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74
+    ]
+  },
+  "body_pivot": [
+    64,
+    116
+  ],
+  "weapon_pivot": [
+    192,
+    244
+  ],
+  "frames": [
+    {
+      "frame": 1,
+      "body": "body/overhead_001.png",
+      "weapon": "weapon/overhead_001.png",
+      "grip": [
+        75,
+        53
+      ],
+      "tip": [
+        170,
+        32
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0012466021976953975,
+        "L": 0.002647539814721452
+      }
+    },
+    {
+      "frame": 2,
+      "body": "body/overhead_002.png",
+      "weapon": "weapon/overhead_002.png",
+      "grip": [
+        72,
+        50
+      ],
+      "tip": [
+        158,
+        4
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0031338703189436904,
+        "L": 0.002884758050013143
+      }
+    },
+    {
+      "frame": 3,
+      "body": "body/overhead_003.png",
+      "weapon": "weapon/overhead_003.png",
+      "grip": [
+        70,
+        48
+      ],
+      "tip": [
+        139,
+        -22
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008728976863692055,
+        "L": 0.000870069413122095
+      }
+    },
+    {
+      "frame": 4,
+      "body": "body/overhead_004.png",
+      "weapon": "weapon/overhead_004.png",
+      "grip": [
+        68,
+        45
+      ],
+      "tip": [
+        114,
+        -41
+      ],
+      "wrist_error_pixels": {
+        "R": 0.001911822668330096,
+        "L": 0.0018769069830188612
+      }
+    },
+    {
+      "frame": 5,
+      "body": "body/overhead_005.png",
+      "weapon": "weapon/overhead_005.png",
+      "grip": [
+        67,
+        43
+      ],
+      "tip": [
+        90,
+        -51
+      ],
+      "wrist_error_pixels": {
+        "R": 0.002230578739318799,
+        "L": 0.002399246899776956
+      }
+    },
+    {
+      "frame": 6,
+      "body": "body/overhead_006.png",
+      "weapon": "weapon/overhead_006.png",
+      "grip": [
+        66,
+        41
+      ],
+      "tip": [
+        66,
+        -56
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0020434556985103863,
+        "L": 0.002696975698321886
+      }
+    },
+    {
+      "frame": 7,
+      "body": "body/overhead_007.png",
+      "weapon": "weapon/overhead_007.png",
+      "grip": [
+        64,
+        39
+      ],
+      "tip": [
+        41,
+        -55
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0011846965045534674,
+        "L": 0.002505604277074647
+      }
+    },
+    {
+      "frame": 8,
+      "body": "body/overhead_008.png",
+      "weapon": "weapon/overhead_008.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000712118052815465,
+        "L": 0.0015026296247954453
+      }
+    },
+    {
+      "frame": 9,
+      "body": "body/overhead_009.png",
+      "weapon": "weapon/overhead_009.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000712118052815465,
+        "L": 0.0015026296247954453
+      }
+    },
+    {
+      "frame": 10,
+      "body": "body/overhead_010.png",
+      "weapon": "weapon/overhead_010.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000724712196214948,
+        "L": 0.0015266367850975944
+      }
+    },
+    {
+      "frame": 11,
+      "body": "body/overhead_011.png",
+      "weapon": "weapon/overhead_011.png",
+      "grip": [
+        64,
+        37
+      ],
+      "tip": [
+        17,
+        -48
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007146220816137061,
+        "L": 0.0015460835183415769
+      }
+    },
+    {
+      "frame": 12,
+      "body": "body/overhead_012.png",
+      "weapon": "weapon/overhead_012.png",
+      "grip": [
+        64,
+        37
+      ],
+      "tip": [
+        16,
+        -48
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007161415532516381,
+        "L": 0.0015826688750646067
+      }
+    },
+    {
+      "frame": 13,
+      "body": "body/overhead_013.png",
+      "weapon": "weapon/overhead_013.png",
+      "grip": [
+        64,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007135297975767205,
+        "L": 0.0015434560804778795
+      }
+    },
+    {
+      "frame": 14,
+      "body": "body/overhead_014.png",
+      "weapon": "weapon/overhead_014.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007166685405664088,
+        "L": 0.0015272489841904352
+      }
+    },
+    {
+      "frame": 15,
+      "body": "body/overhead_015.png",
+      "weapon": "weapon/overhead_015.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0035007249475737575,
+        "L": 0.0014940134120174425
+      }
+    },
+    {
+      "frame": 16,
+      "body": "body/overhead_016.png",
+      "weapon": "weapon/overhead_016.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        18,
+        -50
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003491156614514746,
+        "L": 0.0014685457060659712
+      }
+    },
+    {
+      "frame": 17,
+      "body": "body/overhead_017.png",
+      "weapon": "weapon/overhead_017.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        18,
+        -50
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003470231596500106,
+        "L": 0.0014412528970032658
+      }
+    },
+    {
+      "frame": 18,
+      "body": "body/overhead_018.png",
+      "weapon": "weapon/overhead_018.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        19,
+        -50
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0034500675972774703,
+        "L": 0.0014121770203295038
+      }
+    },
+    {
+      "frame": 19,
+      "body": "body/overhead_019.png",
+      "weapon": "weapon/overhead_019.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        18,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0034931387360286037,
+        "L": 0.0014552359367249494
+      }
+    },
+    {
+      "frame": 20,
+      "body": "body/overhead_020.png",
+      "weapon": "weapon/overhead_020.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000712118052815465,
+        "L": 0.0015026296247954453
+      }
+    },
+    {
+      "frame": 21,
+      "body": "body/overhead_021.png",
+      "weapon": "weapon/overhead_021.png",
+      "grip": [
+        63,
+        37
+      ],
+      "tip": [
+        17,
+        -49
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000712118052815465,
+        "L": 0.0015026296247954453
+      }
+    },
+    {
+      "frame": 22,
+      "body": "body/overhead_022.png",
+      "weapon": "weapon/overhead_022.png",
+      "grip": [
+        85,
+        59
+      ],
+      "tip": [
+        154,
+        -10
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008686829037870964,
+        "L": 0.002237843681543858
+      }
+    },
+    {
+      "frame": 23,
+      "body": "body/overhead_023.png",
+      "weapon": "weapon/overhead_023.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032561869942917647,
+        "L": 0.0025050216253878045
+      }
+    },
+    {
+      "frame": 24,
+      "body": "body/overhead_024.png",
+      "weapon": "weapon/overhead_024.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000812004569261055,
+        "L": 0.0029344058332886423
+      }
+    },
+    {
+      "frame": 25,
+      "body": "body/overhead_025.png",
+      "weapon": "weapon/overhead_025.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        191,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008304655999477355,
+        "L": 0.002942798328503716
+      }
+    },
+    {
+      "frame": 26,
+      "body": "body/overhead_026.png",
+      "weapon": "weapon/overhead_026.png",
+      "grip": [
+        101,
+        75
+      ],
+      "tip": [
+        191,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008473971398919833,
+        "L": 0.0029492342526908594
+      }
+    },
+    {
+      "frame": 27,
+      "body": "body/overhead_027.png",
+      "weapon": "weapon/overhead_027.png",
+      "grip": [
+        101,
+        75
+      ],
+      "tip": [
+        191,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008546713555455342,
+        "L": 0.0029598328868741656
+      }
+    },
+    {
+      "frame": 28,
+      "body": "body/overhead_028.png",
+      "weapon": "weapon/overhead_028.png",
+      "grip": [
+        101,
+        75
+      ],
+      "tip": [
+        191,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008388815347855423,
+        "L": 0.002934036753502209
+      }
+    },
+    {
+      "frame": 29,
+      "body": "body/overhead_029.png",
+      "weapon": "weapon/overhead_029.png",
+      "grip": [
+        101,
+        75
+      ],
+      "tip": [
+        191,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008231807782449274,
+        "L": 0.002906521366651387
+      }
+    },
+    {
+      "frame": 30,
+      "body": "body/overhead_030.png",
+      "weapon": "weapon/overhead_030.png",
+      "grip": [
+        101,
+        74
+      ],
+      "tip": [
+        191,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008045007038988607,
+        "L": 0.0028827242742346586
+      }
+    },
+    {
+      "frame": 31,
+      "body": "body/overhead_031.png",
+      "weapon": "weapon/overhead_031.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        191,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007938861951603078,
+        "L": 0.0028530602302149154
+      }
+    },
+    {
+      "frame": 32,
+      "body": "body/overhead_032.png",
+      "weapon": "weapon/overhead_032.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007633330571310747,
+        "L": 0.002829428352035885
+      }
+    },
+    {
+      "frame": 33,
+      "body": "body/overhead_033.png",
+      "weapon": "weapon/overhead_033.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007474114744945775,
+        "L": 0.0028032090732020105
+      }
+    },
+    {
+      "frame": 34,
+      "body": "body/overhead_034.png",
+      "weapon": "weapon/overhead_034.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007349482378560716,
+        "L": 0.0027641158471107007
+      }
+    },
+    {
+      "frame": 35,
+      "body": "body/overhead_035.png",
+      "weapon": "weapon/overhead_035.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007221256293211711,
+        "L": 0.0027376683379183742
+      }
+    },
+    {
+      "frame": 36,
+      "body": "body/overhead_036.png",
+      "weapon": "weapon/overhead_036.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007140266279179833,
+        "L": 0.0027086903083384075
+      }
+    },
+    {
+      "frame": 37,
+      "body": "body/overhead_037.png",
+      "weapon": "weapon/overhead_037.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0007082959827333859,
+        "L": 0.002711225820281273
+      }
+    },
+    {
+      "frame": 38,
+      "body": "body/overhead_038.png",
+      "weapon": "weapon/overhead_038.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.000705916210833242,
+        "L": 0.0026900769248719143
+      }
+    },
+    {
+      "frame": 39,
+      "body": "body/overhead_039.png",
+      "weapon": "weapon/overhead_039.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0006919950677497263,
+        "L": 0.0026747386243208934
+      }
+    },
+    {
+      "frame": 40,
+      "body": "body/overhead_040.png",
+      "weapon": "weapon/overhead_040.png",
+      "grip": [
+        100,
+        74
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0034611623958021283,
+        "L": 0.0026606274521556463
+      }
+    },
+    {
+      "frame": 41,
+      "body": "body/overhead_041.png",
+      "weapon": "weapon/overhead_041.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0034224878918686493,
+        "L": 0.002653447785156839
+      }
+    },
+    {
+      "frame": 42,
+      "body": "body/overhead_042.png",
+      "weapon": "weapon/overhead_042.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        190,
+        112
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0033782725801201016,
+        "L": 0.0026364899093469993
+      }
+    },
+    {
+      "frame": 43,
+      "body": "body/overhead_043.png",
+      "weapon": "weapon/overhead_043.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        190,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0033462653579886467,
+        "L": 0.0026284013547633574
+      }
+    },
+    {
+      "frame": 44,
+      "body": "body/overhead_044.png",
+      "weapon": "weapon/overhead_044.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        190,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0033178790713416237,
+        "L": 0.0026042492422703512
+      }
+    },
+    {
+      "frame": 45,
+      "body": "body/overhead_045.png",
+      "weapon": "weapon/overhead_045.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        190,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032875221561481133,
+        "L": 0.002586168105873911
+      }
+    },
+    {
+      "frame": 46,
+      "body": "body/overhead_046.png",
+      "weapon": "weapon/overhead_046.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032793862165480963,
+        "L": 0.0025990838990693917
+      }
+    },
+    {
+      "frame": 47,
+      "body": "body/overhead_047.png",
+      "weapon": "weapon/overhead_047.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003280364036047384,
+        "L": 0.002597184682194539
+      }
+    },
+    {
+      "frame": 48,
+      "body": "body/overhead_048.png",
+      "weapon": "weapon/overhead_048.png",
+      "grip": [
+        100,
+        73
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032762668083290173,
+        "L": 0.002611446312148173
+      }
+    },
+    {
+      "frame": 49,
+      "body": "body/overhead_049.png",
+      "weapon": "weapon/overhead_049.png",
+      "grip": [
+        99,
+        73
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003276949830844331,
+        "L": 0.0026194951131736136
+      }
+    },
+    {
+      "frame": 50,
+      "body": "body/overhead_050.png",
+      "weapon": "weapon/overhead_050.png",
+      "grip": [
+        99,
+        73
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032799439149492388,
+        "L": 0.0026231584556695342
+      }
+    },
+    {
+      "frame": 51,
+      "body": "body/overhead_051.png",
+      "weapon": "weapon/overhead_051.png",
+      "grip": [
+        99,
+        72
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003280490863380785,
+        "L": 0.002637126327017648
+      }
+    },
+    {
+      "frame": 52,
+      "body": "body/overhead_052.png",
+      "weapon": "weapon/overhead_052.png",
+      "grip": [
+        99,
+        72
+      ],
+      "tip": [
+        189,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032672921567824145,
+        "L": 0.002635991108605921
+      }
+    },
+    {
+      "frame": 53,
+      "body": "body/overhead_053.png",
+      "weapon": "weapon/overhead_053.png",
+      "grip": [
+        99,
+        72
+      ],
+      "tip": [
+        188,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032727655338196703,
+        "L": 0.002653682209849332
+      }
+    },
+    {
+      "frame": 54,
+      "body": "body/overhead_054.png",
+      "weapon": "weapon/overhead_054.png",
+      "grip": [
+        99,
+        72
+      ],
+      "tip": [
+        188,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003259423561817617,
+        "L": 0.002653761007333097
+      }
+    },
+    {
+      "frame": 55,
+      "body": "body/overhead_055.png",
+      "weapon": "weapon/overhead_055.png",
+      "grip": [
+        99,
+        72
+      ],
+      "tip": [
+        188,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003267526941119635,
+        "L": 0.002660622452894655
+      }
+    },
+    {
+      "frame": 56,
+      "body": "body/overhead_056.png",
+      "weapon": "weapon/overhead_056.png",
+      "grip": [
+        99,
+        72
+      ],
+      "tip": [
+        188,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0032561474751373926,
+        "L": 0.0026749265463851517
+      }
+    },
+    {
+      "frame": 57,
+      "body": "body/overhead_057.png",
+      "weapon": "weapon/overhead_057.png",
+      "grip": [
+        98,
+        72
+      ],
+      "tip": [
+        187,
+        111
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0031376593687557678,
+        "L": 0.0026463209948109807
+      }
+    },
+    {
+      "frame": 58,
+      "body": "body/overhead_058.png",
+      "weapon": "weapon/overhead_058.png",
+      "grip": [
+        97,
+        71
+      ],
+      "tip": [
+        188,
+        108
+      ],
+      "wrist_error_pixels": {
+        "R": 0.002694307034176267,
+        "L": 0.002402055363132377
+      }
+    },
+    {
+      "frame": 59,
+      "body": "body/overhead_059.png",
+      "weapon": "weapon/overhead_059.png",
+      "grip": [
+        96,
+        70
+      ],
+      "tip": [
+        188,
+        104
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0022218729538442026,
+        "L": 0.0021156680809779494
+      }
+    },
+    {
+      "frame": 60,
+      "body": "body/overhead_060.png",
+      "weapon": "weapon/overhead_060.png",
+      "grip": [
+        95,
+        70
+      ],
+      "tip": [
+        188,
+        101
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0017001345356187096,
+        "L": 0.0017695755757335138
+      }
+    },
+    {
+      "frame": 61,
+      "body": "body/overhead_061.png",
+      "weapon": "weapon/overhead_061.png",
+      "grip": [
+        94,
+        69
+      ],
+      "tip": [
+        188,
+        97
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0011351682514816029,
+        "L": 0.0013558535659249642
+      }
+    },
+    {
+      "frame": 62,
+      "body": "body/overhead_062.png",
+      "weapon": "weapon/overhead_062.png",
+      "grip": [
+        93,
+        68
+      ],
+      "tip": [
+        188,
+        94
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0006244070608910741,
+        "L": 0.0008941793820777069
+      }
+    },
+    {
+      "frame": 63,
+      "body": "body/overhead_063.png",
+      "weapon": "weapon/overhead_063.png",
+      "grip": [
+        92,
+        67
+      ],
+      "tip": [
+        187,
+        88
+      ],
+      "wrist_error_pixels": {
+        "R": 0.003066777197059696,
+        "L": 0.0007287243411444036
+      }
+    },
+    {
+      "frame": 64,
+      "body": "body/overhead_064.png",
+      "weapon": "weapon/overhead_064.png",
+      "grip": [
+        90,
+        65
+      ],
+      "tip": [
+        186,
+        82
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0030053865704533543,
+        "L": 0.0006168887368610768
+      }
+    },
+    {
+      "frame": 65,
+      "body": "body/overhead_065.png",
+      "weapon": "weapon/overhead_065.png",
+      "grip": [
+        88,
+        64
+      ],
+      "tip": [
+        185,
+        76
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0029744507328661476,
+        "L": 0.0030311358496784516
+      }
+    },
+    {
+      "frame": 66,
+      "body": "body/overhead_066.png",
+      "weapon": "weapon/overhead_066.png",
+      "grip": [
+        86,
+        62
+      ],
+      "tip": [
+        183,
+        70
+      ],
+      "wrist_error_pixels": {
+        "R": 0.002936699602183217,
+        "L": 0.0029038664232693256
+      }
+    },
+    {
+      "frame": 67,
+      "body": "body/overhead_067.png",
+      "weapon": "weapon/overhead_067.png",
+      "grip": [
+        84,
+        61
+      ],
+      "tip": [
+        181,
+        64
+      ],
+      "wrist_error_pixels": {
+        "R": 0.002927430902527291,
+        "L": 0.002776116983333422
+      }
+    },
+    {
+      "frame": 68,
+      "body": "body/overhead_068.png",
+      "weapon": "weapon/overhead_068.png",
+      "grip": [
+        83,
+        60
+      ],
+      "tip": [
+        180,
+        60
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0029794026168794407,
+        "L": 0.002708815010591971
+      }
+    },
+    {
+      "frame": 69,
+      "body": "body/overhead_069.png",
+      "weapon": "weapon/overhead_069.png",
+      "grip": [
+        81,
+        58
+      ],
+      "tip": [
+        179,
+        55
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0030566328058932155,
+        "L": 0.0026726832538738043
+      }
+    },
+    {
+      "frame": 70,
+      "body": "body/overhead_070.png",
+      "weapon": "weapon/overhead_070.png",
+      "grip": [
+        80,
+        57
+      ],
+      "tip": [
+        177,
+        50
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0031302971033813215,
+        "L": 0.002636042154653998
+      }
+    },
+    {
+      "frame": 71,
+      "body": "body/overhead_071.png",
+      "weapon": "weapon/overhead_071.png",
+      "grip": [
+        79,
+        56
+      ],
+      "tip": [
+        176,
+        46
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0006647470302882314,
+        "L": 0.00262079658494281
+      }
+    },
+    {
+      "frame": 72,
+      "body": "body/overhead_072.png",
+      "weapon": "weapon/overhead_072.png",
+      "grip": [
+        77,
+        55
+      ],
+      "tip": [
+        174,
+        41
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0008341720411773821,
+        "L": 0.002605560377238053
+      }
+    },
+    {
+      "frame": 73,
+      "body": "body/overhead_073.png",
+      "weapon": "weapon/overhead_073.png",
+      "grip": [
+        76,
+        54
+      ],
+      "tip": [
+        172,
+        37
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0010326171607284193,
+        "L": 0.0026271778160654982
+      }
+    },
+    {
+      "frame": 74,
+      "body": "body/overhead_074.png",
+      "weapon": "weapon/overhead_074.png",
+      "grip": [
+        75,
+        53
+      ],
+      "tip": [
+        170,
+        32
+      ],
+      "wrist_error_pixels": {
+        "R": 0.0012466021976953975,
+        "L": 0.002647539814721452
+      }
+    }
+  ]
+}
