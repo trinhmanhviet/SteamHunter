@@ -4,6 +4,9 @@ Demo riêng cho đòn bổ đại kiếm, dựng theo clip người dùng cung c
 Nhân vật trong demo là sprite 2D, render từ mô hình Hunyuan đã làm sạch. Thân người
 và vũ khí là hai lớp riêng; toàn bộ hình nhân vật/kiếm là asset của dự án.
 
+Bản Android, Windows và video chạy trên máy thật:
+[Great Cleaver Demo 0.1.0](https://github.com/trinhmanhviet/SteamHunter/releases/tag/gs-demo-v0.1.0).
+
 ## Chơi trên Android
 
 Ứng dụng **Mist & Iron GS Demo**, package `org.mistandiron.overheaddemo`.

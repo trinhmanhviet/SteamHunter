@@ -23,5 +23,12 @@ Godot project uses a tested charge/strike state controller and an anchored touch
 - [x] Verify native resources, actual UI events and damage timing. Capture screenshots.
 - [x] Export Android/Windows builds. Install org.mistandiron.overheaddemo via ADB,
       test short tap, long charge/release, and target hit on the connected phone.
-- [ ] Commit only task-owned source/art (preserve user's untracked clip tool), push,
+- [x] Commit only task-owned source/art (preserve user's untracked clip tool), push,
       create a prerelease with both binaries, and record verification/results.
+
+## Delivered
+
+Source commit: `4f78c0c7db7956079daa42838693dde4f0f11c83`.
+Release: https://github.com/trinhmanhviet/SteamHunter/releases/tag/gs-demo-v0.1.0
+Final APK installed and tested; its on-device SHA256 matches the uploaded build.
+Main-game resources and the user's untracked clip tool were left intact.
