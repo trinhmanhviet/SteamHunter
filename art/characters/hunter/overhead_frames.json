@@ -100,153 +100,475 @@
   "weapon_length_multiplier": 1.4,
   "blade_local": [
     [
-      133.08768706272426,
-      -3.5591505017880536
+      132.38823068692997,
+      -2.5211853530061745
     ],
     [
-      125.75412308198375,
-      5.991704922747779
+      124.68616172721158,
+      6.735063009032437
     ],
     [
-      5.561166854418688,
-      7.620592051626629
+      5.65163935361303,
+      7.619643864164026
     ],
     [
-      5.553990748846524,
-      -6.415074961504909
+      5.407763327867849,
+      -5.97964010537153
     ],
     [
-      109.64467866049995,
-      -8.890694091897817
+      11.797829280552243,
+      -6.388366322225438
+    ],
+    [
+      109.77827401155994,
+      -8.586649814849977
     ]
   ],
-  "reference": "prototypes/reference_skeleton/poses.json",
+  "reference": "prototypes/user_pose_animation/user_poses.blend",
   "reference_controls": [
     {
       "game_frame": 1,
-      "source_frame": 23,
-      "blade_degrees": 175.88509090176274,
-      "trunk_lean_degrees": 16.69924423399362
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
     },
     {
       "game_frame": 2,
-      "source_frame": 23,
-      "blade_degrees": 175.88509090176274,
-      "trunk_lean_degrees": 16.69924423399362
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
     },
     {
       "game_frame": 3,
-      "source_frame": 24,
-      "blade_degrees": 169.1769887737929,
-      "trunk_lean_degrees": 16.44037952168017
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
+    },
+    {
+      "game_frame": 4,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
     },
     {
       "game_frame": 5,
-      "source_frame": 26,
-      "blade_degrees": 150.82392093202148,
-      "trunk_lean_degrees": 20.136303428248137
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
+    },
+    {
+      "game_frame": 6,
+      "source_frame": 1,
+      "blade_degrees": 196.89010659991408,
+      "trunk_lean_degrees": 17.600000034418674
     },
     {
       "game_frame": 7,
-      "source_frame": 28,
-      "blade_degrees": 122.1712171285446,
-      "trunk_lean_degrees": 32.61924307119283
+      "source_frame": 1,
+      "blade_degrees": 160.67032377101012,
+      "trunk_lean_degrees": 28.799999435395176
     },
     {
       "game_frame": 8,
-      "source_frame": 29,
-      "blade_degrees": 108.30846827889471,
-      "trunk_lean_degrees": 30.018367427609085
+      "source_frame": 1,
+      "blade_degrees": 120.82857358751846,
+      "trunk_lean_degrees": 41.11999877646933
     },
     {
       "game_frame": 9,
-      "source_frame": 26,
-      "blade_degrees": 150.82392093202148,
-      "trunk_lean_degrees": 20.136303428248137
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
+    },
+    {
+      "game_frame": 10,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.175000333930422
+    },
+    {
+      "game_frame": 11,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.303109225254975
     },
     {
       "game_frame": 12,
-      "source_frame": 26,
-      "blade_degrees": 150.82392093202148,
-      "trunk_lean_degrees": 20.136303428248137
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.350000333930423
+    },
+    {
+      "game_frame": 13,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.303109225254975
+    },
+    {
+      "game_frame": 14,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.175000333930422
     },
     {
       "game_frame": 15,
-      "source_frame": 26,
-      "blade_degrees": 150.82392093202148,
-      "trunk_lean_degrees": 20.136303428248137
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
+    },
+    {
+      "game_frame": 16,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 11.825000333930422
+    },
+    {
+      "game_frame": 17,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 11.69689144260587
     },
     {
       "game_frame": 18,
-      "source_frame": 26,
-      "blade_degrees": 150.82392093202148,
-      "trunk_lean_degrees": 20.136303428248137
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 11.650000333930421
+    },
+    {
+      "game_frame": 19,
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 11.69689144260587
     },
     {
       "game_frame": 20,
-      "source_frame": 26,
-      "blade_degrees": 150.82392093202148,
-      "trunk_lean_degrees": 20.136303428248137
+      "source_frame": 1,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 11.825000333930422
     },
     {
       "game_frame": 21,
-      "source_frame": 30,
-      "blade_degrees": 69.83739600921396,
-      "trunk_lean_degrees": 42.797401838234194
+      "source_frame": 15,
+      "blade_degrees": 70.12088035912862,
+      "trunk_lean_degrees": 56.799997937836444
     },
     {
       "game_frame": 22,
-      "source_frame": 31,
-      "blade_degrees": 33.901100750357664,
-      "trunk_lean_degrees": 68
+      "source_frame": 15,
+      "blade_degrees": 33.90110094531927,
+      "trunk_lean_degrees": 67.99999733881295
     },
     {
       "game_frame": 23,
-      "source_frame": 32,
-      "blade_degrees": -10.304846468766033,
-      "trunk_lean_degrees": 68
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
     },
     {
       "game_frame": 24,
-      "source_frame": 32,
-      "blade_degrees": -10.304846468766033,
-      "trunk_lean_degrees": 68
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 25,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 26,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 27,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 28,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 29,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 30,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 31,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 32,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 33,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 34,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
     },
     {
       "game_frame": 35,
-      "source_frame": 40,
-      "blade_degrees": -10.033120554331168,
-      "trunk_lean_degrees": 68
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 36,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 37,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 38,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 39,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 40,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 41,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 42,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 43,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 44,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 45,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 46,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 47,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 48,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 49,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 50,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 51,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 52,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 53,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 54,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
+    },
+    {
+      "game_frame": 55,
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
     },
     {
       "game_frame": 56,
-      "source_frame": 68,
-      "blade_degrees": -17,
-      "trunk_lean_degrees": 48.366460663429805
+      "source_frame": 30,
+      "blade_degrees": -10.304846419676222,
+      "trunk_lean_degrees": 67.99999733881295
     },
     {
       "game_frame": 57,
-      "source_frame": 68,
-      "blade_degrees": -17,
-      "trunk_lean_degrees": 48.366460663429805
+      "source_frame": 30,
+      "blade_degrees": -8.295955449860303,
+      "trunk_lean_degrees": 67.50068323657462
+    },
+    {
+      "game_frame": 58,
+      "source_frame": 30,
+      "blade_degrees": -2.578342837383511,
+      "trunk_lean_degrees": 66.07955848405018
+    },
+    {
+      "game_frame": 59,
+      "source_frame": 30,
+      "blade_degrees": 6.3844015059062365,
+      "trunk_lean_degrees": 63.851849412525354
+    },
+    {
+      "game_frame": 60,
+      "source_frame": 30,
+      "blade_degrees": 18.12868638750055,
+      "trunk_lean_degrees": 60.93278235328594
+    },
+    {
+      "game_frame": 61,
+      "source_frame": 30,
+      "blade_degrees": 32.19092402998563,
+      "trunk_lean_degrees": 57.43758363761768
     },
     {
       "game_frame": 62,
-      "source_frame": 76,
-      "blade_degrees": -11.309932474020213,
-      "trunk_lean_degrees": 24.304549265936718
+      "source_frame": 30,
+      "blade_degrees": 48.10752217363603,
+      "trunk_lean_degrees": 53.481479596806366
+    },
+    {
+      "game_frame": 63,
+      "source_frame": 30,
+      "blade_degrees": 65.414886851179,
+      "trunk_lean_degrees": 49.17969656213775
+    },
+    {
+      "game_frame": 64,
+      "source_frame": 30,
+      "blade_degrees": 83.64943604817289,
+      "trunk_lean_degrees": 44.6474608648976
+    },
+    {
+      "game_frame": 65,
+      "source_frame": 30,
+      "blade_degrees": 102.3475775048922,
+      "trunk_lean_degrees": 39.99999883637168
+    },
+    {
+      "game_frame": 66,
+      "source_frame": 30,
+      "blade_degrees": 121.04571896161151,
+      "trunk_lean_degrees": 35.352536807845766
     },
     {
       "game_frame": 67,
-      "source_frame": 84,
-      "blade_degrees": 44.05043314356418,
-      "trunk_lean_degrees": -2.436648246810131
+      "source_frame": 30,
+      "blade_degrees": 139.28026132841623,
+      "trunk_lean_degrees": 30.820301110605612
+    },
+    {
+      "game_frame": 68,
+      "source_frame": 30,
+      "blade_degrees": 156.58763283614837,
+      "trunk_lean_degrees": 26.518518075937006
+    },
+    {
+      "game_frame": 69,
+      "source_frame": 30,
+      "blade_degrees": 172.5042275647042,
+      "trunk_lean_degrees": 22.562414035125688
+    },
+    {
+      "game_frame": 70,
+      "source_frame": 30,
+      "blade_degrees": 186.56646691473657,
+      "trunk_lean_degrees": 19.067215319457432
+    },
+    {
+      "game_frame": 71,
+      "source_frame": 30,
+      "blade_degrees": 198.3107449661417,
+      "trunk_lean_degrees": 16.148148260218008
+    },
+    {
+      "game_frame": 72,
+      "source_frame": 30,
+      "blade_degrees": 207.27349677995085,
+      "trunk_lean_degrees": 13.920439188693198
+    },
+    {
+      "game_frame": 73,
+      "source_frame": 30,
+      "blade_degrees": 212.9911027756819,
+      "trunk_lean_degrees": 12.49931443616874
     },
     {
       "game_frame": 74,
-      "source_frame": 23,
-      "blade_degrees": 175.88509090176274,
-      "trunk_lean_degrees": 16.69924423399362
+      "source_frame": 30,
+      "blade_degrees": 214.99999801436604,
+      "trunk_lean_degrees": 12.000000333930423
     }
   ],
   "frames": [
@@ -265,871 +587,907 @@
       ],
       "blade_polygon": [
         [
-          -75,
-          15
+          -59,
+          106
         ],
         [
-          -67,
-          6
+          -58,
+          94
         ],
         [
-          53,
-          13
+          39,
+          25
         ],
         [
-          52,
-          27
+          47,
+          36
         ],
         [
-          -52,
-          22
-        ]
-      ],
-      "weapon_origin": [
-        58,
-        21
-      ],
-      "weapon_angle": -3.0697739124298096
-    },
-    {
-      "body": [
-        128,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -75,
-          15
-        ],
-        [
-          -67,
-          6
-        ],
-        [
-          53,
-          13
-        ],
-        [
-          52,
-          27
-        ],
-        [
-          -52,
-          22
-        ]
-      ],
-      "weapon_origin": [
-        58,
-        21
-      ],
-      "weapon_angle": -3.0697739124298096
-    },
-    {
-      "body": [
-        256,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        768,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -69,
-          -4
-        ],
-        [
-          -60,
-          -12
-        ],
-        [
-          58,
-          10
-        ],
-        [
-          56,
-          23
-        ],
-        [
-          49,
-          22
-        ],
-        [
-          -47,
-          6
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        18
-      ],
-      "weapon_angle": -2.952695369720459
-    },
-    {
-      "body": [
-        384,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        1152,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -64,
-          -24
-        ],
-        [
-          -54,
-          -30
-        ],
-        [
-          60,
-          10
-        ],
-        [
-          55,
-          23
-        ],
-        [
-          -44,
-          -11
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.792534828186035
-    },
-    {
-      "body": [
-        512,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        1536,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -37,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        640,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -21,
-          -66
-        ],
-        [
-          -9,
-          -68
-        ],
-        [
-          78,
-          13
-        ],
-        [
-          79,
-          14
-        ],
-        [
-          69,
-          24
-        ],
-        [
-          -8,
-          -46
-        ]
-      ],
-      "weapon_origin": [
-        77,
-        23
-      ],
-      "weapon_angle": -2.3823318481445312
-    },
-    {
-      "body": [
-        768,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        2304,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          19,
-          -84
-        ],
-        [
-          31,
-          -83
-        ],
-        [
-          96,
-          18
-        ],
-        [
-          84,
-          26
-        ],
-        [
-          27,
-          -61
-        ]
-      ],
-      "weapon_origin": [
-        92,
-        27
-      ],
-      "weapon_angle": -2.1322898864746094
-    },
-    {
-      "body": [
-        896,
-        0,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        0,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          52,
-          -91
-        ],
-        [
-          63,
-          -87
-        ],
-        [
-          102,
-          26
-        ],
-        [
-          102,
-          27
-        ],
-        [
-          89,
-          31
-        ],
-        [
-          54,
-          -67
-        ]
-      ],
-      "weapon_origin": [
-        96,
-        34
-      ],
-      "weapon_angle": -1.8903393745422363
-    },
-    {
-      "body": [
-        0,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -37,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        128,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -48
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -27
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        256,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        768,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -48
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -27
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        384,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        1152,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -48
-        ],
-        [
-          61,
-          9
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -27
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        512,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        1536,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -48
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -27
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        640,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -48
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -27
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        768,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        2304,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -37,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        896,
-        128,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        384,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        0,
-        256,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        768,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        128,
-        256,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        768,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        20
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        256,
-        256,
-        128,
-        128
-      ],
-      "weapon": [
-        768,
-        768,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -38,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        384,
-        256,
-        128,
-        128
-      ],
-      "weapon": [
-        1152,
-        768,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          -55,
-          -43
-        ],
-        [
-          -44,
-          -47
-        ],
-        [
-          61,
-          10
-        ],
-        [
-          54,
-          22
-        ],
-        [
-          -37,
-          -26
-        ]
-      ],
-      "weapon_origin": [
-        62,
-        19
-      ],
-      "weapon_angle": -2.6323740482330322
-    },
-    {
-      "body": [
-        512,
-        256,
-        128,
-        128
-      ],
-      "weapon": [
-        1536,
-        768,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          105,
+          42,
           40
         ],
         [
-          107,
-          34
-        ],
-        [
-          138,
-          -58
-        ],
-        [
-          152,
-          -78
-        ],
-        [
-          158,
-          -68
-        ],
-        [
-          118,
-          45
+          -37,
+          98
         ]
       ],
       "weapon_origin": [
-        109,
-        47
+        48,
+        28
       ],
-      "weapon_angle": -1.2188924551010132
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        128,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        256,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        384,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        1152,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        512,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        1536,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        640,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -71,
+          70
+        ],
+        [
+          -67,
+          59
+        ],
+        [
+          47,
+          23
+        ],
+        [
+          51,
+          36
+        ],
+        [
+          45,
+          38
+        ],
+        [
+          -47,
+          68
+        ]
+      ],
+      "weapon_origin": [
+        55,
+        29
+      ],
+      "weapon_angle": -3.436380624771118
+    },
+    {
+      "body": [
+        768,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        2304,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -56,
+          -3
+        ],
+        [
+          -47,
+          -9
+        ],
+        [
+          67,
+          29
+        ],
+        [
+          63,
+          42
+        ],
+        [
+          -36,
+          10
+        ]
+      ],
+      "weapon_origin": [
+        69,
+        38
+      ],
+      "weapon_angle": -2.8042261600494385
+    },
+    {
+      "body": [
+        896,
+        0,
+        128,
+        128
+      ],
+      "weapon": [
+        2688,
+        0,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          16,
+          -64
+        ],
+        [
+          27,
+          -62
+        ],
+        [
+          90,
+          40
+        ],
+        [
+          78,
+          47
+        ],
+        [
+          23,
+          -40
+        ]
+      ],
+      "weapon_origin": [
+        86,
+        49
+      ],
+      "weapon_angle": -2.108856439590454
+    },
+    {
+      "body": [
+        0,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        128,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          24
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          -36,
+          97
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        256,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          24
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          -36,
+          97
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        384,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        1152,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          24
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          -36,
+          97
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        512,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        1536,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          24
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          -36,
+          97
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        640,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          24
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          -36,
+          97
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        768,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        2304,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          94
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        896,
+        128,
+        128,
+        128
+      ],
+      "weapon": [
+        2688,
+        384,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          95
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        0,
+        256,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        768,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          95
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        128,
+        256,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        768,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          95
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        256,
+        256,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        768,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          95
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        384,
+        256,
+        128,
+        128
+      ],
+      "weapon": [
+        1152,
+        768,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          -59,
+          106
+        ],
+        [
+          -58,
+          95
+        ],
+        [
+          39,
+          25
+        ],
+        [
+          47,
+          36
+        ],
+        [
+          42,
+          40
+        ],
+        [
+          -37,
+          98
+        ]
+      ],
+      "weapon_origin": [
+        48,
+        28
+      ],
+      "weapon_angle": -3.752457857131958
+    },
+    {
+      "body": [
+        512,
+        256,
+        128,
+        128
+      ],
+      "weapon": [
+        1536,
+        768,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          101,
+          54
+        ],
+        [
+          135,
+          -45
+        ],
+        [
+          148,
+          -65
+        ],
+        [
+          154,
+          -55
+        ],
+        [
+          115,
+          58
+        ],
+        [
+          114,
+          58
+        ]
+      ],
+      "weapon_origin": [
+        105,
+        60
+      ],
+      "weapon_angle": -1.2238402366638184
     },
     {
       "body": [
@@ -1146,29 +1504,33 @@
       ],
       "blade_polygon": [
         [
-          118,
-          63
+          117,
+          61
         ],
         [
-          203,
-          3
+          122,
+          57
         ],
         [
-          226,
-          -5
+          202,
+          1
         ],
         [
           225,
-          7
+          -7
         ],
         [
-          126,
-          75
+          224,
+          4
+        ],
+        [
+          125,
+          72
         ]
       ],
       "weapon_origin": [
-        117,
-        71
+        116,
+        69
       ],
       "weapon_angle": -0.5916858315467834
     },
@@ -1188,756 +1550,6 @@
       "blade_polygon": [
         [
           118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17985349893569946
-    },
-    {
-      "body": [
-        896,
-        256,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        768,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17985349893569946
-    },
-    {
-      "body": [
-        0,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17942236363887787
-    },
-    {
-      "body": [
-        128,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17899122834205627
-    },
-    {
-      "body": [
-        256,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        768,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.1785600781440735
-    },
-    {
-      "body": [
-        384,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        1152,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.1781289428472519
-    },
-    {
-      "body": [
-        512,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        1536,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.1776978075504303
-    },
-    {
-      "body": [
-        640,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          107
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.1772666722536087
-    },
-    {
-      "body": [
-        768,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        2304,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.1768355369567871
-    },
-    {
-      "body": [
-        896,
-        384,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        1152,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17640440165996552
-    },
-    {
-      "body": [
-        0,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17597325146198273
-    },
-    {
-      "body": [
-        128,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17554211616516113
-    },
-    {
-      "body": [
-        256,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        768,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          118,
-          94
-        ],
-        [
-          120,
-          81
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        86
-      ],
-      "weapon_angle": 0.17511098086833954
-    },
-    {
-      "body": [
-        384,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        1152,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          94
-        ],
-        [
-          120,
-          80
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        85
-      ],
-      "weapon_angle": 0.18090121448040009
-    },
-    {
-      "body": [
-        512,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        1536,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          93
-        ],
-        [
-          120,
-          79
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          245,
-          106
-        ],
-        [
-          236,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        85
-      ],
-      "weapon_angle": 0.18669146299362183
-    },
-    {
-      "body": [
-        640,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          92
-        ],
-        [
-          120,
-          79
-        ],
-        [
-          126,
-          80
-        ],
-        [
-          223,
-          97
-        ],
-        [
-          244,
-          107
-        ],
-        [
-          235,
-          114
-        ],
-        [
-          118,
-          93
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        84
-      ],
-      "weapon_angle": 0.19248169660568237
-    },
-    {
-      "body": [
-        768,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        2304,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          92
-        ],
-        [
-          120,
-          78
-        ],
-        [
-          222,
-          97
-        ],
-        [
-          244,
-          107
-        ],
-        [
-          235,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        83
-      ],
-      "weapon_angle": 0.19827193021774292
-    },
-    {
-      "body": [
-        896,
-        512,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        1536,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          91
-        ],
-        [
-          120,
-          78
-        ],
-        [
-          126,
-          79
-        ],
-        [
-          222,
-          97
-        ],
-        [
-          244,
-          107
-        ],
-        [
-          235,
-          114
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        83
-      ],
-      "weapon_angle": 0.20406216382980347
-    },
-    {
-      "body": [
-        0,
-        640,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        1920,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
           91
         ],
         [
@@ -1945,109 +1557,843 @@
           77
         ],
         [
-          222,
-          96
+          223,
+          94
         ],
         [
-          244,
-          107
+          245,
+          104
         ],
         [
-          235,
-          114
+          236,
+          111
         ]
       ],
       "weapon_origin": [
         114,
         82
       ],
-      "weapon_angle": 0.209852397441864
+      "weapon_angle": 0.17985349893569946
     },
     {
       "body": [
-        128,
-        640,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        1920,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          90
-        ],
-        [
-          120,
-          76
-        ],
-        [
-          222,
-          96
-        ],
-        [
-          244,
-          107
-        ],
-        [
-          234,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        114,
-        81
-      ],
-      "weapon_angle": 0.21564264595508575
-    },
-    {
-      "body": [
+        896,
         256,
-        640,
         128,
         128
       ],
       "weapon": [
+        2688,
         768,
-        1920,
         384,
         384
       ],
       "blade_polygon": [
         [
-          117,
-          89
+          118,
+          91
         ],
         [
           120,
-          76
-        ],
-        [
-          126,
           77
         ],
         [
-          222,
-          96
+          223,
+          94
         ],
         [
-          243,
-          107
+          245,
+          104
         ],
         [
-          234,
-          115
+          236,
+          111
         ]
       ],
       "weapon_origin": [
         114,
-        81
+        82
       ],
-      "weapon_angle": 0.2214328795671463
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        0,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        128,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        256,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        384,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        1152,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        512,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        1536,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        640,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        768,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        2304,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        896,
+        384,
+        128,
+        128
+      ],
+      "weapon": [
+        2688,
+        1152,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        0,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        128,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        256,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        384,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        1152,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        512,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        1536,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        640,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        768,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        2304,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        896,
+        512,
+        128,
+        128
+      ],
+      "weapon": [
+        2688,
+        1536,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        0,
+        640,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        1920,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        128,
+        640,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        1920,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        256,
+        640,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        1920,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
     },
     {
       "body": [
@@ -2064,31 +2410,31 @@
       ],
       "blade_polygon": [
         [
-          117,
-          89
+          118,
+          91
         ],
         [
           120,
-          75
+          77
         ],
         [
-          222,
-          96
+          223,
+          94
         ],
         [
-          243,
-          107
+          245,
+          104
         ],
         [
-          234,
-          115
+          236,
+          111
         ]
       ],
       "weapon_origin": [
-        113,
-        80
+        114,
+        82
       ],
-      "weapon_angle": 0.22722311317920685
+      "weapon_angle": 0.17985349893569946
     },
     {
       "body": [
@@ -2105,594 +2451,619 @@
       ],
       "blade_polygon": [
         [
-          117,
-          88
+          118,
+          91
         ],
         [
           120,
-          75
+          77
         ],
         [
-          126,
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        640,
+        640,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        1920,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        768,
+        640,
+        128,
+        128
+      ],
+      "weapon": [
+        2304,
+        1920,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        896,
+        640,
+        128,
+        128
+      ],
+      "weapon": [
+        2688,
+        1920,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        0,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        128,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        256,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        768,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        384,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        1152,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        512,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        1536,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        640,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        768,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        2304,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        896,
+        768,
+        128,
+        128
+      ],
+      "weapon": [
+        2688,
+        2304,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          94
+        ],
+        [
+          245,
+          104
+        ],
+        [
+          236,
+          111
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.17985349893569946
+    },
+    {
+      "body": [
+        0,
+        896,
+        128,
+        128
+      ],
+      "weapon": [
+        0,
+        2688,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          91
+        ],
+        [
+          120,
+          77
+        ],
+        [
+          223,
+          90
+        ],
+        [
+          245,
+          99
+        ],
+        [
+          237,
+          107
+        ]
+      ],
+      "weapon_origin": [
+        114,
+        82
+      ],
+      "weapon_angle": 0.14479173719882965
+    },
+    {
+      "body": [
+        128,
+        896,
+        128,
+        128
+      ],
+      "weapon": [
+        384,
+        2688,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          118,
+          76
+        ],
+        [
+          125,
           76
         ],
         [
           222,
-          96
+          78
         ],
         [
-          243,
-          107
-        ],
-        [
-          234,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        79
-      ],
-      "weapon_angle": 0.2330133467912674
-    },
-    {
-      "body": [
-        640,
-        640,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
-        1920,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          117,
-          87
-        ],
-        [
-          120,
-          74
-        ],
-        [
-          221,
-          96
-        ],
-        [
-          243,
-          107
-        ],
-        [
-          233,
-          115
-        ],
-        [
-          117,
-          88
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        79
-      ],
-      "weapon_angle": 0.23880359530448914
-    },
-    {
-      "body": [
-        768,
-        640,
-        128,
-        128
-      ],
-      "weapon": [
-        2304,
-        1920,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          87
-        ],
-        [
-          120,
-          73
-        ],
-        [
-          221,
-          96
-        ],
-        [
-          243,
-          108
-        ],
-        [
-          233,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        78
-      ],
-      "weapon_angle": 0.24459382891654968
-    },
-    {
-      "body": [
-        896,
-        640,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        1920,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          86
-        ],
-        [
-          120,
-          73
-        ],
-        [
-          221,
-          96
-        ],
-        [
-          242,
-          108
-        ],
-        [
-          233,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        77
-      ],
-      "weapon_angle": 0.25038406252861023
-    },
-    {
-      "body": [
-        0,
-        768,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          86
-        ],
-        [
-          120,
-          72
-        ],
-        [
-          221,
-          96
-        ],
-        [
-          242,
-          108
-        ],
-        [
-          233,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        77
-      ],
-      "weapon_angle": 0.2561742961406708
-    },
-    {
-      "body": [
-        128,
-        768,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
+          245,
           85
         ],
         [
-          120,
-          72
+          238,
+          94
         ],
         [
-          126,
-          73
-        ],
-        [
-          221,
-          96
-        ],
-        [
-          242,
-          108
-        ],
-        [
-          232,
-          115
+          118,
+          90
         ]
       ],
       "weapon_origin": [
         113,
-        76
+        82
       ],
-      "weapon_angle": 0.2619645297527313
+      "weapon_angle": 0.04500057175755501
     },
     {
       "body": [
         256,
-        768,
+        896,
         128,
         128
       ],
       "weapon": [
         768,
-        2304,
+        2688,
         384,
         384
       ],
       "blade_polygon": [
         [
           116,
-          84
+          74
         ],
         [
-          120,
-          71
+          219,
+          60
         ],
         [
-          221,
-          96
+          243,
+          63
         ],
         [
-          242,
-          108
+          237,
+          73
         ],
         [
-          232,
-          115
-        ],
-        [
-          117,
-          85
+          118,
+          88
         ]
       ],
       "weapon_origin": [
-        113,
-        76
+        112,
+        81
       ],
-      "weapon_angle": 0.26775479316711426
+      "weapon_angle": -0.11142882704734802
     },
     {
       "body": [
         384,
-        768,
+        896,
         128,
         128
       ],
       "weapon": [
         1152,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          84
-        ],
-        [
-          120,
-          70
-        ],
-        [
-          220,
-          96
-        ],
-        [
-          241,
-          108
-        ],
-        [
-          232,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        75
-      ],
-      "weapon_angle": 0.2735450267791748
-    },
-    {
-      "body": [
-        512,
-        768,
-        128,
-        128
-      ],
-      "weapon": [
-        1536,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          83
-        ],
-        [
-          120,
-          70
-        ],
-        [
-          220,
-          96
-        ],
-        [
-          241,
-          108
-        ],
-        [
-          232,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        74
-      ],
-      "weapon_angle": 0.27933526039123535
-    },
-    {
-      "body": [
-        640,
-        768,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          82
-        ],
-        [
-          120,
-          69
-        ],
-        [
-          220,
-          96
-        ],
-        [
-          241,
-          108
-        ],
-        [
-          231,
-          115
-        ],
-        [
-          116,
-          83
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        74
-      ],
-      "weapon_angle": 0.2851254940032959
-    },
-    {
-      "body": [
-        768,
-        768,
-        128,
-        128
-      ],
-      "weapon": [
-        2304,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          82
-        ],
-        [
-          120,
-          69
-        ],
-        [
-          220,
-          96
-        ],
-        [
-          241,
-          108
-        ],
-        [
-          231,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        73
-      ],
-      "weapon_angle": 0.29091572761535645
-    },
-    {
-      "body": [
-        896,
-        768,
-        128,
-        128
-      ],
-      "weapon": [
-        2688,
-        2304,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          81
-        ],
-        [
-          120,
-          68
-        ],
-        [
-          220,
-          96
-        ],
-        [
-          240,
-          108
-        ],
-        [
-          231,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        72
-      ],
-      "weapon_angle": 0.296705961227417
-    },
-    {
-      "body": [
-        0,
-        896,
-        128,
-        128
-      ],
-      "weapon": [
-        0,
-        2688,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          116,
-          81
-        ],
-        [
-          120,
-          68
-        ],
-        [
-          220,
-          96
-        ],
-        [
-          240,
-          108
-        ],
-        [
-          231,
-          115
-        ]
-      ],
-      "weapon_origin": [
-        113,
-        72
-      ],
-      "weapon_angle": 0.296705961227417
-    },
-    {
-      "body": [
-        128,
-        896,
-        128,
-        128
-      ],
-      "weapon": [
-        384,
-        2688,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          113,
-          80
-        ],
-        [
-          117,
-          67
-        ],
-        [
-          218,
-          93
-        ],
-        [
-          239,
-          105
-        ],
-        [
-          229,
-          112
-        ]
-      ],
-      "weapon_origin": [
-        111,
-        71
-      ],
-      "weapon_angle": 0.2768438756465912
-    },
-    {
-      "body": [
-        256,
-        896,
-        128,
-        128
-      ],
-      "weapon": [
-        768,
         2688,
         384,
         384
@@ -2700,75 +3071,30 @@
       "blade_polygon": [
         [
           111,
-          79
+          71
         ],
         [
-          115,
-          66
+          210,
+          36
         ],
         [
-          216,
-          90
+          234,
+          34
         ],
         [
-          237,
-          102
+          229,
+          45
         ],
         [
-          228,
-          109
-        ],
-        [
-          112,
-          80
+          116,
+          84
         ]
       ],
       "weapon_origin": [
         108,
-        71
+        78
       ],
-      "weapon_angle": 0.2569817900657654
-    },
-    {
-      "body": [
-        384,
-        896,
-        128,
-        128
-      ],
-      "weapon": [
-        1152,
-        2688,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          109,
-          79
-        ],
-        [
-          112,
-          65
-        ],
-        [
-          214,
-          87
-        ],
-        [
-          235,
-          98
-        ],
-        [
-          226,
-          106
-        ]
-      ],
-      "weapon_origin": [
-        106,
-        70
-      ],
-      "weapon_angle": 0.23711971938610077
+      "weapon_angle": -0.3164052665233612
     },
     {
       "body": [
@@ -2779,47 +3105,6 @@
       ],
       "weapon": [
         1536,
-        2688,
-        384,
-        384
-      ],
-      "blade_polygon": [
-        [
-          107,
-          78
-        ],
-        [
-          110,
-          64
-        ],
-        [
-          212,
-          84
-        ],
-        [
-          234,
-          95
-        ],
-        [
-          225,
-          102
-        ]
-      ],
-      "weapon_origin": [
-        104,
-        69
-      ],
-      "weapon_angle": 0.21725764870643616
-    },
-    {
-      "body": [
-        640,
-        896,
-        128,
-        128
-      ],
-      "weapon": [
-        1920,
         2688,
         384,
         384
@@ -2827,30 +3112,87 @@
       "blade_polygon": [
         [
           105,
-          77
+          66
         ],
         [
-          108,
-          63
+          192,
+          9
         ],
         [
-          210,
-          81
+          215,
+          1
         ],
         [
-          232,
-          91
+          214,
+          13
         ],
         [
-          223,
-          99
+          113,
+          78
+        ],
+        [
+          112,
+          78
         ]
       ],
       "weapon_origin": [
-        101,
-        68
+        104,
+        74
       ],
-      "weapon_angle": 0.19739556312561035
+      "weapon_angle": -0.5618376135826111
+    },
+    {
+      "body": [
+        640,
+        896,
+        128,
+        128
+      ],
+      "weapon": [
+        1920,
+        2688,
+        384,
+        384
+      ],
+      "blade_polygon": [
+        [
+          98,
+          62
+        ],
+        [
+          102,
+          57
+        ],
+        [
+          165,
+          -16
+        ],
+        [
+          166,
+          -17
+        ],
+        [
+          186,
+          -31
+        ],
+        [
+          188,
+          -19
+        ],
+        [
+          109,
+          70
+        ],
+        [
+          108,
+          71
+        ]
+      ],
+      "weapon_origin": [
+        99,
+        70
+      ],
+      "weapon_angle": -0.8396346569061279
     },
     {
       "body": [
@@ -2867,35 +3209,31 @@
       ],
       "blade_polygon": [
         [
-          106,
+          90,
           58
         ],
         [
-          209,
-          56
+          131,
+          -38
         ],
         [
-          210,
-          56
+          146,
+          -57
         ],
         [
-          233,
-          62
+          152,
+          -46
         ],
         [
-          226,
-          71
-        ],
-        [
-          106,
-          72
+          103,
+          64
         ]
       ],
       "weapon_origin": [
-        101,
-        64
+        94,
+        65
       ],
-      "weapon_angle": 0.004151433706283569
+      "weapon_angle": -1.1417051553726196
     },
     {
       "body": [
@@ -2912,35 +3250,31 @@
       ],
       "blade_polygon": [
         [
-          104,
-          53
+          82,
+          54
         ],
         [
-          205,
-          31
+          92,
+          -49
         ],
         [
-          229,
-          32
+          100,
+          -72
         ],
         [
-          224,
-          43
+          108,
+          -64
         ],
         [
-          107,
-          66
-        ],
-        [
-          106,
-          66
+          96,
+          56
         ]
       ],
       "weapon_origin": [
-        100,
+        88,
         60
       ],
-      "weapon_angle": -0.1890926957130432
+      "weapon_angle": -1.4599580764770508
     },
     {
       "body": [
@@ -2957,31 +3291,31 @@
       ],
       "blade_polygon": [
         [
-          101,
+          51,
+          -74
+        ],
+        [
+          62,
+          -69
+        ],
+        [
+          89,
           48
         ],
         [
-          197,
-          7
+          75,
+          51
         ],
         [
-          221,
-          4
-        ],
-        [
-          218,
-          15
-        ],
-        [
-          107,
-          61
+          51,
+          -49
         ]
       ],
       "weapon_origin": [
-        99,
-        56
+        82,
+        55
       ],
-      "weapon_angle": -0.3823368549346924
+      "weapon_angle": -1.7863022089004517
     },
     {
       "body": [
@@ -2998,31 +3332,35 @@
       ],
       "blade_polygon": [
         [
-          99,
-          44
+          6,
+          -62
         ],
         [
-          185,
-          -15
+          17,
+          -61
         ],
         [
-          208,
-          -23
+          80,
+          41
         ],
         [
-          207,
-          -11
+          69,
+          49
         ],
         [
-          107,
-          55
+          65,
+          43
+        ],
+        [
+          13,
+          -39
         ]
       ],
       "weapon_origin": [
-        98,
-        52
+        76,
+        50
       ],
-      "weapon_angle": -0.5755809545516968
+      "weapon_angle": -2.1126463413238525
     },
     {
       "body": [
@@ -3039,39 +3377,39 @@
       ],
       "blade_polygon": [
         [
-          97,
-          39
+          -31,
+          -40
         ],
         [
-          169,
-          -34
+          -20,
+          -42
         ],
         [
-          170,
-          -35
+          71,
+          35
         ],
         [
-          191,
-          -47
+          72,
+          36
         ],
         [
-          192,
-          -35
+          63,
+          46
         ],
         [
-          107,
-          49
+          58,
+          42
         ],
         [
-          106,
-          49
+          -18,
+          -20
         ]
       ],
       "weapon_origin": [
-        97,
-        47
+        71,
+        45
       ],
-      "weapon_angle": -0.768825113773346
+      "weapon_angle": -2.430899143218994
     },
     {
       "body": [
@@ -3088,31 +3426,31 @@
       ],
       "blade_polygon": [
         [
-          88,
-          36
+          -57,
+          -10
         ],
         [
-          134,
-          -57
+          -47,
+          -16
         ],
         [
-          150,
-          -76
+          64,
+          31
         ],
         [
-          155,
-          -65
+          58,
+          44
         ],
         [
-          101,
-          43
+          -38,
+          4
         ]
       ],
       "weapon_origin": [
-        92,
-        44
+        65,
+        40
       ],
-      "weapon_angle": -1.097532033920288
+      "weapon_angle": -2.7329697608947754
     },
     {
       "body": [
@@ -3129,31 +3467,31 @@
       ],
       "blade_polygon": [
         [
-          81,
-          34
+          -71,
+          21
         ],
         [
-          93,
-          -69
+          -63,
+          13
         ],
         [
-          102,
-          -92
+          56,
+          27
         ],
         [
-          111,
-          -83
+          55,
+          41
         ],
         [
-          94,
-          36
+          -49,
+          30
         ]
       ],
       "weapon_origin": [
-        86,
-        40
+        60,
+        36
       ],
-      "weapon_angle": -1.426239013671875
+      "weapon_angle": -3.0107667446136475
     },
     {
       "body": [
@@ -3170,35 +3508,35 @@
       ],
       "blade_polygon": [
         [
+          -75,
+          50
+        ],
+        [
+          -69,
+          40
+        ],
+        [
+          49,
+          25
+        ],
+        [
+          50,
+          25
+        ],
+        [
           52,
-          -70
+          38
         ],
         [
-          53,
-          -94
-        ],
-        [
-          64,
-          -88
-        ],
-        [
-          87,
-          29
-        ],
-        [
-          87,
-          30
-        ],
-        [
-          73,
-          32
+          -52,
+          53
         ]
       ],
       "weapon_origin": [
-        80,
-        36
+        56,
+        32
       ],
-      "weapon_angle": -1.754945993423462
+      "weapon_angle": -3.2561991214752197
     },
     {
       "body": [
@@ -3215,31 +3553,35 @@
       ],
       "blade_polygon": [
         [
-          7,
-          -82
+          -73,
+          73
         ],
         [
-          19,
-          -80
+          -69,
+          62
         ],
         [
-          79,
-          24
+          44,
+          23
         ],
         [
-          67,
-          31
+          45,
+          23
         ],
         [
-          14,
-          -58
+          49,
+          36
+        ],
+        [
+          -49,
+          71
         ]
       ],
       "weapon_origin": [
-        75,
-        33
+        52,
+        29
       ],
-      "weapon_angle": -2.083652973175049
+      "weapon_angle": -3.4611754417419434
     },
     {
       "body": [
@@ -3256,39 +3598,31 @@
       ],
       "blade_polygon": [
         [
-          -32,
-          -57
+          -67,
+          89
         ],
         [
-          -20,
-          -60
+          -65,
+          78
         ],
         [
-          70,
-          19
+          41,
+          22
         ],
         [
-          70,
-          20
+          48,
+          34
         ],
         [
-          61,
-          30
-        ],
-        [
-          -17,
-          -37
-        ],
-        [
-          -18,
-          -38
+          -44,
+          84
         ]
       ],
       "weapon_origin": [
-        69,
-        29
+        50,
+        26
       ],
-      "weapon_angle": -2.4123599529266357
+      "weapon_angle": -3.617604970932007
     },
     {
       "body": [
@@ -3304,32 +3638,40 @@
         384
       ],
       "blade_polygon": [
+        [
+          -61,
+          102
+        ],
         [
           -60,
-          -24
+          90
         ],
         [
-          -49,
-          -30
+          39,
+          24
         ],
         [
-          62,
-          16
+          40,
+          24
         ],
         [
-          56,
-          29
+          47,
+          35
         ],
         [
-          -40,
-          -10
+          42,
+          39
+        ],
+        [
+          -39,
+          94
         ]
       ],
       "weapon_origin": [
-        63,
-        25
+        48,
+        27
       ],
-      "weapon_angle": -2.7410669326782227
+      "weapon_angle": -3.7173960208892822
     },
     {
       "body": [
@@ -3346,34 +3688,38 @@
       ],
       "blade_polygon": [
         [
-          -75,
-          15
+          -59,
+          106
         ],
         [
-          -67,
-          6
+          -58,
+          94
         ],
         [
-          53,
-          13
+          39,
+          25
         ],
         [
-          52,
-          27
+          47,
+          36
         ],
         [
-          -52,
-          22
+          42,
+          40
+        ],
+        [
+          -37,
+          98
         ]
       ],
       "weapon_origin": [
-        58,
-        21
+        48,
+        28
       ],
-      "weapon_angle": -3.0697739124298096
+      "weapon_angle": -3.752457857131958
     }
   ],
-  "source": "Approved reference skeleton retarget; braced charge and committed overhead cut (0.10.18)",
+  "source": "User-authored poses; rigid leg armor and fitted two-hand grip (0.10.19)",
   "body_texture": "res://art/characters/hunter/body_atlas.png",
   "weapon_texture": "res://art/weapons/great_cleaver/overhead_atlas.png"
 }

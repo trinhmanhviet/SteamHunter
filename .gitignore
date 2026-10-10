@@ -7,3 +7,5 @@ __pycache__/
 prototypes/hunter_pose_workspace/blender_config/
 prototypes/hunter_pose_workspace/*.blend1
 prototypes/hunter_pose_workspace/exports/
+prototypes/user_pose_animation/keys/
+prototypes/user_pose_animation/**/*.blend1

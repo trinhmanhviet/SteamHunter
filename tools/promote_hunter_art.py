@@ -7,8 +7,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def main():
-    approved = ROOT / "prototypes/overhead_demo/assets"
+def main(approved=None, source=None):
+    approved = Path(approved) if approved else ROOT / "prototypes/overhead_demo/assets"
     body_dir = ROOT / "art/characters/hunter"
     weapon_dir = ROOT / "art/weapons/great_cleaver"
     body_dir.mkdir(parents=True, exist_ok=True)
@@ -16,7 +16,7 @@ def main():
     shutil.copy2(approved / "body.png", body_dir / "body_atlas.png")
     shutil.copy2(approved / "weapon.png", weapon_dir / "overhead_atlas.png")
     manifest = json.loads((approved / "frames.json").read_text())
-    manifest["source"] = "Approved reference skeleton retarget; braced charge and committed overhead cut (0.10.18)"
+    manifest["source"] = source or "Approved reference skeleton retarget; braced charge and committed overhead cut (0.10.18)"
     manifest["body_texture"] = "res://art/characters/hunter/body_atlas.png"
     manifest["weapon_texture"] = "res://art/weapons/great_cleaver/overhead_atlas.png"
     (body_dir / "overhead_frames.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")

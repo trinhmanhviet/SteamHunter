@@ -1,0 +1,32 @@
+{
+  "version": "0.10.19",
+  "screen": [
+    2448,
+    1080
+  ],
+  "stationary_holds_ms": [
+    850,
+    1400,
+    2300
+  ],
+  "physical_contacts": [
+    [
+      "charged_hew",
+      "45046826506",
+      "48"
+    ]
+  ],
+  "script_errors": [],
+  "installed": true,
+  "device_tested": true,
+  "installed_apk_sha256": "98e6b27ce1142e5455f0e984cdf6727e5b2aa2b2472423b2be05719caa8e4bf9",
+  "release_apk_sha256": "98e6b27ce1142e5455f0e984cdf6727e5b2aa2b2472423b2be05719caa8e4bf9",
+  "matching_apk": true,
+  "user_pose_visual_review_confirmed": true,
+  "equipped": "Great Cleaver",
+  "godot_suites_passed": 16,
+  "python_tests_passed": 16,
+  "frames": 74,
+  "max_wrist_error_pixels": 0.0036766613788446435,
+  "source_scene_sha256": "0d2c5043ee592765c93a1520e397e1fa602cca4c4a55668cda3d43cfffc4d8d7"
+}
