@@ -1,0 +1,29 @@
+{
+  "version": "0.10.15",
+  "weapon_length_multiplier": 1.4,
+  "max_wrist_error_pixels": 0.0032278716959020922,
+  "pose_seams_identical": {
+    "body:1-74": true,
+    "weapon:1-74": true,
+    "body:8-9": true,
+    "weapon:8-9": true,
+    "body:9-20": true,
+    "weapon:9-20": true,
+    "body:20-21": true,
+    "weapon:20-21": true
+  },
+  "android": {
+    "outside_range_contacts": 0,
+    "contact_events": [
+      [
+        "charged_hew",
+        "38721816089",
+        "48"
+      ]
+    ],
+    "runtime_errors": []
+  },
+  "installed_apk_matches_build": true,
+  "apk_sha256": "e44d300e32486b862db20c21591505aa5f9a1fbce23a9f49f44b24afe2995371",
+  "apk_bytes": 74988016
+}

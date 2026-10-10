@@ -6,6 +6,8 @@ const Hunter = preload("res://scripts/hunter.gd")
 const Catalog = preload("res://scripts/hunt_catalog.gd")
 const Moor = preload("res://scripts/moor.gd")
 const GameUI = preload("res://scripts/game_ui.gd")
+const SpriteHurtbox = preload("res://scripts/sprite_hurtbox.gd")
+const BladeSweep = preload("res://scripts/blade_sweep.gd")
 const SMALL_ENEMY_STRIKE_REACH := 82.0
 const SMALL_ENEMY_STRIKE_HALF_HEIGHT := 28.0
 
@@ -114,6 +116,7 @@ func start_hunt(hunt_id: String = "") -> void:
 	hunter.tuning_type = str(progress.get("tuning_equipped", {}).get(hunter.weapon_type, "plain"))
 	world.add_child(hunter)
 	hunter.struck.connect(_on_hunter_struck)
+	hunter.blade_swept.connect(_on_blade_swept)
 	hunter.healed.connect(_on_hunter_healed)
 	hunter.died.connect(_on_hunter_died)
 	var camera := Camera2D.new()
@@ -142,6 +145,8 @@ func start_hunt(hunt_id: String = "") -> void:
 	selected_part = str(boss.part_ids()[0])
 	boss.selected_part = selected_part
 	world.add_child(boss)
+	SpriteHurtbox.local_rectangles(boss.sprite.texture)
+	for foe in rats: SpriteHurtbox.local_rectangles(foe.sprite.texture)
 	boss.attacked.connect(_on_boss_attack)
 	boss.armor_shattered.connect(_on_armor_broken)
 	boss.part_broken.connect(_on_part_broken)
@@ -382,6 +387,7 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 	if mode != "hunt" or hunter == null:
 		return
 	_play_sound("swing")
+	if hunter.weapon_type == "blade": return
 	var landed := false
 	var impact := Rules.action_impact(kind, hunter.weapon_type)
 	var part_kind := "heavy" if impact in ["heavy", "pierce", "blunt"] else "light"
@@ -396,6 +402,28 @@ func _on_hunter_struck(damage: int, reach: float, kind: String) -> void:
 		var target_position: Vector2 = boss.part_world_position(selected_part)
 		if hunter.can_strike_point(target_position, kind, reach, 40.0, 155.0, 25.0):
 			boss.receive_hit(_tuned_damage_for_boss(damage), part_kind, selected_part)
+			_apply_tuning_status()
+			boss.queue_redraw()
+			landed = true
+	if landed:
+		hunter.confirm_hit(kind)
+		_play_sound("hit")
+
+func _on_blade_swept(damage: int, kind: String) -> void:
+	if mode != "hunt" or hunter == null or hunter.weapon_type != "blade": return
+	var pieces: Array[PackedVector2Array] = hunter.blade_sweep_polygons()
+	if pieces.is_empty(): return
+	var landed := false
+	for foe in rats:
+		if not is_instance_valid(foe) or foe.health <= 0 or hunter.blade_hit_targets.has(foe.get_instance_id()): continue
+		if BladeSweep.overlaps_sprite(pieces, foe.sprite) and hunter.consume_blade_hit(foe):
+			foe.receive_hit(Rules.tuned_damage(damage, hunter.weapon_type, hunter.tuning_type, 1.0))
+			print("GS_CONTACT kind=%s target=%d damage=%d" % [kind, foe.get_instance_id(), damage])
+			landed = true
+	if boss != null and is_instance_valid(boss) and boss.health > 0 and not hunter.blade_hit_targets.has(boss.get_instance_id()):
+		if BladeSweep.overlaps_sprite(pieces, boss.sprite) and hunter.consume_blade_hit(boss):
+			boss.receive_hit(_tuned_damage_for_boss(damage), "heavy", selected_part)
+			print("GS_CONTACT kind=%s target=%d damage=%d" % [kind, boss.get_instance_id(), damage])
 			_apply_tuning_status()
 			boss.queue_redraw()
 			landed = true

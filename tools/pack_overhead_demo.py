@@ -27,6 +27,8 @@ def main():
               for layer, size in (("body", 128), ("weapon", 384))}
     manifest = {"body_pivot": [64, 116], "weapon_pivot": [192, 244],
                 "stages": {k: [n - 1 for n in v] for k, v in data["stages"].items()},
+                "weapon_length_multiplier": data["weapon_length_multiplier"],
+                "blade_local": data["frames"][0]["blade_local"],
                 "frames": []}
     composite, bounds = {}, []
     for index, frame in enumerate(data["frames"]):
@@ -44,6 +46,8 @@ def main():
             row[layer] = region
             layers[layer] = im
             bounds.append({"frame": frame["frame"], "layer": layer, "bbox": box})
+        for name in ("blade_polygon", "weapon_origin", "weapon_angle"):
+            row[name] = frame[name]
         manifest["frames"].append(row)
         tile = Image.new("RGBA", (384, 384), "#426078")
         ImageDraw.Draw(tile).line((0, 244, 384, 244), fill="#a6c5bf")

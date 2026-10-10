@@ -1,12 +1,15 @@
 extends CharacterBody2D
 
 signal struck(damage: int, reach: float, kind: String)
+signal blade_swept(damage: int, kind: String)
 signal wounded
 signal died
 signal healed
 
 const Rules = preload("res://scripts/rules.gd")
 const CleaverArt = preload("res://scripts/cleaver_art.gd")
+const BladeSweep = preload("res://scripts/blade_sweep.gd")
+const SpriteHurtbox = preload("res://scripts/sprite_hurtbox.gd")
 const WALK_SPEED := 225.0
 const JUMP_SPEED := -700.0
 const GRAVITY := 1900.0
@@ -43,6 +46,10 @@ var blade_sprite: Sprite2D
 var blade_attack_from_hold := false
 var blade_releasing_hold := false
 var blade_charge_visual_time := 0.0
+var blade_damage_active := false
+var blade_sweep_from := 0.0
+var blade_sweep_to := 0.0
+var blade_hit_targets: Dictionary = {}
 
 var current_action := ""
 var action_elapsed := 0.0
@@ -88,16 +95,7 @@ func _ready() -> void:
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(sprite)
 	if weapon_type == "blade":
-		blade_sprite = Sprite2D.new()
-		blade_sprite.texture = load(CleaverArt.WEAPON)
-		blade_sprite.region_enabled = true
-		blade_sprite.region_rect = CleaverArt.region(0, "weapon")
-		blade_sprite.centered = false
-		blade_sprite.offset = -CleaverArt.WEAPON_PIVOT
-		blade_sprite.scale = Vector2(pixel_scale, pixel_scale)
-		blade_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-		blade_sprite.z_index = 1
-		add_child(blade_sprite)
+		_ensure_blade_layers()
 	weapon_resource = float(weapon_data.get("resource_start", 0.0))
 	_update_art(0.0)
 
@@ -112,6 +110,7 @@ func _physics_process(delta: float) -> void:
 	if hit_stop_time > 0.0:
 		hit_stop_time = maxf(0.0, hit_stop_time - delta)
 		_update_art(0.0)
+		_emit_blade_contacts(action_elapsed, action_elapsed)
 		return
 	stamina = minf(max_stamina, stamina + delta * (9.0 if charge_time > 0.0 else 19.0))
 	if current_action == "guard_set":
@@ -152,6 +151,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = axis * WALK_SPEED * walk_scale
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, 750.0 * delta)
+	move_and_slide()
 	advance_action(delta)
 	if current_action.is_empty() and dodge_time <= 0.0:
 		idle_combat_time += delta
@@ -159,7 +159,6 @@ func _physics_process(delta: float) -> void:
 			weapon_drawn = false
 	else:
 		idle_combat_time = 0.0
-	move_and_slide()
 	if global_position.y > 650.0:
 		take_hit(999)
 	_update_art(delta)
@@ -213,6 +212,8 @@ func _begin_action(action_id: String, charge: float, spend_costs: bool) -> bool:
 	weapon_resource -= resource_cost
 	current_action = action_id
 	blade_attack_from_hold = blade_releasing_hold
+	blade_hit_targets.clear()
+	blade_damage_active = false
 	attack_kind = action_id
 	attack_charge = clampf(charge, 0.0, 1.0)
 	action_elapsed = 0.0
@@ -235,19 +236,24 @@ func _begin_action(action_id: String, charge: float, spend_costs: bool) -> bool:
 	return true
 
 func advance_action(delta: float) -> void:
+	blade_damage_active = false
 	if current_action.is_empty() or delta <= 0.0:
 		return
 	var data := Rules.action(current_action, weapon_type)
+	var previous := action_elapsed
 	action_elapsed += delta
 	attack_time = maxf(0.0, float(data["duration"]) - action_elapsed)
 	if not attack_fired and action_elapsed >= float(data["hit_at"]):
 		attack_fired = true
 		if int(data["damage"]) > 0:
 			struck.emit(current_damage(), float(data["reach"]), current_action)
+	_update_art(0.0)
+	_emit_blade_contacts(previous, action_elapsed)
 	if action_elapsed < float(data["duration"]):
 		return
 	var next_action := buffered_token
 	current_action = ""
+	blade_damage_active = false
 	attack_kind = ""
 	attack_time = 0.0
 	action_elapsed = 0.0
@@ -290,27 +296,65 @@ func can_strike_point(world_point: Vector2, action_id: String, reach: float, hor
 	var forward_x := local.x * facing
 	if weapon_type != "blade":
 		return forward_x >= -behind_allowance and absf(forward_x) < reach + horizontal_padding and absf(local.y) < vertical_padding
-	var zone := _great_cleaver_hit_zone(action_id)
-	var rear_slack := minf(behind_allowance, 8.0)
-	return forward_x >= float(zone["min_x"]) - rear_slack and forward_x <= float(zone["max_x"]) + horizontal_padding and local.y >= float(zone["min_y"]) - vertical_padding and local.y <= float(zone["max_y"]) + vertical_padding
+	return Geometry2D.is_point_in_polygon(world_point, blade_polygon_at(action_elapsed))
 
-func _great_cleaver_hit_zone(action_id: String) -> Dictionary:
-	match action_id:
-		"draw_hew": return {"min_x": -4.0, "max_x": 125.0, "min_y": -98.0, "max_y": 18.0}
-		"low_cleave": return {"min_x": 4.0, "max_x": 132.0, "min_y": -88.0, "max_y": 18.0}
-		"rising_cleave": return {"min_x": -8.0, "max_x": 142.0, "min_y": -160.0, "max_y": 22.0}
-		"charged_hew": return {"min_x": 8.0, "max_x": 150.0, "min_y": -112.0, "max_y": 26.0}
-		"furnace_hew": return {"min_x": 4.0, "max_x": 158.0, "min_y": -96.0, "max_y": 30.0}
-		"sundering_fall": return {"min_x": 0.0, "max_x": 164.0, "min_y": -136.0, "max_y": 36.0}
-		"anvil_rise": return {"min_x": -8.0, "max_x": 146.0, "min_y": -166.0, "max_y": 22.0}
-		"crossbite": return {"min_x": 2.0, "max_x": 136.0, "min_y": -104.0, "max_y": 24.0}
-		"roll_reaper": return {"min_x": 10.0, "max_x": 118.0, "min_y": -82.0, "max_y": 18.0}
-		"aerial_drop": return {"min_x": -10.0, "max_x": 105.0, "min_y": -162.0, "max_y": 28.0}
-		"shoulder_brace": return {"min_x": -10.0, "max_x": 78.0, "min_y": -74.0, "max_y": 22.0}
-	return {"min_x": 0.0, "max_x": reach_or_default(action_id), "min_y": -90.0, "max_y": 20.0}
+func _blade_to_world(polygon: PackedVector2Array) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	var scale_value := ART_HEIGHT / GREAT_CLEAVER_FRAME_HEIGHT
+	for point in polygon:
+		var pixel := point - CleaverArt.BODY_PIVOT
+		pixel.x *= facing
+		result.append(to_global(pixel * scale_value))
+	return result
 
-func reach_or_default(action_id: String) -> float:
-	return float(Rules.action(action_id, weapon_type).get("reach", 90.0))
+func blade_polygon_at(elapsed: float) -> PackedVector2Array:
+	var action := Rules.action(current_action, weapon_type) if not current_action.is_empty() else {}
+	var charge := blade_charge_visual_time if charge_time > 0 else 0.0
+	var frame := CleaverArt.frame_for(charge, elapsed, action, blade_attack_from_hold)
+	var polygon := PackedVector2Array()
+	for point in CleaverArt.metadata().frames[frame].blade_polygon:
+		polygon.append(Vector2(point[0], point[1]))
+	return _blade_to_world(polygon)
+
+func _emit_blade_contacts(previous: float, now: float) -> void:
+	blade_damage_active = false
+	if weapon_type != "blade" or current_action.is_empty() or charge_time > 0 or health <= 0:
+		return
+	var action := Rules.action(current_action, weapon_type)
+	if int(action.damage) <= 0: return
+	var start := maxf(0.0, float(action.hit_at) - 2.0 / 30.0)
+	var end := float(action.hit_at) + 1.0 / 30.0
+	if now < start or previous >= end: return
+	blade_damage_active = true
+	blade_sweep_from = maxf(previous, start)
+	blade_sweep_to = minf(now, end)
+	blade_swept.emit(current_damage(), current_action)
+	if now >= end: blade_damage_active = false
+
+func blade_sweep_polygons() -> Array[PackedVector2Array]:
+	var result: Array[PackedVector2Array] = []
+	if not blade_damage_active or current_action.is_empty() or charge_time > 0:
+		return result
+	if current_action == "shoulder_brace":
+		return SpriteHurtbox.world_polygons(sprite)
+	var action := Rules.action(current_action, weapon_type)
+	var times: Array[float] = [blade_sweep_from]
+	var middle := float(action.hit_at) - 1.0 / 30.0
+	if middle > blade_sweep_from and middle < blade_sweep_to: times.append(middle)
+	times.append(blade_sweep_to)
+	var outline := CleaverArt.blade_outline()
+	for i in times.size() - 1:
+		var a := CleaverArt.blade_pose(times[i], action)
+		var b := CleaverArt.blade_pose(times[i + 1], action)
+		for polygon in BladeSweep.between(outline, a.origin, a.angle, b.origin, b.angle):
+			result.append(_blade_to_world(polygon))
+	return result
+
+func consume_blade_hit(target: Node) -> bool:
+	var id := target.get_instance_id()
+	if blade_hit_targets.has(id): return false
+	blade_hit_targets[id] = true
+	return true
 
 func resource_name() -> String:
 	return str(Rules.weapon(weapon_type).get("resource_name", ""))
@@ -403,11 +447,9 @@ func start_anvil_rise() -> bool:
 func try_anvil_clash(attack_rect: Rect2) -> bool:
 	if weapon_type != "blade" or current_action != "anvil_rise" or not attack_fired:
 		return false
-	var zone := _great_cleaver_hit_zone("anvil_rise")
-	var left := minf(float(zone["min_x"]) * facing, float(zone["max_x"]) * facing)
-	var right := maxf(float(zone["min_x"]) * facing, float(zone["max_x"]) * facing)
-	var blade_rect := Rect2(global_position + Vector2(left, float(zone["min_y"])), Vector2(right - left, float(zone["max_y"]) - float(zone["min_y"])))
-	if not blade_rect.intersects(attack_rect):
+	var attack := PackedVector2Array([attack_rect.position, Vector2(attack_rect.end.x, attack_rect.position.y),
+		attack_rect.end, Vector2(attack_rect.position.x, attack_rect.end.y)])
+	if Geometry2D.intersect_polygons(blade_polygon_at(action_elapsed), attack).is_empty():
 		return false
 	_force_action("crossbite")
 	return true
@@ -504,7 +546,9 @@ func _update_art(delta: float) -> void:
 
 func _update_great_cleaver_art() -> void:
 	if weapon_type != "blade" or sprite == null:
+		if blade_sprite != null: blade_sprite.visible = false
 		return
+	_ensure_blade_layers()
 	var action := Rules.action(current_action, weapon_type) if not current_action.is_empty() else {}
 	var visual_charge := blade_charge_visual_time if charge_time > 0.0 else 0.0
 	var frame := CleaverArt.frame_for(visual_charge, action_elapsed, action, blade_attack_from_hold)
@@ -519,14 +563,25 @@ func _update_great_cleaver_art() -> void:
 	blade_sprite.modulate = sprite.modulate
 	blade_sprite.visible = sprite.visible
 
+func _ensure_blade_layers() -> void:
+	if blade_sprite != null: return
+	sprite.texture = load(CleaverArt.BODY)
+	sprite.centered = false
+	sprite.offset = -CleaverArt.BODY_PIVOT
+	sprite.region_enabled = true
+	sprite.scale = Vector2.ONE * (ART_HEIGHT / GREAT_CLEAVER_FRAME_HEIGHT)
+	blade_sprite = Sprite2D.new()
+	blade_sprite.texture = load(CleaverArt.WEAPON)
+	blade_sprite.region_enabled = true
+	blade_sprite.region_rect = CleaverArt.region(0, "weapon")
+	blade_sprite.centered = false
+	blade_sprite.offset = -CleaverArt.WEAPON_PIVOT
+	blade_sprite.scale = sprite.scale
+	blade_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	blade_sprite.z_index = 1
+	add_child(blade_sprite)
+
 func _draw() -> void:
 	if charge_time > 0.18:
 		var width := 48.0 + 15.0 * minf(charge_time, 1.0)
 		draw_arc(Vector2(0, -47), width, -1.5, 1.5, 14, Color("#e6b967"), 3.0)
-	if not current_action.is_empty() and attack_fired and (weapon_type != "blade" or action_elapsed <= attack_emit_at + .14):
-		var start := Vector2(25 * facing, -67)
-		var reach: float = float(Rules.action(current_action, weapon_type).get("reach", 90.0))
-		var end := Vector2((reach + 8.0) * facing, -25)
-		var trail := Color("#f3b862") if weapon_type == "maul" else (Color("#c6e7d9") if weapon_type == "pike" else (Color("#dda8ff") if weapon_type == "counter" else (Color("#ff9dad") if weapon_type == "twins" else Color("#f1dfa8"))))
-		draw_line(start, end, trail, 7.0 if weapon_type == "maul" else 4.0)
-		draw_line(start + Vector2(0, 6), end + Vector2(0, 6), Color("#b88a4c"), 3.0)

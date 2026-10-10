@@ -4,20 +4,28 @@ const Hunter = preload("res://scripts/hunter.gd")
 var failures := 0
 
 func _initialize() -> void:
-	var hunter := Hunter.new()
-	hunter.weapon_type = "blade"
-	hunter.facing = 1
-	_check(not hunter.can_strike_point(Vector2(90, -132), "low_cleave", 132.0, 0.0, 0.0), "low cleave does not reach its high rising arc")
-	_check(hunter.can_strike_point(Vector2(90, -132), "rising_cleave", 142.0, 0.0, 0.0), "rising cleave reaches high targets")
-	_check(not hunter.can_strike_point(Vector2(-35, -45), "charged_hew", 150.0, 0.0, 0.0), "charged cleave cannot hit behind the hunter")
-	_check(hunter.can_strike_point(Vector2(176, -112), "sundering_fall", 164.0, 18.0, 12.0), "Sundering Fall owns the longest forward hit zone")
-	_check(hunter.can_strike_point(Vector2(75, -18), "aerial_drop", 105.0, 0.0, 0.0), "aerial drop reaches the ground below its arc")
-	_check(hunter.can_strike_point(Vector2(86, -146), "anvil_rise", 146.0, 0.0, 0.0), "Anvil Rise reaches an incoming high attack")
-	_check(hunter.can_strike_point(Vector2(112, -72), "crossbite", 136.0, 0.0, 0.0), "Crossbite owns its short forward punish zone")
-	hunter.free()
-	quit(1 if failures > 0 else 0)
+    call_deferred("run")
 
-func _check(value: bool, message: String) -> void:
-	if not value:
-		printerr("FAIL: " + message)
-		failures += 1
+func check(ok: bool, message: String) -> void:
+    if not ok:
+        failures += 1
+        printerr("FAIL: " + message)
+
+func run() -> void:
+    var hunter = Hunter.new()
+    root.add_child(hunter)
+    hunter.set_physics_process(false)
+    hunter.start_action("draw_hew")
+    hunter.action_elapsed = hunter.attack_emit_at
+    var polygon: PackedVector2Array = hunter.blade_polygon_at(hunter.action_elapsed)
+    var center := Vector2.ZERO
+    for point in polygon: center += point
+    center /= polygon.size()
+    check(hunter.can_strike_point(center, "draw_hew", 125), "point actually on the metal blade hits")
+    check(not hunter.can_strike_point(center + Vector2(0,-35), "draw_hew", 999,999,999,999), "legacy padding cannot invent a hit above the blade")
+    check(not hunter.can_strike_point(Vector2(500,-20), "draw_hew", 999,999,999,999), "declared reach cannot extend the rendered sword")
+    hunter.facing = -1
+    check(hunter.can_strike_point(Vector2(-center.x,center.y), "draw_hew", 125), "left-facing collider mirrors exactly")
+    check(not hunter.can_strike_point(center, "draw_hew", 999,999,999,999), "opposite-side point cannot hit an unseen blade")
+    hunter.queue_free()
+    quit(1 if failures else 0)

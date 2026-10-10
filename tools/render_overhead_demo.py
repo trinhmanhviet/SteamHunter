@@ -14,32 +14,32 @@ import numpy as np
 from mathutils import Quaternion, Vector
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rig_hunter_heavy import global_bone_shift, holdout_material
+from rig_hunter_heavy import global_bone_shift, holdout_material, choose_pole
 from rig_hunter_prototype import project
 
 # frame, grip forward/height/angle, hip forward/drop/yaw, lean, shoulder yaw,
 # front foot forward, rear heel pitch. Forward is world -Y, screen right.
 POSES = [
-    (1, -.13, .615, 12, 0, -.035, -8, 4, 8, -.165, 0),
-    (4, -.05, .705, 62, .015, -.065, -13, -4, 13, -.18, 6),
-    (8, .020, .785, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (9, .020, .785, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (12, .017, .782, 119, .018, -.104, -17, -10, 17, -.21, 14),
-    (15, .020, .787, 118, .020, -.099, -17, -11, 18, -.21, 15),
-    (18, .023, .783, 117, .022, -.103, -17, -12, 19, -.21, 16),
-    (20, .020, .785, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (21, .020, .785, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (22, -.22, .57, 45, -.055, -.13, -1, 25, 3, -.23, 26),
-    (23, -.37, .395, -23, -.10, -.19, 13, 48, -9, -.245, 30),
-    (24, -.375, .39, -23, -.11, -.20, 14, 50, -10, -.245, 30),
-    (27, -.38, .385, -22, -.115, -.205, 14, 51, -10, -.245, 28),
-    (35, -.372, .395, -23, -.105, -.195, 13, 48, -9, -.245, 25),
-    (45, -.37, .40, -23, -.10, -.19, 12, 47, -8, -.245, 21),
-    (56, -.36, .414, -24, -.095, -.18, 11, 45, -7, -.245, 18),
-    (57, -.355, .416, -24, -.09, -.18, 11, 44, -7, -.245, 18),
-    (62, -.31, .45, -15, -.07, -.14, 6, 34, -3, -.23, 12),
-    (67, -.22, .53, -2, -.035, -.085, 0, 20, 1, -.20, 5),
-    (74, -.13, .615, 12, 0, -.035, -8, 4, 8, -.165, 0),
+    (1, -.30, .575, 12, 0, -.035, -8, 8, 8, -.165, 0),
+    (4, -.25, .735, 62, .015, -.065, -13, -4, 13, -.18, 6),
+    (8, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
+    (9, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
+    (12, -.097, .832, 119, .018, -.104, -17, -10, 17, -.21, 14),
+    (15, -.100, .837, 118, .020, -.099, -17, -11, 18, -.21, 15),
+    (18, -.103, .833, 117, .022, -.103, -17, -12, 19, -.21, 16),
+    (20, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
+    (21, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
+    (22, -.34, .615, 45, -.055, -.13, -1, 25, 3, -.23, 26),
+    (23, -.470, .365, -14.5, -.10, -.19, 13, 48, -9, -.245, 30),
+    (24, -.480, .360, -14.3, -.11, -.20, 14, 50, -10, -.245, 30),
+    (27, -.485, .355, -14.1, -.115, -.205, 14, 51, -10, -.245, 28),
+    (35, -.477, .365, -14.5, -.105, -.195, 13, 48, -9, -.245, 25),
+    (45, -.475, .370, -14.7, -.10, -.19, 12, 47, -8, -.245, 21),
+    (56, -.460, .384, -15.3, -.095, -.18, 11, 45, -7, -.245, 18),
+    (57, -.455, .386, -15.4, -.09, -.18, 11, 44, -7, -.245, 18),
+    (62, -.41, .46, -9, -.07, -.14, 6, 34, -3, -.23, 12),
+    (67, -.35, .535, 2, -.035, -.085, 0, 20, 1, -.20, 5),
+    (74, -.30, .575, 12, 0, -.035, -8, 8, 8, -.165, 0),
 ]
 STAGES = {"ready": [1], "raise": list(range(2, 9)), "hold": list(range(9, 21)),
           "strike": list(range(21, 24)), "settle": list(range(24, 57)),
@@ -58,6 +58,13 @@ def main():
     height = max(v.co.z for v in body.data.vertices) - min(v.co.z for v in body.data.vertices)
     for obj in scene.objects:
         obj.animation_data_clear()
+    # Longitudinal scale applies equally to blade and handle; width stays fixed.
+    pivot.scale.y = 1.4
+    # Pivot has a 180-degree facing rotation: reverse local X so each wrist
+    # remains on its anatomical side instead of crossing through the other arm.
+    for suffix, local_x in (("R", .024), ("L", -.024)):
+        bpy.data.objects["Grip." + suffix].location.x = local_x * height
+        bpy.data.objects["WristIK." + suffix].location.x = local_x * height
     rig.pose.bones["hips"].rotation_mode = "XYZ"
     feet = {s: bpy.data.objects["FootTarget." + s] for s in ("R", "L")}
     elbows = {s: bpy.data.objects["ElbowPole." + s] for s in ("R", "L")}
@@ -89,7 +96,7 @@ def main():
             # Elbows lift behind the hands overhead, open out as the body folds.
             lifted = max(0, min(1, (angle - 20) / 98))
             elbows[suffix].location = Vector((side * (.34 + .06 * lifted),
-                                             .02 + .15 * lifted + hip_y,
+                                             -.16 + .10 * lifted + hip_y,
                                              .56 + .14 * lifted + drop * .35)) * height
             elbows[suffix].keyframe_insert("location", frame=frame)
     scene.render.fps = 30
@@ -106,6 +113,12 @@ def main():
     materials = [slot.material for slot in body.material_slots]
     holdout = holdout_material()
     weapons = [obj for obj in scene.objects if obj.type == "MESH" and obj != body]
+    metal = [obj for obj in weapons if obj.name in {"HeavyBlade", "BladeBevel", "BladeSpine"}]
+    scene.frame_set(1)
+    for suffix, side in (("R", -1), ("L", 1)):
+        ik = next(c for c in rig.pose.bones["forearm." + suffix].constraints if c.type == "IK")
+        choose_pole(scene, rig, ik, "forearm." + suffix,
+                    Vector((side * .23, -.12, .61)) * height, height)
     frames = [row[0] for row in POSES] if args.keys else list(range(1, 75))
     rest = np.array([tuple(v.co) for v in body.data.vertices])
     # Ground both foot meshes at their lowest visible point, permitting heel lift.
@@ -133,7 +146,15 @@ def main():
         scene.render.filepath = str(path.resolve())
         bpy.ops.render.render(write_still=True)
         grip = project(scene, camera, bpy.data.objects["Grip.R"].matrix_world.translation, (128, 128))
+        origin = project(scene, camera, pivot.matrix_world.translation, (128, 128))
         tip = project(scene, camera, pivot.matrix_world @ Vector((0, .91 * height, 0)), (128, 128))
+        projected = [project(scene, camera, obj.matrix_world @ vertex.co, (128, 128))
+                     for obj in metal for vertex in obj.data.vertices]
+        blade = convex_hull(projected)
+        angle = -pivot.rotation_euler.x
+        local = [[math.cos(angle) * (x-origin[0]) + math.sin(angle) * (y-origin[1]),
+                  -math.sin(angle) * (x-origin[0]) + math.cos(angle) * (y-origin[1])]
+                 for x, y in blade]
         for slot in body.material_slots:
             slot.material = holdout
         for weapon in weapons:
@@ -146,7 +167,9 @@ def main():
         bpy.ops.render.render(write_still=True)
         exported.append({"frame": frame, "body": path.relative_to(args.output).as_posix(),
                          "weapon": weapon_path.relative_to(args.output).as_posix(),
-                         "grip": grip, "tip": tip, "wrist_error_pixels": gap})
+                         "grip": grip, "tip": tip, "wrist_error_pixels": gap,
+                         "blade_polygon": blade, "weapon_origin": origin,
+                         "weapon_angle": angle, "blade_local": local})
     for slot, material in zip(body.material_slots, materials):
         slot.material = material
     camera.data.ortho_scale = scale
@@ -155,8 +178,23 @@ def main():
     scene.frame_set(1)
     bpy.ops.wm.save_as_mainfile(filepath=str((args.output / "overhead_rig.blend").resolve()))
     (args.output / "render.json").write_text(json.dumps({"fps": 30, "stages": STAGES,
-        "body_pivot": [64, 116], "weapon_pivot": [192, 244], "frames": exported}, indent=2))
+        "body_pivot": [64, 116], "weapon_pivot": [192, 244],
+        "weapon_length_multiplier": 1.4, "frames": exported}, indent=2))
     print("OVERHEAD_RENDER_DONE", len(exported), flush=True)
+
+
+def convex_hull(points):
+    points = sorted(set(tuple(p) for p in points))
+    def cross(o, a, b):
+        return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0])
+    lower, upper = [], []
+    for p in points:
+        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) <= 0: lower.pop()
+        lower.append(p)
+    for p in reversed(points):
+        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) <= 0: upper.pop()
+        upper.append(p)
+    return [list(p) for p in lower[:-1] + upper[:-1]]
 
 
 if __name__ == "__main__":

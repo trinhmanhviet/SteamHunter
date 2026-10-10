@@ -50,3 +50,19 @@ static func frame_for(charge: float, elapsed: float, action: Dictionary, from_ho
 static func region(index: int, layer: String) -> Rect2:
 	var coords: Array = metadata().frames[index][layer]
 	return Rect2(coords[0], coords[1], coords[2], coords[3])
+
+static func blade_outline() -> PackedVector2Array:
+	var outline := PackedVector2Array()
+	for point in metadata().blade_local: outline.append(Vector2(point[0], point[1]))
+	return outline
+
+static func blade_pose(elapsed: float, action: Dictionary) -> Dictionary:
+	var hit: float = action.hit_at
+	var start := maxf(0, hit - 2.0 / 30.0)
+	var progress := clampf((elapsed - start) / maxf(.00001, hit - start), 0, 1) * 2
+	# Match the currently displayed downswing cell. Sweep only between displayed
+	# poses, never advance the damaging sword ahead of the visible animation.
+	var index := mini(2, int(progress))
+	var stages: Array = metadata().stages.strike
+	var a: Dictionary = metadata().frames[int(stages[index])]
+	return {"origin": Vector2(a.weapon_origin[0], a.weapon_origin[1]), "angle": a.weapon_angle}
