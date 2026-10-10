@@ -1,0 +1,69 @@
+{
+  "version": "0.10.17",
+  "original_phone_reproduction": {
+    "already_running_hunt": true,
+    "route_index": 2,
+    "resolve": 0,
+    "holds_ms": [
+      850,
+      1400,
+      2300
+    ],
+    "downswings": 0
+  },
+  "native_suites": [
+    {
+      "test": "test_blade_charge_release",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_combat_stick",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_gesture_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_weapon_actions",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_weapon_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_cleaver_recovery",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_contact_flow",
+      "exit": 0,
+      "script_errors": false
+    }
+  ],
+  "android": {
+    "version": "0.10.17",
+    "standing_holds_ms": [
+      850,
+      1400,
+      2300
+    ],
+    "script_errors": [],
+    "installed_apk_sha256": "b47465cf9817dc3fabd27b25bb091135ddcf4becdb2a51b32783c56fc9e75184",
+    "release_apk_sha256": "b47465cf9817dc3fabd27b25bb091135ddcf4becdb2a51b32783c56fc9e75184",
+    "matching_apk": true,
+    "state": "Fresh Moor hunt; empty Resolve, ordinary charge route",
+    "visual_review": {
+      "downswings_after_release": 3,
+      "confirmed": true
+    }
+  },
+  "change": "Fallback to Charged Hew when Sundering Fall cannot afford Resolve, for fresh and buffered inputs."
+}

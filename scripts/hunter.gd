@@ -174,6 +174,9 @@ func request_action(token: String, directional: bool = false, airborne: bool = f
 			followup = Rules.followup_action(current_action, "light", weapon_type)
 		if followup.is_empty():
 			return false
+		if weapon_type == "blade" and followup == "sundering_fall" and weapon_resource < float(Rules.action("sundering_fall")["resource_cost"]):
+			followup = "charged_hew"
+			blade_route_index = 0
 		buffered_token = followup
 		return true
 	var weapon_data := Rules.weapon(weapon_type)
@@ -377,6 +380,9 @@ func start_blade_charge() -> bool:
 	if not current_action.is_empty():
 		return request_action("heavy")
 	if charge_time <= 0.0:
+		# A missed finisher spends Resolve without confirming a route reset.
+		if blade_route_index == 2 and weapon_resource < float(Rules.action("sundering_fall")["resource_cost"]):
+			blade_route_index = 0
 		blade_charge_overcharged = false
 		blade_charge_visual_time = .01
 	charge_time = maxf(charge_time, 0.01)
