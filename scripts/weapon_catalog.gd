@@ -26,7 +26,7 @@ static func _ensure() -> void:
 	_weapons = {
 		"blade": {
 			"cost": 0, "resource_name": "resolve", "resource_max": 1.0, "resource_start": 0.0,
-			"walk_multiplier": 0.72, "art": "res://art/hunter.png", "tint": Color.WHITE,
+			"walk_multiplier": 0.72, "art": "res://art/characters/hunter/great_cleaver_portrait.png", "tint": Color.WHITE,
 			"element_scale": 0.70, "status_scale": 0.65,
 			"entry": "draw_hew", "light": "low_cleave", "heavy": "charged_hew", "directional": "rising_cleave",
 			"dodge": "roll_reaper", "aerial": "aerial_drop", "special": "shoulder_brace",
@@ -39,11 +39,11 @@ static func _ensure() -> void:
 				"roll_reaper": {"light": "low_cleave"}
 			},
 			"actions": {
-				"draw_hew": _a(12, 125.0, 0.42, 0.20, 0.30, 12.0, 0.0, 0.0, 28.0, "heavy", 0.055, 75.0, 24.0),
+				"draw_hew": _a(12, 125.0, 2.0, 8.0 / 30.0, 1.65, 12.0, 0.0, 0.0, 28.0, "heavy", 0.055, 75.0, 24.0),
 				"low_cleave": _a(15, 132.0, 0.48, 0.24, 0.34, 13.0, 0.0, 0.0, 18.0, "heavy", 0.060, 82.0, 28.0),
 				"rising_cleave": _a(18, 142.0, 0.56, 0.29, 0.40, 16.0, 0.0, 0.0, 8.0, "heavy", 0.070, 95.0, 34.0),
 				"shoulder_brace": _a(7, 78.0, 0.34, 0.18, 0.28, 10.0, 0.0, 0.0, 36.0, "blunt", 0.040, 45.0, 38.0),
-				"charged_hew": _a(20, 150.0, 0.72, 0.48, 0.61, 18.0, 0.0, 0.0, 0.0, "heavy", 0.095, 125.0, 52.0, 18),
+				"charged_hew": _a(20, 150.0, 1.80, 2.0 / 30.0, 1.50, 18.0, 0.0, 0.0, 0.0, "heavy", 0.095, 125.0, 52.0, 18),
 				"furnace_hew": _a(31, 158.0, 0.80, 0.52, 0.67, 22.0, 0.0, 0.0, 4.0, "heavy", 0.110, 151.0, 67.0, 22),
 				"sundering_fall": _a(42, 164.0, 0.88, 0.55, 0.74, 25.0, 0.0, 1.0, 12.0, "heavy", 0.125, 180.0, 82.0),
 				"anvil_rise": _a(23, 146.0, 0.66, 0.34, 0.46, 24.0, 0.0, 0.0, 0.0, "heavy", 0.085, 108.0, 46.0),

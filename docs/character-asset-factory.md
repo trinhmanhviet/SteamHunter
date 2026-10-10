@@ -1,23 +1,32 @@
-# Character Asset Factory
+# Current hunter art pipeline
 
-Factory assets are layered so a character pose never contains a weapon. `character.json` records the common canvas, ground line, locked palette, pose frames, and attachment point for each hand-held item.
+Production uses the approved Hunyuan -> Blender -> 2D overhead set from Great
+Cleaver Demo 0.1.0. The old four-pose body, stand-alone sword skins and rejected
+Great Cleaver source images have been retired from art/.
 
-## Create an approved master
+## Active assets
 
-```powershell
-py -3 tools\create_character_master.py art\characters\great_cleaver_hunter\character.json
-```
+- art/characters/hunter/body_atlas.png: 74 body frames, 128px cells.
+- art/characters/hunter/overhead_frames.json: paired regions and phase lists.
+- art/weapons/great_cleaver/overhead_atlas.png: weapon frames, 384px cells.
+- art/characters/hunter/great_cleaver_portrait.png: approved forge preview.
 
-This makes the master and reference crops. Review the master before generating poses.
+Body pivot is [64,116], weapon pivot [192,244]. Both layers share world scale and
+mirror around the actor origin. Weapon images include the body depth mask so the
+nearer hand remains in front of the blade. Never normalize each frame by its
+changing visible bounding box.
 
-## Generate body poses
+## Rebuild and promote
 
-```powershell
-py -3 tools\run_character_factory.py art\characters\great_cleaver_hunter\character.json
-```
+Run the saved base rig through tools/render_overhead_demo.py, pack the layers
+with tools/pack_overhead_demo.py, then run tools/promote_hunter_art.py. Exact
+Blender and isolated Python commands are in prototypes/overhead_demo/README.md.
+The legacy generate_great_cleaver_poses.py entry now only promotes this approved
+set, so it cannot regenerate the retired art. Generic 2D factory helpers remain
+available for other assets but are not this hunter's active pipeline.
 
-The runner uploads the selected references to local ComfyUI, retries rejected frames, writes raw and accepted frames, packs a sprite sheet, produces a Godot `SpriteFrames` resource, and writes a checker-backed preview. `attachment_points.right_hand` is exported in the animation JSON so gameplay can position any compatible weapon skin on the same pose.
-
-## Weapon skins
-
-Weapon art belongs below `art/weapons/<weapon>/`. Each weapon contract declares a canvas, named grip pixel, and available skins. The Great Cleaver base and Ember skin share a grip at `[28, 45]`; replacing a skin never changes body art.
+The current authored motion is one overhead attack and a charge loop. Other
+Great Cleaver moves use the new poses aligned to their existing hit timing until
+their own references are authored. Other weapon classes, monsters and environments
+retain current art where no approved replacement exists. Original master images
+and Hunyuan/Blender generation inputs remain available for regeneration.

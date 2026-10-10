@@ -1,6 +1,7 @@
 extends SceneTree
 
 const Hunter = preload("res://scripts/hunter.gd")
+const Rules = preload("res://scripts/rules.gd")
 
 func _initialize() -> void:
 	call_deferred("_run")
@@ -36,19 +37,19 @@ func _run() -> void:
 	_finish(blade)
 	_check(blade.start_action("charged_hew", 0.90), "charged cut can begin a Resolve route")
 	blade.weapon_resource = 1.0
-	blade.advance_action(0.62)
+	blade.advance_action(float(Rules.action("charged_hew")["combo_open"]) + .01)
 	_check(blade.start_blade_charge(), "holding during the charged-cut window queues the Resolve finisher")
 	_check(blade.buffered_token == "furnace_hew", "Great Cleaver routes the held follow-up into Furnace Hew")
-	blade.advance_action(0.11)
+	blade.advance_action(blade.attack_time + .01)
 	_check(blade.current_action == "furnace_hew" and blade.weapon_resource == 1.0, "Furnace Hew follows the charged cut without spending Resolve")
 
 	_finish(blade)
 	blade.stamina = blade.max_stamina
 	_check(blade.start_action("charged_hew", 0.45), "charged cut can enter a defensive follow-up route")
-	blade.advance_action(0.62)
+	blade.advance_action(float(Rules.action("charged_hew")["combo_open"]) + .01)
 	_check(blade.brace_blade_charge(), "downward sweep during charged recovery queues Brace")
 	_check(blade.buffered_token == "shoulder_brace", "Brace replaces a pending finisher route")
-	blade.advance_action(0.11)
+	blade.advance_action(blade.attack_time + .01)
 	_check(blade.current_action == "shoulder_brace", "charged recovery flows into Brace")
 
 	_finish(blade)

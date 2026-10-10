@@ -55,7 +55,8 @@ def main() -> None:
     boss = sprite("cinderback_generated.png", "cinderback.png", 270, 145)
     rat = sprite("rat_generated.png", "mire_rat.png", 114, 66)
     platform = sprite("platform_generated.png", "platform.png", 330, 90)
-    preview(camp, hero, rat, boss, platform)
+    preview_hero = Image.open(ART / "characters/hunter/great_cleaver_portrait.png").convert("RGBA")
+    preview(camp, preview_hero, rat, boss, platform)
     print("Prepared six ImageGen assets and a scene preview in", ART)
 
 

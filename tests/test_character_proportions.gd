@@ -32,7 +32,7 @@ func _run() -> void:
 	quit(1 if failures > 0 else 0)
 
 func _height(sprite: Sprite2D) -> float:
-	return sprite.texture.get_height() * sprite.scale.y
+	return (sprite.region_rect.size.y if sprite.region_enabled else sprite.texture.get_height()) * sprite.scale.y
 
 func _body_height(actor: Node) -> float:
 	return (actor.get_child(0) as CollisionShape2D).shape.size.y

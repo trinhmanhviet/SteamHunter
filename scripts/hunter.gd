@@ -6,6 +6,7 @@ signal died
 signal healed
 
 const Rules = preload("res://scripts/rules.gd")
+const CleaverArt = preload("res://scripts/cleaver_art.gd")
 const WALK_SPEED := 225.0
 const JUMP_SPEED := -700.0
 const GRAVITY := 1900.0
@@ -13,10 +14,6 @@ const ART_HEIGHT := 90.0
 const SHEATH_DELAY := 3.5
 const GREAT_CLEAVER_FRAME_WIDTH := 128.0
 const GREAT_CLEAVER_FRAME_HEIGHT := 128.0
-const GREAT_CLEAVER_BODY_SHEET := "res://art/characters/great_cleaver_hunter/sprites/great_cleaver_hunter_spritesheet.png"
-const GREAT_CLEAVER_BODY_METADATA := "res://art/characters/great_cleaver_hunter/sprites/great_cleaver_hunter_animations.json"
-const GREAT_CLEAVER_WEAPON_TEXTURE := "res://art/weapons/great_cleaver/great_cleaver_base.png"
-const GREAT_CLEAVER_GRIP := Vector2(28.0, 45.0)
 
 var max_health := 100
 var health := 100
@@ -43,7 +40,9 @@ var potions := 2
 var heal_time := 0.0
 var sprite: Sprite2D
 var blade_sprite: Sprite2D
-var blade_attachment_points: Dictionary = {}
+var blade_attack_from_hold := false
+var blade_releasing_hold := false
+var blade_charge_visual_time := 0.0
 
 var current_action := ""
 var action_elapsed := 0.0
@@ -73,23 +72,28 @@ func _ready() -> void:
 	sprite = Sprite2D.new()
 	var weapon_data := Rules.weapon(weapon_type)
 	if weapon_type == "blade":
-		sprite.texture = load(GREAT_CLEAVER_BODY_SHEET)
+		sprite.texture = load(CleaverArt.BODY)
 		sprite.region_enabled = true
-		sprite.region_rect = Rect2(0.0, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
+		sprite.region_rect = CleaverArt.region(0, "body")
+		sprite.centered = false
+		sprite.offset = -CleaverArt.BODY_PIVOT
 	else:
 		sprite.texture = load(str(weapon_data["art"]))
 	sprite.modulate = weapon_data.get("tint", Color.WHITE)
 	var pixel_scale := ART_HEIGHT / float(sprite.texture.get_height())
+	if weapon_type == "blade":
+		pixel_scale = ART_HEIGHT / GREAT_CLEAVER_FRAME_HEIGHT
 	sprite.scale = Vector2(pixel_scale, pixel_scale)
 	sprite.position = Vector2(0, -ART_HEIGHT / 2.0)
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(sprite)
 	if weapon_type == "blade":
-		_load_great_cleaver_attachment_points()
 		blade_sprite = Sprite2D.new()
-		blade_sprite.texture = load(GREAT_CLEAVER_WEAPON_TEXTURE)
+		blade_sprite.texture = load(CleaverArt.WEAPON)
+		blade_sprite.region_enabled = true
+		blade_sprite.region_rect = CleaverArt.region(0, "weapon")
 		blade_sprite.centered = false
-		blade_sprite.offset = -GREAT_CLEAVER_GRIP
+		blade_sprite.offset = -CleaverArt.WEAPON_PIVOT
 		blade_sprite.scale = Vector2(pixel_scale, pixel_scale)
 		blade_sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		blade_sprite.z_index = 1
@@ -208,6 +212,7 @@ func _begin_action(action_id: String, charge: float, spend_costs: bool) -> bool:
 	stamina -= stamina_cost
 	weapon_resource -= resource_cost
 	current_action = action_id
+	blade_attack_from_hold = blade_releasing_hold
 	attack_kind = action_id
 	attack_charge = clampf(charge, 0.0, 1.0)
 	action_elapsed = 0.0
@@ -329,6 +334,7 @@ func start_blade_charge() -> bool:
 		return request_action("heavy")
 	if charge_time <= 0.0:
 		blade_charge_overcharged = false
+		blade_charge_visual_time = .01
 	charge_time = maxf(charge_time, 0.01)
 	weapon_drawn = true
 	idle_combat_time = 0.0
@@ -339,6 +345,7 @@ func advance_blade_charge(delta: float) -> bool:
 	if delta <= 0.0 or not start_blade_charge():
 		return false
 	charge_time = minf(1.18, charge_time + delta)
+	blade_charge_visual_time += delta
 	if charge_time >= 1.10:
 		blade_charge_overcharged = true
 	queue_redraw()
@@ -351,7 +358,9 @@ func release_blade_charge() -> bool:
 	var action_id := _blade_route_action()
 	charge_time = 0.0
 	blade_charge_overcharged = false
+	blade_releasing_hold = true
 	var released := start_action(action_id, held_charge)
+	blade_releasing_hold = false
 	queue_redraw()
 	return released
 
@@ -496,49 +505,17 @@ func _update_art(delta: float) -> void:
 func _update_great_cleaver_art() -> void:
 	if weapon_type != "blade" or sprite == null:
 		return
-	var pose := 0
-	if charge_time > 0.0:
-		pose = 1
-	elif not current_action.is_empty():
-		var duration := maxf(0.01, float(Rules.action(current_action, weapon_type).get("duration", 0.01)))
-		var progress := clampf(action_elapsed / duration, 0.0, 1.0)
-		if progress < 0.34:
-			pose = 1
-		elif attack_fired:
-			pose = 2
-		else:
-			pose = 3
-	sprite.region_rect = Rect2(GREAT_CLEAVER_FRAME_WIDTH * pose, 0.0, GREAT_CLEAVER_FRAME_WIDTH, GREAT_CLEAVER_FRAME_HEIGHT)
-	match pose:
-		1:
-			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
-		2:
-			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
-		3:
-			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
-		_:
-			sprite.position = Vector2(0.0, -ART_HEIGHT / 2.0)
-	_update_great_cleaver_weapon(pose)
-
-func _load_great_cleaver_attachment_points() -> void:
-	var file := FileAccess.open(GREAT_CLEAVER_BODY_METADATA, FileAccess.READ)
-	if file == null:
-		return
-	var metadata = JSON.parse_string(file.get_as_text())
-	if metadata is Dictionary:
-		blade_attachment_points = metadata.get("attachment_points", {})
-
-func _update_great_cleaver_weapon(pose: int) -> void:
-	if blade_sprite == null:
-		return
-	var frame_keys := ["idle/00", "charge/00", "heavy_strike/00", "recovery/00"]
-	var hand: Dictionary = blade_attachment_points.get("right_hand", {}).get(frame_keys[pose], {})
-	var pixels: Array = hand.get("position", [76, 78])
-	var attachment := Vector2(float(pixels[0]), float(pixels[1])) - Vector2(64.0, 64.0)
-	attachment.x *= facing
-	blade_sprite.position = sprite.position + attachment * sprite.scale
-	blade_sprite.rotation = float(hand.get("rotation", 0.28)) * facing
-	blade_sprite.scale = Vector2(absf(sprite.scale.x) * facing, absf(sprite.scale.y))
+	var action := Rules.action(current_action, weapon_type) if not current_action.is_empty() else {}
+	var visual_charge := blade_charge_visual_time if charge_time > 0.0 else 0.0
+	var frame := CleaverArt.frame_for(visual_charge, action_elapsed, action, blade_attack_from_hold)
+	sprite.region_rect = CleaverArt.region(frame, "body")
+	sprite.position = Vector2.ZERO
+	sprite.rotation = 0.0
+	blade_sprite.region_rect = CleaverArt.region(frame, "weapon")
+	blade_sprite.position = sprite.position
+	blade_sprite.rotation = 0.0
+	blade_sprite.flip_h = sprite.flip_h
+	blade_sprite.scale = sprite.scale
 	blade_sprite.modulate = sprite.modulate
 	blade_sprite.visible = sprite.visible
 
@@ -546,7 +523,7 @@ func _draw() -> void:
 	if charge_time > 0.18:
 		var width := 48.0 + 15.0 * minf(charge_time, 1.0)
 		draw_arc(Vector2(0, -47), width, -1.5, 1.5, 14, Color("#e6b967"), 3.0)
-	if not current_action.is_empty() and attack_fired:
+	if not current_action.is_empty() and attack_fired and (weapon_type != "blade" or action_elapsed <= attack_emit_at + .14):
 		var start := Vector2(25 * facing, -67)
 		var reach: float = float(Rules.action(current_action, weapon_type).get("reach", 90.0))
 		var end := Vector2((reach + 8.0) * facing, -25)

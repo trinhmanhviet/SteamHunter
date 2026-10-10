@@ -1,6 +1,7 @@
 extends SceneTree
 
 const Hunter = preload("res://scripts/hunter.gd")
+const Rules = preload("res://scripts/rules.gd")
 
 func _initialize() -> void:
 	call_deferred("_run")
@@ -10,9 +11,9 @@ func _run() -> void:
 	_check(blade.start_action("draw_hew"), "Great Blade can start its draw action")
 	_check(blade.stamina == 88.0 and blade.current_action == "draw_hew", "action data controls stamina and active move")
 	_check(not blade.request_action("light"), "early input cannot cancel a committed swing")
-	blade.advance_action(0.31)
+	blade.advance_action(float(Rules.action("draw_hew")["combo_open"]) + .01)
 	_check(blade.request_action("light"), "input buffers inside the cancel window")
-	blade.advance_action(0.12)
+	blade.advance_action(blade.attack_time + .01)
 	_check(blade.current_action == "low_cleave", "buffered light begins the declared follow-up")
 	_finish(blade)
 	_check(blade.start_action("charged_hew", 1.0), "Great Blade starts a fully charged hew")
