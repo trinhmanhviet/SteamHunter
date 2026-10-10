@@ -26,7 +26,10 @@ release stage, played only after letting go; charged contact is at 5/30s.
 - [x] Verify rear-hold regression, blade contacts, charge release and combo timing.
 - [x] Build the final Android 0.10.18 after the correction.
 - [x] Install/test on Android; device reconnected, Great Cleaver equipped, hash verified.
-- [ ] Push and publish the APK/animation preview release.
+- [x] Push and publish the APK, animation preview and Android gameplay release.
+
+Verified release: https://github.com/trinhmanhviet/SteamHunter/releases/tag/v0.10.18
+Final source commit: d9346f3090ce6d7bbb775c31e06af8d233e9efc2.
 
 Commands: use the project's isolated Blender and Python, then Godot native tests.
 Key render: `.tools/blender/blender-4.5.4-windows-x64/blender.exe -b prototypes/hunyuan_hunter/heavy_motion/hunter_heavy_rig.blend --python tools/render_overhead_demo.py -- build/reference-retarget-keys --keys`.
