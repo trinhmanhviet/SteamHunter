@@ -1,0 +1,971 @@
+{
+  "reference": "tools/clip_studio/outputs/MonsterHunterWildsGreatSwordTu_20261010_030034/frames",
+  "source_size": [
+    640,
+    360
+  ],
+  "fps": 29.97,
+  "method": "Hand-annotated key poses, perspective retained; no interpolation.",
+  "frames": [
+    {
+      "source_frame": 23,
+      "clip_time_seconds": 0.7341,
+      "phase": "Bắt đầu nâng",
+      "joints": {
+        "head": [
+          304,
+          234
+        ],
+        "neck": [
+          306,
+          250
+        ],
+        "shoulder_near": [
+          316,
+          255
+        ],
+        "elbow_near": [
+          334,
+          239
+        ],
+        "wrist_near": [
+          326,
+          224
+        ],
+        "hip_near": [
+          320,
+          281
+        ],
+        "knee_near": [
+          327,
+          292
+        ],
+        "ankle_near": [
+          331,
+          308
+        ],
+        "toe_near": [
+          339,
+          311
+        ],
+        "shoulder_far": [
+          299,
+          253
+        ],
+        "elbow_far": [
+          292,
+          235
+        ],
+        "wrist_far": [
+          319,
+          228
+        ],
+        "hip_far": [
+          310,
+          279
+        ],
+        "knee_far": [
+          296,
+          291
+        ],
+        "ankle_far": [
+          290,
+          300
+        ],
+        "toe_far": [
+          283,
+          303
+        ],
+        "guard": [
+          347,
+          199
+        ],
+        "tip": [
+          486,
+          189
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 24,
+      "clip_time_seconds": 0.7674,
+      "phase": "Nâng kiếm",
+      "joints": {
+        "head": [
+          303,
+          235
+        ],
+        "neck": [
+          307,
+          249
+        ],
+        "shoulder_near": [
+          317,
+          254
+        ],
+        "elbow_near": [
+          333,
+          236
+        ],
+        "wrist_near": [
+          320,
+          215
+        ],
+        "hip_near": [
+          322,
+          281
+        ],
+        "knee_near": [
+          331,
+          293
+        ],
+        "ankle_near": [
+          336,
+          310
+        ],
+        "toe_near": [
+          343,
+          313
+        ],
+        "shoulder_far": [
+          298,
+          251
+        ],
+        "elbow_far": [
+          288,
+          238
+        ],
+        "wrist_far": [
+          313,
+          221
+        ],
+        "hip_far": [
+          310,
+          278
+        ],
+        "knee_far": [
+          298,
+          291
+        ],
+        "ankle_far": [
+          294,
+          300
+        ],
+        "toe_far": [
+          287,
+          303
+        ],
+        "guard": [
+          344,
+          190
+        ],
+        "tip": [
+          480,
+          164
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 26,
+      "clip_time_seconds": 0.8342,
+      "phase": "Chuyển trọng tâm",
+      "joints": {
+        "head": [
+          303,
+          237
+        ],
+        "neck": [
+          308,
+          251
+        ],
+        "shoulder_near": [
+          319,
+          257
+        ],
+        "elbow_near": [
+          325,
+          236
+        ],
+        "wrist_near": [
+          306,
+          211
+        ],
+        "hip_near": [
+          324,
+          283
+        ],
+        "knee_near": [
+          335,
+          294
+        ],
+        "ankle_near": [
+          341,
+          311
+        ],
+        "toe_near": [
+          347,
+          315
+        ],
+        "shoulder_far": [
+          299,
+          252
+        ],
+        "elbow_far": [
+          281,
+          246
+        ],
+        "wrist_far": [
+          299,
+          219
+        ],
+        "hip_far": [
+          314,
+          279
+        ],
+        "knee_far": [
+          302,
+          291
+        ],
+        "ankle_far": [
+          299,
+          301
+        ],
+        "toe_far": [
+          291,
+          304
+        ],
+        "guard": [
+          327,
+          178
+        ],
+        "tip": [
+          447,
+          111
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 28,
+      "clip_time_seconds": 0.9009,
+      "phase": "Hạ hông / dựng kiếm",
+      "joints": {
+        "head": [
+          308,
+          247
+        ],
+        "neck": [
+          313,
+          261
+        ],
+        "shoulder_near": [
+          324,
+          269
+        ],
+        "elbow_near": [
+          305,
+          280
+        ],
+        "wrist_near": [
+          283,
+          247
+        ],
+        "hip_near": [
+          335,
+          288
+        ],
+        "knee_near": [
+          343,
+          300
+        ],
+        "ankle_near": [
+          347,
+          315
+        ],
+        "toe_near": [
+          353,
+          318
+        ],
+        "shoulder_far": [
+          302,
+          263
+        ],
+        "elbow_far": [
+          284,
+          268
+        ],
+        "wrist_far": [
+          282,
+          237
+        ],
+        "hip_far": [
+          323,
+          284
+        ],
+        "knee_far": [
+          302,
+          293
+        ],
+        "ankle_far": [
+          281,
+          300
+        ],
+        "toe_far": [
+          273,
+          303
+        ],
+        "guard": [
+          303,
+          197
+        ],
+        "tip": [
+          381,
+          73
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 29,
+      "clip_time_seconds": 0.9343,
+      "phase": "Gồng trên đầu",
+      "joints": {
+        "head": [
+          310,
+          253
+        ],
+        "neck": [
+          317,
+          266
+        ],
+        "shoulder_near": [
+          325,
+          272
+        ],
+        "elbow_near": [
+          300,
+          284
+        ],
+        "wrist_near": [
+          282,
+          257
+        ],
+        "hip_near": [
+          336,
+          291
+        ],
+        "knee_near": [
+          344,
+          302
+        ],
+        "ankle_near": [
+          349,
+          316
+        ],
+        "toe_near": [
+          356,
+          320
+        ],
+        "shoulder_far": [
+          304,
+          266
+        ],
+        "elbow_far": [
+          282,
+          269
+        ],
+        "wrist_far": [
+          279,
+          246
+        ],
+        "hip_far": [
+          324,
+          286
+        ],
+        "knee_far": [
+          302,
+          294
+        ],
+        "ankle_far": [
+          280,
+          300
+        ],
+        "toe_far": [
+          272,
+          303
+        ],
+        "guard": [
+          267,
+          205
+        ],
+        "tip": [
+          312,
+          69
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 30,
+      "clip_time_seconds": 0.9676,
+      "phase": "Bắt đầu bổ",
+      "joints": {
+        "head": [
+          307,
+          276
+        ],
+        "neck": [
+          318,
+          287
+        ],
+        "shoulder_near": [
+          326,
+          293
+        ],
+        "elbow_near": [
+          325,
+          308
+        ],
+        "wrist_near": [
+          292,
+          287
+        ],
+        "hip_near": [
+          337,
+          303
+        ],
+        "knee_near": [
+          345,
+          312
+        ],
+        "ankle_near": [
+          351,
+          321
+        ],
+        "toe_near": [
+          357,
+          324
+        ],
+        "shoulder_far": [
+          307,
+          286
+        ],
+        "elbow_far": [
+          303,
+          302
+        ],
+        "wrist_far": [
+          285,
+          277
+        ],
+        "hip_far": [
+          324,
+          298
+        ],
+        "knee_far": [
+          310,
+          307
+        ],
+        "ankle_far": [
+          292,
+          312
+        ],
+        "toe_far": [
+          282,
+          313
+        ],
+        "guard": [
+          263,
+          231
+        ],
+        "tip": [
+          216,
+          103
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 31,
+      "clip_time_seconds": 1.001,
+      "phase": "Bổ nhanh",
+      "joints": {
+        "head": [
+          303,
+          292
+        ],
+        "neck": [
+          315,
+          298
+        ],
+        "shoulder_near": [
+          323,
+          303
+        ],
+        "elbow_near": [
+          315,
+          320
+        ],
+        "wrist_near": [
+          291,
+          307
+        ],
+        "hip_near": [
+          341,
+          306
+        ],
+        "knee_near": [
+          352,
+          314
+        ],
+        "ankle_near": [
+          359,
+          323
+        ],
+        "toe_near": [
+          365,
+          327
+        ],
+        "shoulder_far": [
+          309,
+          291
+        ],
+        "elbow_far": [
+          299,
+          309
+        ],
+        "wrist_far": [
+          284,
+          300
+        ],
+        "hip_far": [
+          328,
+          301
+        ],
+        "knee_far": [
+          315,
+          311
+        ],
+        "ankle_far": [
+          301,
+          320
+        ],
+        "toe_far": [
+          293,
+          323
+        ],
+        "guard": [
+          264,
+          286
+        ],
+        "tip": [
+          139,
+          202
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 32,
+      "clip_time_seconds": 1.0344,
+      "phase": "Kiếm chạm đất",
+      "joints": {
+        "head": [
+          293,
+          296
+        ],
+        "neck": [
+          307,
+          291
+        ],
+        "shoulder_near": [
+          319,
+          298
+        ],
+        "elbow_near": [
+          309,
+          319
+        ],
+        "wrist_near": [
+          289,
+          312
+        ],
+        "hip_near": [
+          342,
+          305
+        ],
+        "knee_near": [
+          351,
+          316
+        ],
+        "ankle_near": [
+          363,
+          324
+        ],
+        "toe_near": [
+          369,
+          326
+        ],
+        "shoulder_far": [
+          308,
+          283
+        ],
+        "elbow_far": [
+          295,
+          305
+        ],
+        "wrist_far": [
+          283,
+          307
+        ],
+        "hip_far": [
+          329,
+          300
+        ],
+        "knee_far": [
+          329,
+          316
+        ],
+        "ankle_far": [
+          327,
+          329
+        ],
+        "toe_far": [
+          320,
+          332
+        ],
+        "guard": [
+          263,
+          310
+        ],
+        "tip": [
+          142,
+          332
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 40,
+      "clip_time_seconds": 1.3013,
+      "phase": "Chịu đà",
+      "joints": {
+        "head": [
+          293,
+          297
+        ],
+        "neck": [
+          307,
+          292
+        ],
+        "shoulder_near": [
+          321,
+          299
+        ],
+        "elbow_near": [
+          312,
+          319
+        ],
+        "wrist_near": [
+          292,
+          314
+        ],
+        "hip_near": [
+          341,
+          305
+        ],
+        "knee_near": [
+          355,
+          313
+        ],
+        "ankle_near": [
+          372,
+          321
+        ],
+        "toe_near": [
+          379,
+          322
+        ],
+        "shoulder_far": [
+          307,
+          282
+        ],
+        "elbow_far": [
+          296,
+          307
+        ],
+        "wrist_far": [
+          284,
+          309
+        ],
+        "hip_far": [
+          330,
+          301
+        ],
+        "knee_far": [
+          334,
+          317
+        ],
+        "ankle_far": [
+          332,
+          329
+        ],
+        "toe_far": [
+          325,
+          332
+        ],
+        "guard": [
+          268,
+          306
+        ],
+        "tip": [
+          138,
+          329
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 68,
+      "clip_time_seconds": 2.2356,
+      "phase": "Bắt đầu hồi",
+      "joints": {
+        "head": [
+          302,
+          276
+        ],
+        "neck": [
+          311,
+          286
+        ],
+        "shoulder_near": [
+          324,
+          291
+        ],
+        "elbow_near": [
+          310,
+          310
+        ],
+        "wrist_near": [
+          292,
+          302
+        ],
+        "hip_near": [
+          334,
+          305
+        ],
+        "knee_near": [
+          347,
+          309
+        ],
+        "ankle_near": [
+          365,
+          319
+        ],
+        "toe_near": [
+          372,
+          321
+        ],
+        "shoulder_far": [
+          307,
+          275
+        ],
+        "elbow_far": [
+          296,
+          289
+        ],
+        "wrist_far": [
+          286,
+          297
+        ],
+        "hip_far": [
+          324,
+          299
+        ],
+        "knee_far": [
+          333,
+          317
+        ],
+        "ankle_far": [
+          324,
+          330
+        ],
+        "toe_far": [
+          317,
+          332
+        ],
+        "guard": [
+          271,
+          295
+        ],
+        "tip": [
+          129,
+          342
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 76,
+      "clip_time_seconds": 2.5025,
+      "phase": "Nhấc thân / kéo kiếm",
+      "joints": {
+        "head": [
+          320,
+          270
+        ],
+        "neck": [
+          321,
+          286
+        ],
+        "shoulder_near": [
+          330,
+          289
+        ],
+        "elbow_near": [
+          315,
+          306
+        ],
+        "wrist_near": [
+          294,
+          299
+        ],
+        "hip_near": [
+          334,
+          304
+        ],
+        "knee_near": [
+          348,
+          310
+        ],
+        "ankle_near": [
+          363,
+          318
+        ],
+        "toe_near": [
+          372,
+          321
+        ],
+        "shoulder_far": [
+          310,
+          281
+        ],
+        "elbow_far": [
+          299,
+          292
+        ],
+        "wrist_far": [
+          287,
+          295
+        ],
+        "hip_far": [
+          322,
+          299
+        ],
+        "knee_far": [
+          328,
+          316
+        ],
+        "ankle_far": [
+          316,
+          328
+        ],
+        "toe_far": [
+          311,
+          330
+        ],
+        "guard": [
+          271,
+          291
+        ],
+        "tip": [
+          121,
+          321
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    },
+    {
+      "source_frame": 84,
+      "clip_time_seconds": 2.7694,
+      "phase": "Về thế chuẩn bị",
+      "joints": {
+        "head": [
+          325,
+          249
+        ],
+        "neck": [
+          325,
+          267
+        ],
+        "shoulder_near": [
+          336,
+          273
+        ],
+        "elbow_near": [
+          320,
+          282
+        ],
+        "wrist_near": [
+          294,
+          260
+        ],
+        "hip_near": [
+          331,
+          291
+        ],
+        "knee_near": [
+          339,
+          306
+        ],
+        "ankle_near": [
+          343,
+          320
+        ],
+        "toe_near": [
+          351,
+          324
+        ],
+        "shoulder_far": [
+          310,
+          273
+        ],
+        "elbow_far": [
+          298,
+          271
+        ],
+        "wrist_far": [
+          286,
+          254
+        ],
+        "hip_far": [
+          317,
+          290
+        ],
+        "knee_far": [
+          291,
+          295
+        ],
+        "ankle_far": [
+          295,
+          311
+        ],
+        "toe_far": [
+          288,
+          315
+        ],
+        "guard": [
+          261,
+          233
+        ],
+        "tip": [
+          169,
+          144
+        ]
+      },
+      "interpretation": "Manual screen-space sketch; armor-occluded joints estimated, dashed connections. No 3D reconstruction."
+    }
+  ]
+}

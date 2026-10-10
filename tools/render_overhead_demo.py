@@ -18,30 +18,44 @@ from rig_hunter_heavy import global_bone_shift, holdout_material, choose_pole
 from rig_hunter_prototype import project
 from hunter_rig_weights import lower_leg_weights
 
-# frame, grip forward/height/angle, hip forward/drop/yaw, lean, shoulder yaw,
-# front foot forward, rear heel pitch. Forward is world -Y, screen right.
-POSES = [
-    (1, -.30, .575, 12, 0, -.015, -4, 5, 4, -.120, 0),
-    (4, -.25, .735, 62, .010, -.040, -8, -3, 9, -.145, 3),
-    (8, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
-    (9, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
-    (12, -.097, .832, 119, .008, -.079, -13, -6, 13, -.170, 5),
-    (15, -.100, .837, 118, .010, -.074, -13, -7, 14, -.170, 6),
-    (18, -.103, .833, 117, .012, -.078, -13, -8, 15, -.170, 7),
-    (20, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
-    (21, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
-    (22, -.33, .615, 45, -.035, -.090, 0, 22, 2, -.19, 9),
-    (23, -.440, .390, -15.8, -.070, -.115, 8, 36, -5, -.205, 12),
-    (24, -.445, .385, -15.6, -.075, -.120, 9, 38, -6, -.205, 12),
-    (27, -.450, .380, -15.4, -.078, -.125, 9, 39, -6, -.205, 11),
-    (35, -.440, .390, -15.8, -.070, -.115, 8, 36, -5, -.205, 10),
-    (45, -.435, .395, -16.0, -.065, -.110, 7, 34, -4, -.205, 9),
-    (56, -.420, .410, -16.7, -.060, -.105, 7, 32, -4, -.205, 8),
-    (57, -.415, .412, -16.8, -.055, -.105, 7, 31, -4, -.205, 8),
-    (62, -.38, .46, -9, -.040, -.075, 4, 24, -1, -.180, 5),
-    (67, -.33, .535, 2, -.020, -.040, 0, 13, 1, -.145, 2),
-    (74, -.30, .575, 12, 0, -.015, -4, 5, 4, -.120, 0),
+REFERENCE = Path(__file__).resolve().parents[1] / "prototypes/reference_skeleton/poses.json"
+# Game frame, approved source frame, grip Y/Z, hip Y/drop/yaw, shoulder yaw,
+# front/rear foot Y, rear heel pitch. Keep anatomical lengths in the side view.
+CONTROLS = [
+    (1, 23, .060, .910, 0, -.035, -4, 7, -.160, .140, 0),
+    (2, 23, .060, .910, 0, -.035, -4, 7, -.160, .140, 0),
+    (3, 24, .020, .940, .005, -.040, -6, 9, -.175, .145, 0),
+    (5, 26, -.090, .960, -.005, -.065, -9, 12, -.205, .160, 2),
+    (7, 28, -.270, .860, -.010, -.110, -12, 14, -.265, .185, 3),
+    (8, 29, -.310, .790, -.015, -.120, -12, 14, -.280, .190, 3),
+    (9, 29, -.310, .790, -.015, -.120, -12, 14, -.280, .190, 3),
+    (12, 29, -.310, .793, -.015, -.122, -12, 14, -.280, .190, 3),
+    (15, 29, -.310, .790, -.015, -.120, -12, 14, -.280, .190, 3),
+    (18, 29, -.310, .787, -.015, -.118, -12, 14, -.280, .190, 3),
+    (20, 29, -.310, .790, -.015, -.120, -12, 14, -.280, .190, 3),
+    (21, 30, -.430, .660, -.010, -.145, 0, 2, -.240, .200, 5),
+    (22, 31, -.510, .430, .010, -.200, 7, -5, -.200, .205, 6),
+    (23, 32, -.480, .290, .025, -.220, 9, -7, -.180, .210, 6),
+    (24, 32, -.480, .290, .025, -.220, 9, -7, -.180, .210, 6),
+    (35, 40, -.480, .290, .025, -.220, 9, -7, -.180, .210, 5),
+    (56, 68, -.470, .420, .010, -.150, 6, -3, -.180, .195, 3),
+    (57, 68, -.470, .420, .010, -.150, 6, -3, -.180, .195, 3),
+    (62, 76, -.360, .460, 0, -.090, 2, 0, -.175, .180, 1),
+    (67, 84, -.320, .660, -.005, -.040, -1, 3, -.165, .155, 0),
+    (74, 23, .060, .910, 0, -.035, -4, 7, -.160, .140, 0),
 ]
+
+
+def reference_angles(source):
+    joints = source["joints"]
+    guard, tip, neck = joints["guard"], joints["tip"], joints["neck"]
+    pelvis = [(joints["hip_near"][i] + joints["hip_far"][i]) / 2 for i in range(2)]
+    # Mirror the clip's leftward cut to the game's default right-facing hunter.
+    blade = math.degrees(math.atan2(guard[1] - tip[1], guard[0] - tip[0]))
+    lean = math.degrees(math.atan2(pelvis[0] - neck[0], pelvis[1] - neck[1]))
+    # The original blade is curved and shown in perspective. Limit floor dips and
+    # extreme projected trunk angles when applied to a straight side-view blade.
+    return max(-17, blade), min(68, max(-3, lean))
 
 STAGES = {"ready": [1], "raise": list(range(2, 9)), "hold": list(range(9, 21)),
           "strike": list(range(21, 24)), "settle": list(range(24, 57)),
@@ -81,8 +95,11 @@ def main():
     feet = {s: bpy.data.objects["FootTarget." + s] for s in ("R", "L")}
     elbows = {s: bpy.data.objects["ElbowPole." + s] for s in ("R", "L")}
     base_foot = {s: feet[s].rotation_quaternion.copy() for s in feet}
-    for row in POSES:
-        frame, y, z, angle, hip_y, drop, yaw, lean, chest, front, heel = row
+    references = {f["source_frame"]: f for f in json.loads(REFERENCE.read_text(encoding="utf-8"))["frames"]}
+    for row in CONTROLS:
+        frame, source_frame, y, z, hip_y, drop, yaw, chest, front, rear, heel = row
+        scene.frame_set(frame)
+        angle, lean = reference_angles(references[source_frame])
         pivot.location = Vector((-.010, y, z)) * height
         pivot.rotation_euler = (math.radians(angle), 0, math.pi)
         pivot.keyframe_insert("location", frame=frame)
@@ -100,16 +117,17 @@ def main():
             bone.keyframe_insert("rotation_euler", frame=frame)
         for suffix, side in (("R", -1), ("L", 1)):
             pitch = heel if suffix == "L" else 0
-            feet[suffix].location = Vector((side * .12, front if suffix == "R" else .105,
+            feet[suffix].location = Vector((side * .12, front if suffix == "R" else rear,
                                            .075 + .045 * pitch / 30)) * height
             feet[suffix].rotation_quaternion = Quaternion((1, 0, 0), math.radians(pitch)) @ base_foot[suffix]
             feet[suffix].keyframe_insert("location", frame=frame)
             feet[suffix].keyframe_insert("rotation_quaternion", frame=frame)
-            # Elbows lift behind the hands overhead, open out as the body folds.
-            lifted = max(0, min(1, (angle - 20) / 98))
-            elbows[suffix].location = Vector((side * (.34 + .06 * lifted),
-                                             -.16 + .10 * lifted + hip_y,
-                                             .56 + .14 * lifted + drop * .35)) * height
+            bpy.context.view_layer.update()
+            shoulder = rig.matrix_world @ rig.pose.bones["upper_arm." + suffix].head
+            wrist = bpy.data.objects["WristIK." + suffix].matrix_world.translation
+            # The approved sketches fold the elbows below the hands. Use the
+            # existing arm IK, keeping each elbow on its anatomical side.
+            elbows[suffix].location = shoulder.lerp(wrist, .5) + Vector((side * .20, 0, -.12)) * height
             elbows[suffix].keyframe_insert("location", frame=frame)
     scene.render.fps = 30
     scene.frame_start, scene.frame_end = 1, 74
@@ -130,11 +148,11 @@ def main():
     for suffix, side in (("R", -1), ("L", 1)):
         ik = next(c for c in rig.pose.bones["forearm." + suffix].constraints if c.type == "IK")
         choose_pole(scene, rig, ik, "forearm." + suffix,
-                    Vector((side * .23, -.12, .61)) * height, height)
+                    Vector((side * .23, 0, .78)) * height, height)
         leg = next(c for c in rig.pose.bones["shin." + suffix].constraints if c.type == "IK")
         choose_pole(scene, rig, leg, "shin." + suffix,
                     Vector((side * .12, -.08 if suffix == "R" else .01, .27)) * height, height)
-    frames = [row[0] for row in POSES] if args.keys else list(range(1, 75))
+    frames = [row[0] for row in CONTROLS] if args.keys else list(range(1, 75))
     rest = np.array([tuple(v.co) for v in body.data.vertices])
     # Ground both foot meshes at their lowest visible point, permitting heel lift.
     soles = {s: np.flatnonzero((rest[:, 2] < height * .13) &
@@ -166,6 +184,9 @@ def main():
         projected = [project(scene, camera, obj.matrix_world @ vertex.co, (128, 128))
                      for obj in metal for vertex in obj.data.vertices]
         blade = convex_hull(projected)
+        joint_positions = {name: {"head": project(scene, camera, rig.matrix_world @ bone.head, (128, 128)),
+                                  "tail": project(scene, camera, rig.matrix_world @ bone.tail, (128, 128))}
+                           for name, bone in rig.pose.bones.items()}
         angle = -pivot.rotation_euler.x
         local = [[math.cos(angle) * (x-origin[0]) + math.sin(angle) * (y-origin[1]),
                   -math.sin(angle) * (x-origin[0]) + math.cos(angle) * (y-origin[1])]
@@ -184,7 +205,7 @@ def main():
                          "weapon": weapon_path.relative_to(args.output).as_posix(),
                          "grip": grip, "tip": tip, "wrist_error_pixels": gap,
                          "blade_polygon": blade, "weapon_origin": origin,
-                         "weapon_angle": angle, "blade_local": local})
+                         "weapon_angle": angle, "blade_local": local, "rig_joints": joint_positions})
     for slot, material in zip(body.material_slots, materials):
         slot.material = material
     camera.data.ortho_scale = scale
@@ -194,7 +215,11 @@ def main():
     bpy.ops.wm.save_as_mainfile(filepath=str((args.output / "overhead_rig.blend").resolve()))
     (args.output / "render.json").write_text(json.dumps({"fps": 30, "stages": STAGES,
         "body_pivot": [64, 116], "weapon_pivot": [192, 244],
-        "weapon_length_multiplier": 1.4, "frames": exported}, indent=2))
+        "weapon_length_multiplier": 1.4, "reference": REFERENCE.relative_to(Path(__file__).resolve().parents[1]).as_posix(),
+        "reference_controls": [{"game_frame": row[0], "source_frame": row[1],
+                                "blade_degrees": reference_angles(references[row[1]])[0],
+                                "trunk_lean_degrees": reference_angles(references[row[1]])[1]}
+                               for row in CONTROLS], "frames": exported}, indent=2))
     print("OVERHEAD_RENDER_DONE", len(exported), flush=True)
 
 

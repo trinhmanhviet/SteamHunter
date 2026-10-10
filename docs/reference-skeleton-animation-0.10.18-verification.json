@@ -1,0 +1,120 @@
+{
+  "version": "0.10.18",
+  "reference_frames": [
+    23,
+    24,
+    26,
+    28,
+    29,
+    30,
+    31,
+    32,
+    40,
+    68,
+    76,
+    84
+  ],
+  "render": {
+    "frames": 74,
+    "normal_seconds": 1.0,
+    "hold_loop_seconds": 0.4,
+    "palette_size": 28,
+    "no_layer_clipping": true,
+    "max_wrist_error_pixels": 0.0036055561720826678,
+    "atlas_sizes": {
+      "body": [
+        1024,
+        1280
+      ],
+      "weapon": [
+        3072,
+        3840
+      ]
+    }
+  },
+  "metal_lowest_y": 115,
+  "ground_pivot_y": 116,
+  "native_suites": [
+    {
+      "test": "test_great_cleaver_art",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_sweep",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_contact_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_great_cleaver_hitboxes",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_charge_release",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_gesture_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_weapon_actions",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_weapon_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_cleaver_recovery",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_part_targeting",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_character_proportions",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_game_loop",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_small_enemy_strike_height",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_hit_confirmation",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_sprite_hurtbox",
+      "exit": 0,
+      "script_errors": false
+    }
+  ],
+  "apk_sha256": "3159018c654ab26d79dc7cde20a584c45dfc4aa63949deff71791b1b56149311",
+  "android": {
+    "installed": false,
+    "device_tested": false,
+    "reason": "ADB device list empty at installation attempt."
+  }
+}

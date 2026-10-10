@@ -22,6 +22,9 @@ LENGTHS = {"raise": .2, "strike": .1, "settle": .22, "recover": .48, "hold": .4}
 def main():
     ASSETS.mkdir(parents=True, exist_ok=True)
     data = json.loads((DIRECTORY / "render.json").read_text())
+    wrist_error = max(max(f["wrist_error_pixels"].values()) for f in data["frames"])
+    if wrist_error > .5:
+        raise RuntimeError(f"A hand cannot reach the sword grip: {wrist_error:.3f}px")
     count = len(data["frames"])
     sheets = {layer: Image.new("RGBA", (size * 8, size * ((count + 7) // 8)))
               for layer, size in (("body", 128), ("weapon", 384))}
@@ -29,6 +32,8 @@ def main():
                 "stages": {k: [n - 1 for n in v] for k, v in data["stages"].items()},
                 "weapon_length_multiplier": data["weapon_length_multiplier"],
                 "blade_local": data["frames"][0]["blade_local"],
+                "reference": data.get("reference", ""),
+                "reference_controls": data.get("reference_controls", []),
                 "frames": []}
     composite, bounds = {}, []
     for index, frame in enumerate(data["frames"]):
@@ -68,18 +73,22 @@ def main():
                 timeline += [(n, LENGTHS[stage] / len(numbers), stage) for n in numbers]
         timeline.append((0, .4, "ready"))
         images, durations = [], []
-        elapsed, previous_tick = 0.0, 0
-        for n, length, stage in timeline:
+        # GIF cannot represent sub-10ms cells reliably. Sample the actual phase
+        # timeline at 25fps instead of encoding zero-delay settle frames.
+        cursor, end = 0, timeline[0][1]
+        for tick in range(round(sum(item[1] for item in timeline) * 25)):
+            at = tick / 25
+            while at + .000001 >= end and cursor < len(timeline) - 1:
+                cursor += 1
+                end += timeline[cursor][1]
+            n, _, stage = timeline[cursor]
             image = composite[n].resize((768, 768), Image.Resampling.NEAREST)
             ImageDraw.Draw(image).text((20, 22), LABELS[stage], font=font, fill="#f3f7ed")
             images.append(image)
-            elapsed += length
-            tick = round(elapsed * 100)
-            durations.append((tick - previous_tick) * 10)
-            previous_tick = tick
+            durations.append(40)
         images[0].save(DIRECTORY / f"{name}_preview.gif", save_all=True,
                        append_images=images[1:], duration=durations, loop=0, disposal=2)
-    selected = [1, 4, 8, 22, 23, 27, 56, 62, 67, 74]
+    selected = [1, 5, 8, 21, 22, 23, 56, 62, 67, 74]
     board = Image.new("RGB", (1600, 690), "#263e50")
     draw = ImageDraw.Draw(board)
     for i, frame in enumerate(selected):
@@ -89,7 +98,7 @@ def main():
     board.save(DIRECTORY / "key_poses.png")
     report = {"frames": count, "normal_seconds": 1.0, "hold_loop_seconds": .4,
               "palette_size": len(COLOURS), "no_layer_clipping": True,
-              "max_wrist_error_pixels": max(max(f["wrist_error_pixels"].values()) for f in data["frames"]),
+              "max_wrist_error_pixels": wrist_error,
               "atlas_sizes": {k: list(v.size) for k, v in sheets.items()}, "bounds": bounds}
     (DIRECTORY / "review.json").write_text(json.dumps(report, indent=2))
     print(json.dumps({k: v for k, v in report.items() if k != "bounds"}, indent=2))

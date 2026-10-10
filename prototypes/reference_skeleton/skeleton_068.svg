@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="110 55 400 295">
+<rect x="110" y="55" width="400" height="295" fill="#122535"/>
+<line x1="307" y1="275" x2="296" y2="289" stroke="#ff9c80" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="296" y1="289" x2="286" y2="297" stroke="#ff9c80" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="307" y1="275" x2="324" y2="299" stroke="#ff9c80" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="324" y1="299" x2="333" y2="317" stroke="#ff9c80" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="333" y1="317" x2="324" y2="330" stroke="#ff9c80" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="324" y1="330" x2="317" y2="332" stroke="#ff9c80" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="324" y1="291" x2="310" y2="310" stroke="#52ecfa" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="310" y1="310" x2="292" y2="302" stroke="#52ecfa" stroke-width="2" />
+<line x1="324" y1="291" x2="334" y2="305" stroke="#52ecfa" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="334" y1="305" x2="347" y2="309" stroke="#52ecfa" stroke-width="2" stroke-dasharray="4 3"/>
+<line x1="347" y1="309" x2="365" y2="319" stroke="#52ecfa" stroke-width="2" />
+<line x1="365" y1="319" x2="372" y2="321" stroke="#52ecfa" stroke-width="2" />
+<line x1="271" y1="295" x2="129" y2="342" stroke="#ffd469" stroke-width="3"/>
+<polyline points="271,295 286,297 292,302 298.145770236779,307.1214751973158" fill="none" stroke="#b7c9d8" stroke-width="2"/>
+<line x1="311" y1="286" x2="329.0" y2="302.0" stroke="#f0f3f6" stroke-width="2"/>
+<line x1="311" y1="286" x2="302" y2="276" stroke="#f0f3f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="311" y1="286" x2="324" y2="291" stroke="#f0f3f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="311" y1="286" x2="307" y2="275" stroke="#f0f3f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+<line x1="334" y1="305" x2="324" y2="299" stroke="#f0f3f6" stroke-width="1.5" stroke-dasharray="4 3"/>
+<circle cx="302" cy="276" r="9" fill="none" stroke="#f0f3f6" stroke-width="2"/>
+<circle cx="311" cy="286" r="2" fill="#52ecfa"/>
+<circle cx="324" cy="291" r="2" fill="#52ecfa"/>
+<circle cx="310" cy="310" r="2" fill="#52ecfa"/>
+<circle cx="292" cy="302" r="2" fill="#52ecfa"/>
+<circle cx="334" cy="305" r="2" fill="#52ecfa"/>
+<circle cx="347" cy="309" r="2" fill="#52ecfa"/>
+<circle cx="365" cy="319" r="2" fill="#52ecfa"/>
+<circle cx="372" cy="321" r="2" fill="#52ecfa"/>
+<circle cx="307" cy="275" r="2" fill="#ff9c80"/>
+<circle cx="296" cy="289" r="2" fill="#ff9c80"/>
+<circle cx="286" cy="297" r="2" fill="#ff9c80"/>
+<circle cx="324" cy="299" r="2" fill="#ff9c80"/>
+<circle cx="333" cy="317" r="2" fill="#ff9c80"/>
+<circle cx="324" cy="330" r="2" fill="#ff9c80"/>
+<circle cx="317" cy="332" r="2" fill="#ff9c80"/>
+<circle cx="271" cy="295" r="2" fill="#52ecfa"/>
+</svg>

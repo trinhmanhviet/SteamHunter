@@ -1,0 +1,35 @@
+# Apply approved reference skeletons
+
+> Execute inline using the existing Blender render pipeline. User approved the
+> twelve frame sketches and asked to try them in the game; no additional approval
+> is required. Preserve their clip tool and video files.
+
+**Goal:** Give the Great Cleaver a braced charge and committed overhead cut using
+the approved reference poses.
+
+**Approach:** Read `prototypes/reference_skeleton/poses.json` for blade direction
+and trunk lean. Retarget the twelve perspective sketches through a small table of
+existing grip/hip/foot controls in `tools/render_overhead_demo.py`. Anatomical bone
+lengths, separate sword skin, solid greaves and grounded soles remain constraints.
+The three downswing cells use source frames 30/31/32. Recovery closes into a
+shouldered ready pose; the clip changes camera after frame 84, so that closing
+transition is a game adaptation. No new animation framework or runtime combat
+feature is introduced.
+
+- [x] Author the control table and render key poses into `build/reference-retarget-keys`.
+- [x] Inspect grip reach, knees, feet, sword/floor clearance and compare old/new charge.
+- [x] Render all 74 frames; pack/promote using the existing scripts and show previews.
+- [x] Verify art, exact blade contacts, charge-release regression and combo timing.
+- [x] Build Android 0.10.18.
+- [ ] Install/test on Android; ADB reported no connected device after the build.
+- [ ] Push and publish the APK/animation preview release.
+
+Commands: use the project's isolated Blender and Python, then Godot native tests.
+Key render: `.tools/blender/blender-4.5.4-windows-x64/blender.exe -b prototypes/hunyuan_hunter/heavy_motion/hunter_heavy_rig.blend --python tools/render_overhead_demo.py -- build/reference-retarget-keys --keys`.
+Full render uses `prototypes/hunyuan_hunter/overhead_motion` as output, followed by
+`tools/pack_overhead_demo.py` and `tools/promote_hunter_art.py`.
+Native suites: great_cleaver_art, blade_sweep, blade_contact_flow,
+great_cleaver_hitboxes, blade_charge_release, blade_gesture_flow, weapon_actions,
+weapon_flow, cleaver_recovery, part_targeting, character_proportions and game_loop.
+On Android test stationary holds of several lengths and an actual blade contact;
+verify the installed APK hash against the released artifact.
