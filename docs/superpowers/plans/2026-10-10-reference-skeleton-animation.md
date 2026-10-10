@@ -16,12 +16,16 @@ shouldered ready pose; the clip changes camera after frame 84, so that closing
 transition is a game adaptation. No new animation framework or runtime combat
 feature is introduced.
 
+Follow-up correction: charge freezes at source frame 26 with the sword behind
+the head. Cells 6..8 (sources 28/29 and the transition into them) are a separate
+release stage, played only after letting go; charged contact is at 5/30s.
+
 - [x] Author the control table and render key poses into `build/reference-retarget-keys`.
 - [x] Inspect grip reach, knees, feet, sword/floor clearance and compare old/new charge.
-- [x] Render all 74 frames; pack/promote using the existing scripts and show previews.
-- [x] Verify art, exact blade contacts, charge-release regression and combo timing.
-- [x] Build Android 0.10.18.
-- [ ] Install/test on Android; ADB reported no connected device after the build.
+- [x] Render/promote corrected rear hold and release stage; show previews.
+- [x] Verify rear-hold regression, blade contacts, charge release and combo timing.
+- [x] Build the final Android 0.10.18 after the correction.
+- [x] Install/test on Android; device reconnected, Great Cleaver equipped, hash verified.
 - [ ] Push and publish the APK/animation preview release.
 
 Commands: use the project's isolated Blender and Python, then Godot native tests.

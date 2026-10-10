@@ -2,6 +2,8 @@
 
 12 manual screen-space pose sketches from the user-supplied clip and extracted frames.
 Frame IDs: 23, 24, 26, 28, 29, 30, 31, 32, 40, 68, 76, 84.
+The user's follow-up correction selects frame 26 for the held rear charge pose;
+frames 28/29 are the transition after release, not the charge hold.
 The earlier portion contains the video transition effect; frame 23 is a clearer starting view.
 
 - `charge_reference_comparison.png`: enlarged body overlay / skeleton for frames 26 and 29.

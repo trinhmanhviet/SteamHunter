@@ -9,6 +9,7 @@ const CONTACT_TIME := 1.0 / 30.0
 const SETTLE_TIME := .22
 const RECOVER_TIME := .48
 const POST_HIT_TIME := CONTACT_TIME + SETTLE_TIME + RECOVER_TIME
+const RELEASE_TIME := .10
 static var _frames: Dictionary = {}
 
 static func metadata() -> Dictionary:
@@ -33,10 +34,13 @@ static func frame_for(charge: float, elapsed: float, action: Dictionary, from_ho
 	var hit: float = action.hit_at
 	if elapsed < hit:
 		var wind_end := maxf(0.0, hit - 2.0 / 30.0)
-		if from_hold and elapsed < wind_end:
-			return stage_frame("hold", 0.0)
+		var release_time := minf(RELEASE_TIME, wind_end)
+		var release_start := wind_end - release_time
+		if elapsed < release_start:
+			if from_hold: return stage_frame("hold", 0.0)
+			return stage_frame("raise", elapsed / maxf(release_start, .00001))
 		if elapsed < wind_end:
-			return stage_frame("raise", elapsed / maxf(wind_end, .00001))
+			return stage_frame("release", (elapsed - release_start) / maxf(release_time, .00001))
 		# The third downswing frame is contact, reserved for the hit event itself.
 		var strike: Array = metadata().stages.strike
 		var progress := (elapsed - wind_end) / maxf(hit - wind_end, .00001)

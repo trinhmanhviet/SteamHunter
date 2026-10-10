@@ -14,9 +14,17 @@
     76,
     84
   ],
+  "hold_source_frame": 26,
+  "post_release_source_frames": [
+    28,
+    29
+  ],
+  "release_transition_seconds": 0.1,
+  "charged_contact_seconds": 0.16666666666666666,
   "render": {
     "frames": 74,
     "normal_seconds": 1.0,
+    "released_charge_seconds": 0.9,
     "hold_loop_seconds": 0.4,
     "palette_size": 28,
     "no_layer_clipping": true,
@@ -35,6 +43,11 @@
   "metal_lowest_y": 115,
   "ground_pivot_y": 116,
   "native_suites": [
+    {
+      "test": "test_cleaver_charge_pose",
+      "exit": 0,
+      "script_errors": false
+    },
     {
       "test": "test_great_cleaver_art",
       "exit": 0,
@@ -111,10 +124,36 @@
       "script_errors": false
     }
   ],
-  "apk_sha256": "3159018c654ab26d79dc7cde20a584c45dfc4aa63949deff71791b1b56149311",
+  "apk_sha256": "10037346b411fb4765d8d4474ee0d401431c29b1563d1dc689819faa7a20cf3c",
   "android": {
-    "installed": false,
-    "device_tested": false,
-    "reason": "ADB device list empty at installation attempt."
+    "version": "0.10.18",
+    "screen": [
+      2448,
+      1080
+    ],
+    "stationary_holds_ms": [
+      850,
+      1400,
+      2300
+    ],
+    "physical_contacts": [
+      [
+        "charged_hew",
+        "116853311086",
+        "48"
+      ]
+    ],
+    "script_errors": [],
+    "installed": true,
+    "device_tested": true,
+    "installed_apk_sha256": "10037346b411fb4765d8d4474ee0d401431c29b1563d1dc689819faa7a20cf3c",
+    "release_apk_sha256": "10037346b411fb4765d8d4474ee0d401431c29b1563d1dc689819faa7a20cf3c",
+    "matching_apk": true,
+    "rear_hold_visual_review_confirmed": true,
+    "equipped": "Great Cleaver"
+  },
+  "preview_gif_durations_ms": {
+    "normal": 1800,
+    "charge": 3120
   }
 }

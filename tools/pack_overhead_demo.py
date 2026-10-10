@@ -14,9 +14,9 @@ DIRECTORY = ROOT / "prototypes/hunyuan_hunter/overhead_motion"
 ASSETS = ROOT / "prototypes/overhead_demo/assets"
 COLOURS = PALETTE + [(91, 117, 143), (174, 195, 209), (241, 249, 254),
                     (191, 145, 65), (105, 71, 35), (76, 48, 37)]
-LABELS = {"ready": "Sẵn sàng", "raise": "Nâng kiếm", "hold": "Giữ charge",
+LABELS = {"ready": "Sẵn sàng", "raise": "Nâng kiếm", "hold": "Giữ charge", "release": "Nhả / chuyển kiếm",
           "strike": "Bổ xuống", "settle": "Theo đà", "recover": "Hồi thế"}
-LENGTHS = {"raise": .2, "strike": .1, "settle": .22, "recover": .48, "hold": .4}
+LENGTHS = {"raise": .1, "release": .1, "strike": .1, "settle": .22, "recover": .48, "hold": .4}
 
 
 def main():
@@ -65,12 +65,13 @@ def main():
     font = ImageFont.truetype("C:/Windows/Fonts/arial.ttf", 21)
     for name, loops in (("normal", 0), ("charge", 3)):
         timeline = [(0, .4, "ready")]
-        for stage in ("raise", "hold", "strike", "settle", "recover"):
+        for stage in ("raise", "hold", "release", "strike", "settle", "recover"):
             if stage == "hold" and not loops:
                 continue
             for _ in range(loops if stage == "hold" else 1):
                 numbers = manifest["stages"][stage]
-                timeline += [(n, LENGTHS[stage] / len(numbers), stage) for n in numbers]
+                length = .2 if loops and stage == "raise" else LENGTHS[stage]
+                timeline += [(n, length / len(numbers), stage) for n in numbers]
         timeline.append((0, .4, "ready"))
         images, durations = [], []
         # GIF cannot represent sub-10ms cells reliably. Sample the actual phase
@@ -88,7 +89,7 @@ def main():
             durations.append(40)
         images[0].save(DIRECTORY / f"{name}_preview.gif", save_all=True,
                        append_images=images[1:], duration=durations, loop=0, disposal=2)
-    selected = [1, 5, 8, 21, 22, 23, 56, 62, 67, 74]
+    selected = [1, 5, 9, 8, 21, 22, 23, 56, 67, 74]
     board = Image.new("RGB", (1600, 690), "#263e50")
     draw = ImageDraw.Draw(board)
     for i, frame in enumerate(selected):
@@ -96,7 +97,7 @@ def main():
         board.paste(composite[frame - 1].resize((320, 320), Image.Resampling.NEAREST), (x, y))
         draw.text((x + 10, y + 319), f"Pose {frame}", font=font, fill="#f3f7ed")
     board.save(DIRECTORY / "key_poses.png")
-    report = {"frames": count, "normal_seconds": 1.0, "hold_loop_seconds": .4,
+    report = {"frames": count, "normal_seconds": 1.0, "released_charge_seconds": .9, "hold_loop_seconds": .4,
               "palette_size": len(COLOURS), "no_layer_clipping": True,
               "max_wrist_error_pixels": wrist_error,
               "atlas_sizes": {k: list(v.size) for k, v in sheets.items()}, "bounds": bounds}

@@ -170,7 +170,7 @@
     {
       "source_frame": 26,
       "clip_time_seconds": 0.8342,
-      "phase": "Chuyển trọng tâm",
+      "phase": "Giữ charge / kiếm ra sau",
       "joints": {
         "head": [
           303,
@@ -250,7 +250,7 @@
     {
       "source_frame": 28,
       "clip_time_seconds": 0.9009,
-      "phase": "Hạ hông / dựng kiếm",
+      "phase": "Nhả / đưa kiếm lên",
       "joints": {
         "head": [
           308,
@@ -330,7 +330,7 @@
     {
       "source_frame": 29,
       "clip_time_seconds": 0.9343,
-      "phase": "Gồng trên đầu",
+      "phase": "Chuyển sang bổ",
       "joints": {
         "head": [
           310,
