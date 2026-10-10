@@ -4,3 +4,6 @@ build/
 *.tmp
 __pycache__/
 *.pyc
+prototypes/hunter_pose_workspace/blender_config/
+prototypes/hunter_pose_workspace/*.blend1
+prototypes/hunter_pose_workspace/exports/

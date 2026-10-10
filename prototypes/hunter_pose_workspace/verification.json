@@ -1,0 +1,33 @@
+[
+  {
+    "pose": "Gi\u1eef charge",
+    "armor_rigid": true,
+    "blade_unchanged": true,
+    "sole_min_pixels": {
+      "R": -0.0016360208717298831,
+      "L": -0.0016611904236026507
+    }
+  },
+  {
+    "pose": "B\u1ed5 xu\u1ed1ng",
+    "armor_rigid": true,
+    "blade_unchanged": true,
+    "sole_min_pixels": {
+      "R": -0.0012333080417656042,
+      "L": -0.018619175997879708
+    }
+  },
+  {
+    "pose": "K\u1ebft th\u00fac",
+    "armor_rigid": true,
+    "blade_unchanged": true,
+    "sole_min_pixels": {
+      "R": -0.0019128859423303247,
+      "L": -0.04972874211262025
+    }
+  },
+  {
+    "dragged_foot_no_flip": true,
+    "heel_rotation_keeps_forefoot": true
+  }
+]

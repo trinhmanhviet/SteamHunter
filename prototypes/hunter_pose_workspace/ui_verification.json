@@ -1,0 +1,28 @@
+{
+  "operators": [
+    {
+      "frame": 1,
+      "preset_selection": true,
+      "control_selection": true,
+      "reset": true
+    },
+    {
+      "frame": 15,
+      "preset_selection": true,
+      "control_selection": true,
+      "reset": true
+    },
+    {
+      "frame": 30,
+      "preset_selection": true,
+      "control_selection": true,
+      "reset": true
+    },
+    {
+      "native_drag": true,
+      "auto_key_persistence": true,
+      "native_heel_rotation": true
+    }
+  ],
+  "export": "D:\\Projects\\MH-Clone\\prototypes\\hunter_pose_workspace\\exports\\pose_001.png"
+}
