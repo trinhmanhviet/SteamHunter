@@ -1,0 +1,32 @@
+{
+  "version": "0.10.20",
+  "installed": true,
+  "device_tested": true,
+  "equipped": "Great Cleaver",
+  "charge_direction_hair_displacement_pixels": 0.7546448087431372,
+  "charge_direction_blocked": true,
+  "run_directions_tested": [
+    "right",
+    "left"
+  ],
+  "stopped_idle_tested": true,
+  "script_errors": [],
+  "physical_contacts": [
+    [
+      "charged_hew",
+      "44358960652",
+      "48"
+    ]
+  ],
+  "installed_apk_sha256": "792679abb855cf778cf4ca82f478adb5827b989adf7ef2fa53d74e0fc6ee2574",
+  "release_apk_sha256": "792679abb855cf778cf4ca82f478adb5827b989adf7ef2fa53d74e0fc6ee2574",
+  "matching_apk": true,
+  "visual_review_confirmed": true,
+  "godot_suites_passed": 17,
+  "python_tests_passed": 20,
+  "run_frames": 12,
+  "draw_frames": 4,
+  "reference_idle": true,
+  "protected_combat_frames_unchanged": 51,
+  "idle_start_recovery_pixels_match": true
+}

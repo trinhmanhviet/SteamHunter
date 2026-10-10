@@ -50,6 +50,9 @@ var blade_damage_active := false
 var blade_sweep_from := 0.0
 var blade_sweep_to := 0.0
 var blade_hit_targets: Dictionary = {}
+var blade_run_visual_time := 0.0
+var blade_draw_visual_time := 1.0
+var blade_was_running := false
 
 var current_action := ""
 var action_elapsed := 0.0
@@ -136,11 +139,13 @@ func _physics_process(delta: float) -> void:
 				release_blade_charge()
 		elif Input.is_action_just_pressed("heavy") and heal_time <= 0.0:
 			request_action("heavy", absf(axis) > 0.45, not is_on_floor())
-		if Input.is_action_just_pressed("jump") and is_on_floor() and dodge_time <= 0.0 and heal_time <= 0.0 and current_action.is_empty():
+		if Input.is_action_just_pressed("jump") and is_on_floor() and dodge_time <= 0.0 and heal_time <= 0.0 and current_action.is_empty() and charge_time <= 0.0:
 			velocity.y = JUMP_SPEED
-		if axis != 0.0:
+		if axis != 0.0 and not (weapon_type == "blade" and charge_time > 0.0):
 			facing = -1 if axis < 0.0 else 1
-		if heal_time > 0.0:
+		if weapon_type == "blade" and charge_time > 0.0:
+			velocity.x = 0.0
+		elif heal_time > 0.0:
 			velocity.x = axis * 65.0
 		elif dodge_time > 0.0:
 			velocity.x = facing * 410.0
@@ -148,6 +153,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0.0, 850.0 * delta)
 		else:
 			var walk_scale := float(Rules.weapon(weapon_type).get("walk_multiplier", 1.0)) if weapon_drawn else 1.0
+			if weapon_type == "blade" and charge_time <= 0.0:
+				walk_scale = 1.0
 			velocity.x = axis * WALK_SPEED * walk_scale
 	else:
 		velocity.x = move_toward(velocity.x, 0.0, 750.0 * delta)
@@ -547,10 +554,10 @@ func _update_art(delta: float) -> void:
 	var base_tint: Color = Rules.weapon(weapon_type).get("tint", Color.WHITE)
 	sprite.modulate = Color(1.0, 0.55, 0.5) if hurt_time > 0.0 else (Color("#a8e7ad") if heal_time > 0.0 else base_tint)
 	sprite.visible = not (invincible_time > 0.0 and fmod(invincible_time, 0.12) < 0.05)
-	_update_great_cleaver_art()
+	_update_great_cleaver_art(delta)
 	queue_redraw()
 
-func _update_great_cleaver_art() -> void:
+func _update_great_cleaver_art(delta: float = 0.0) -> void:
 	if weapon_type != "blade" or sprite == null:
 		if blade_sprite != null: blade_sprite.visible = false
 		return
@@ -558,6 +565,21 @@ func _update_great_cleaver_art() -> void:
 	var action := Rules.action(current_action, weapon_type) if not current_action.is_empty() else {}
 	var visual_charge := blade_charge_visual_time if charge_time > 0.0 else 0.0
 	var frame := CleaverArt.frame_for(visual_charge, action_elapsed, action, blade_attack_from_hold)
+	if action.is_empty() and charge_time <= 0.0:
+		var running := absf(velocity.x) > 20.0
+		if running:
+			blade_run_visual_time += delta * absf(velocity.x) / WALK_SPEED
+			frame = CleaverArt.locomotion_frame("run", blade_run_visual_time)
+			blade_draw_visual_time = 0.0
+		else:
+			if blade_was_running: blade_draw_visual_time = 0.0
+			blade_draw_visual_time += delta
+			var draw_duration := float(CleaverArt.metadata().get("locomotion", {}).get("draw_seconds", .16))
+			frame = CleaverArt.locomotion_frame("draw" if blade_draw_visual_time < draw_duration else "idle", blade_draw_visual_time)
+		blade_was_running = running
+	else:
+		blade_was_running = false
+		blade_draw_visual_time = 1.0
 	sprite.region_rect = CleaverArt.region(frame, "body")
 	sprite.position = Vector2.ZERO
 	sprite.rotation = 0.0

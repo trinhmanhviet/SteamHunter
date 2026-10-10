@@ -35,8 +35,10 @@ def blend(a,b,t):
     return result
 
 
-def authored_pose(frame,a,b,c):
-    if frame<=5:return blend(a,a,0),'raise' if frame>1 else 'ready'
+def authored_pose(frame,a,b,c,idle=None):
+    if frame<=5:
+        t=max(0,(frame-2)/3) if idle else (frame-1)/4
+        return blend(idle or a,a,t),'raise' if frame>1 else 'ready'
     if frame<=8:return blend(a,b,{6:.10,7:.30,8:.52}[frame]),'release'
     if frame<=20:
         pose=blend(a,a,0)
@@ -49,7 +51,7 @@ def authored_pose(frame,a,b,c):
     if frame==23:return blend(c,c,0),'strike'
     if frame<=56:return blend(c,c,0),'settle'
     t=(frame-56)/18;t=t*t*(3-2*t)
-    return blend(c,a,t),'recover'
+    return blend(c,idle or a,t),'recover'
 
 
 def apply_pose(rig,pose):
@@ -98,10 +100,12 @@ def is_weapon(obj,pivot):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('output',type=Path);parser.add_argument('--keys',action='store_true')
+    parser.add_argument('--idle-controls',type=Path);parser.add_argument('--transitions-only',action='store_true')
     args=parser.parse_args(sys.argv[sys.argv.index('--')+1:]);args.output.mkdir(parents=True,exist_ok=True)
     scene=bpy.context.scene;rig=bpy.data.objects['HunyuanHeavyRig']
     pivot=bpy.data.objects['GreatCleaverPivot'];camera=scene.camera
     a,b,c=[snapshot(scene,rig,frame) for frame in (1,15,30)]
+    idle=json.loads(args.idle_controls.read_text(encoding='utf-8'))['idle_controls'] if args.idle_controls else None
     # Preserve drivers for toe anchors, knee poles, head and body controls.
     for obj in scene.objects:
         if obj.animation_data:obj.animation_data.action=None
@@ -111,11 +115,12 @@ def main():
     materials={obj.name:[slot.material for slot in obj.material_slots] for obj in bodies}
     mask=holdout_material();scale=camera.data.ortho_scale/3
     frames=[1,5,6,7,8,9,20,21,22,23,35,56,57,62,67,74] if args.keys else list(range(1,75))
+    if args.transitions_only:frames=list(range(1,6))+list(range(57,75))
     scene.render.resolution_percentage=100;scene.render.film_transparent=True
     scene.render.fps=30;scene.frame_start=1;scene.frame_end=74
     exported=[]
     for frame in frames:
-        scene.frame_set(frame);pose,phase=authored_pose(frame,a,b,c)
+        scene.frame_set(frame);pose,phase=authored_pose(frame,a,b,c,idle)
         apply_pose(rig,pose);gaps,adjustment=fit_grips(rig,pivot)
         for name in CONTROLS:
             obj=bpy.data.objects[name]
@@ -165,7 +170,7 @@ def main():
           'weapon_length_multiplier':1.4,'reference':'prototypes/user_pose_animation/user_poses.blend',
           'reference_controls':[{'game_frame':f,'source_frame':1 if f<=20 else (15 if f<=22 else 30),
                                  'blade_degrees':-p['weapon_angle']*180/math.pi,
-                                 'trunk_lean_degrees':math.degrees(authored_pose(f,a,b,c)[0]['controls']['TorsoControl']['rotation'][0])}
+                                 'trunk_lean_degrees':math.degrees(authored_pose(f,a,b,c,idle)[0]['controls']['TorsoControl']['rotation'][0])}
                                 for f,p in zip(frames,exported)],
           'user_key_poses':[a,b,c],'frames':exported}
     (args.output/'render.json').write_text(json.dumps(data,indent=2),encoding='utf-8')

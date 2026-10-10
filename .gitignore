@@ -9,3 +9,5 @@ prototypes/hunter_pose_workspace/*.blend1
 prototypes/hunter_pose_workspace/exports/
 prototypes/user_pose_animation/keys/
 prototypes/user_pose_animation/**/*.blend1
+prototypes/hunter_locomotion/keys/
+prototypes/hunter_locomotion/**/*.blend1

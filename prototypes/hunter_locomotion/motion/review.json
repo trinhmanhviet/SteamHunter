@@ -1,0 +1,20 @@
+{
+  "base_combat_cells": 74,
+  "protected_original_combat_cells": 51,
+  "locomotion_cells": 17,
+  "run_cells": 12,
+  "no_layer_clipping": true,
+  "max_wrist_error_pixels": 0.003058744612911334,
+  "cycle_seconds": 0.42,
+  "draw_seconds": 0.16,
+  "atlas_sizes": {
+    "body": [
+      1024,
+      1536
+    ],
+    "weapon": [
+      3072,
+      4608
+    ]
+  }
+}

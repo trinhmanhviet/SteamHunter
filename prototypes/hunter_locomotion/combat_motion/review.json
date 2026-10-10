@@ -1,0 +1,1501 @@
+{
+  "frames": 74,
+  "normal_seconds": 1.0,
+  "released_charge_seconds": 0.9,
+  "hold_loop_seconds": 0.4,
+  "palette_size": 28,
+  "no_layer_clipping": true,
+  "max_wrist_error_pixels": 0.003917069000470821,
+  "atlas_sizes": {
+    "body": [
+      1024,
+      1280
+    ],
+    "weapon": [
+      3072,
+      3840
+    ]
+  },
+  "bounds": [
+    {
+      "frame": 1,
+      "layer": "body",
+      "bbox": [
+        29,
+        25,
+        99,
+        117
+      ]
+    },
+    {
+      "frame": 1,
+      "layer": "weapon",
+      "bbox": [
+        204,
+        92,
+        305,
+        207
+      ]
+    },
+    {
+      "frame": 2,
+      "layer": "body",
+      "bbox": [
+        29,
+        25,
+        99,
+        117
+      ]
+    },
+    {
+      "frame": 2,
+      "layer": "weapon",
+      "bbox": [
+        204,
+        92,
+        305,
+        207
+      ]
+    },
+    {
+      "frame": 3,
+      "layer": "body",
+      "bbox": [
+        29,
+        24,
+        100,
+        116
+      ]
+    },
+    {
+      "frame": 3,
+      "layer": "weapon",
+      "bbox": [
+        169,
+        51,
+        213,
+        208
+      ]
+    },
+    {
+      "frame": 4,
+      "layer": "body",
+      "bbox": [
+        28,
+        24,
+        101,
+        116
+      ]
+    },
+    {
+      "frame": 4,
+      "layer": "weapon",
+      "bbox": [
+        64,
+        115,
+        218,
+        179
+      ]
+    },
+    {
+      "frame": 5,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 5,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 6,
+      "layer": "body",
+      "bbox": [
+        27,
+        19,
+        101,
+        116
+      ]
+    },
+    {
+      "frame": 6,
+      "layer": "weapon",
+      "bbox": [
+        57,
+        145,
+        212,
+        198
+      ]
+    },
+    {
+      "frame": 7,
+      "layer": "body",
+      "bbox": [
+        25,
+        27,
+        99,
+        116
+      ]
+    },
+    {
+      "frame": 7,
+      "layer": "weapon",
+      "bbox": [
+        72,
+        119,
+        226,
+        179
+      ]
+    },
+    {
+      "frame": 8,
+      "layer": "body",
+      "bbox": [
+        23,
+        31,
+        100,
+        116
+      ]
+    },
+    {
+      "frame": 8,
+      "layer": "weapon",
+      "bbox": [
+        144,
+        64,
+        232,
+        204
+      ]
+    },
+    {
+      "frame": 9,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 9,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 10,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 10,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 11,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 11,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 12,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 12,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 13,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 13,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 14,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 14,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 15,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 15,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        136,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 16,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 16,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        137,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 17,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 17,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        137,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 18,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 18,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        137,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 19,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 19,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        137,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 20,
+      "layer": "body",
+      "bbox": [
+        28,
+        13,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 20,
+      "layer": "weapon",
+      "bbox": [
+        69,
+        137,
+        202,
+        234
+      ]
+    },
+    {
+      "frame": 21,
+      "layer": "body",
+      "bbox": [
+        21,
+        38,
+        106,
+        116
+      ]
+    },
+    {
+      "frame": 21,
+      "layer": "weapon",
+      "bbox": [
+        221,
+        64,
+        282,
+        217
+      ]
+    },
+    {
+      "frame": 22,
+      "layer": "body",
+      "bbox": [
+        19,
+        44,
+        114,
+        116
+      ]
+    },
+    {
+      "frame": 22,
+      "layer": "weapon",
+      "bbox": [
+        219,
+        121,
+        352,
+        216
+      ]
+    },
+    {
+      "frame": 23,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 23,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 24,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 24,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 25,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 25,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 26,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 26,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 27,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 27,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 28,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 28,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 29,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 29,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 30,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 30,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 31,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 31,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 32,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 32,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 33,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 33,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 34,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 34,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 35,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 35,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 36,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 36,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 37,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 37,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 38,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 38,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 39,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 39,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 40,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 40,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 41,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 41,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 42,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 42,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 43,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 43,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 44,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 44,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 45,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 45,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 46,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 46,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 47,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 47,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 48,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 48,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 49,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 49,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 50,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 50,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 51,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 51,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 52,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 52,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 53,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 53,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 54,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 54,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 55,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 55,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 56,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        112,
+        116
+      ]
+    },
+    {
+      "frame": 56,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        239
+      ]
+    },
+    {
+      "frame": 57,
+      "layer": "body",
+      "bbox": [
+        19,
+        43,
+        111,
+        116
+      ]
+    },
+    {
+      "frame": 57,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        372,
+        238
+      ]
+    },
+    {
+      "frame": 58,
+      "layer": "body",
+      "bbox": [
+        19,
+        42,
+        111,
+        116
+      ]
+    },
+    {
+      "frame": 58,
+      "layer": "weapon",
+      "bbox": [
+        212,
+        200,
+        373,
+        234
+      ]
+    },
+    {
+      "frame": 59,
+      "layer": "body",
+      "bbox": [
+        19,
+        41,
+        110,
+        116
+      ]
+    },
+    {
+      "frame": 59,
+      "layer": "weapon",
+      "bbox": [
+        211,
+        199,
+        373,
+        229
+      ]
+    },
+    {
+      "frame": 60,
+      "layer": "body",
+      "bbox": [
+        20,
+        39,
+        109,
+        116
+      ]
+    },
+    {
+      "frame": 60,
+      "layer": "weapon",
+      "bbox": [
+        210,
+        198,
+        371,
+        221
+      ]
+    },
+    {
+      "frame": 61,
+      "layer": "body",
+      "bbox": [
+        20,
+        37,
+        108,
+        116
+      ]
+    },
+    {
+      "frame": 61,
+      "layer": "weapon",
+      "bbox": [
+        208,
+        197,
+        370,
+        218
+      ]
+    },
+    {
+      "frame": 62,
+      "layer": "body",
+      "bbox": [
+        21,
+        36,
+        106,
+        116
+      ]
+    },
+    {
+      "frame": 62,
+      "layer": "weapon",
+      "bbox": [
+        207,
+        189,
+        368,
+        217
+      ]
+    },
+    {
+      "frame": 63,
+      "layer": "body",
+      "bbox": [
+        22,
+        34,
+        104,
+        116
+      ]
+    },
+    {
+      "frame": 63,
+      "layer": "weapon",
+      "bbox": [
+        207,
+        179,
+        365,
+        216
+      ]
+    },
+    {
+      "frame": 64,
+      "layer": "body",
+      "bbox": [
+        23,
+        32,
+        102,
+        116
+      ]
+    },
+    {
+      "frame": 64,
+      "layer": "weapon",
+      "bbox": [
+        208,
+        169,
+        360,
+        214
+      ]
+    },
+    {
+      "frame": 65,
+      "layer": "body",
+      "bbox": [
+        24,
+        30,
+        100,
+        116
+      ]
+    },
+    {
+      "frame": 65,
+      "layer": "weapon",
+      "bbox": [
+        209,
+        157,
+        355,
+        212
+      ]
+    },
+    {
+      "frame": 66,
+      "layer": "body",
+      "bbox": [
+        24,
+        29,
+        98,
+        116
+      ]
+    },
+    {
+      "frame": 66,
+      "layer": "weapon",
+      "bbox": [
+        208,
+        145,
+        348,
+        210
+      ]
+    },
+    {
+      "frame": 67,
+      "layer": "body",
+      "bbox": [
+        25,
+        28,
+        97,
+        116
+      ]
+    },
+    {
+      "frame": 67,
+      "layer": "weapon",
+      "bbox": [
+        206,
+        133,
+        341,
+        208
+      ]
+    },
+    {
+      "frame": 68,
+      "layer": "body",
+      "bbox": [
+        26,
+        27,
+        98,
+        116
+      ]
+    },
+    {
+      "frame": 68,
+      "layer": "weapon",
+      "bbox": [
+        205,
+        123,
+        333,
+        208
+      ]
+    },
+    {
+      "frame": 69,
+      "layer": "body",
+      "bbox": [
+        27,
+        26,
+        98,
+        116
+      ]
+    },
+    {
+      "frame": 69,
+      "layer": "weapon",
+      "bbox": [
+        204,
+        114,
+        326,
+        208
+      ]
+    },
+    {
+      "frame": 70,
+      "layer": "body",
+      "bbox": [
+        28,
+        26,
+        98,
+        116
+      ]
+    },
+    {
+      "frame": 70,
+      "layer": "weapon",
+      "bbox": [
+        204,
+        106,
+        319,
+        208
+      ]
+    },
+    {
+      "frame": 71,
+      "layer": "body",
+      "bbox": [
+        28,
+        25,
+        99,
+        116
+      ]
+    },
+    {
+      "frame": 71,
+      "layer": "weapon",
+      "bbox": [
+        198,
+        100,
+        313,
+        216
+      ]
+    },
+    {
+      "frame": 72,
+      "layer": "body",
+      "bbox": [
+        29,
+        25,
+        99,
+        116
+      ]
+    },
+    {
+      "frame": 72,
+      "layer": "weapon",
+      "bbox": [
+        198,
+        96,
+        309,
+        216
+      ]
+    },
+    {
+      "frame": 73,
+      "layer": "body",
+      "bbox": [
+        29,
+        25,
+        99,
+        116
+      ]
+    },
+    {
+      "frame": 73,
+      "layer": "weapon",
+      "bbox": [
+        204,
+        93,
+        306,
+        207
+      ]
+    },
+    {
+      "frame": 74,
+      "layer": "body",
+      "bbox": [
+        29,
+        25,
+        99,
+        117
+      ]
+    },
+    {
+      "frame": 74,
+      "layer": "weapon",
+      "bbox": [
+        204,
+        92,
+        305,
+        207
+      ]
+    }
+  ]
+}

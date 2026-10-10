@@ -57,6 +57,18 @@ static func region(index: int, layer: String) -> Rect2:
 	var coords: Array = metadata().frames[index][layer]
 	return Rect2(coords[0], coords[1], coords[2], coords[3])
 
+static func locomotion_frame(kind: String, elapsed: float) -> int:
+	var poses: Dictionary = metadata().get("locomotion", {})
+	if poses.is_empty(): return 0
+	var indices: Array = poses[kind]
+	var progress := 0.0
+	if kind == "run":
+		var cycle := float(poses.cycle_seconds)
+		progress = fmod(maxf(0.0, elapsed), cycle) / cycle
+	elif kind == "draw":
+		progress = clampf(elapsed / float(poses.draw_seconds), 0.0, 1.0)
+	return int(indices[clampi(int(progress * indices.size() + .000001), 0, indices.size() - 1)])
+
 static func blade_outline() -> PackedVector2Array:
 	var outline := PackedVector2Array()
 	for point in metadata().blade_local: outline.append(Vector2(point[0], point[1]))
