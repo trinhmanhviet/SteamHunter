@@ -35,13 +35,15 @@ func _initialize() -> void:
 	check(c.state == "raise", "early release must finish raising")
 	c.step(0.01)
 	check(c.state == "strike", "queued early release starts strike at raise end")
-	c.step(1.8)
-	check(c.state == "ready", "normal swing takes two seconds")
+	c.step(.79)
+	check(c.state == "recover", "normal swing must finish its recovery before the next attack")
+	c.step(.01)
+	check(c.state == "ready", "normal swing takes one second")
 	check(c.hit_count == 1 and c.impact_damage == 100, "normal swing produces one base hit")
 	var fine = Cycle.new()
 	fine.press()
 	fine.release()
-	for i in 240:
+	for i in 120:
 		fine.step(1.0 / 120.0)
 	check(fine.state == c.state and fine.hit_count == c.hit_count,
 		"coarse and fine frame rates must agree")

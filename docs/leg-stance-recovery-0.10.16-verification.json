@@ -1,0 +1,122 @@
+{
+  "version": "0.10.16",
+  "native_suites": [
+    {
+      "test": "test_cleaver_recovery",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_sprite_hurtbox",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_sweep",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_contact_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_great_cleaver_hitboxes",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_great_cleaver_art",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_part_targeting",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_hit_confirmation",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_weapon_actions",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_blade_gesture_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_weapon_flow",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_character_proportions",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_small_enemy_strike_height",
+      "exit": 0,
+      "script_errors": false
+    },
+    {
+      "test": "test_game_loop",
+      "exit": 0,
+      "script_errors": false
+    }
+  ],
+  "rig_tests": {
+    "count": 8,
+    "passed": true
+  },
+  "demo_cycle_assertions": {
+    "count": 18,
+    "failures": 0
+  },
+  "render": {
+    "frames": 74,
+    "normal_seconds": 1.0,
+    "hold_loop_seconds": 0.4,
+    "palette_size": 28,
+    "no_layer_clipping": true,
+    "max_wrist_error_pixels": 0.0030386277192640723,
+    "atlas_sizes": {
+      "body": [
+        1024,
+        1280
+      ],
+      "weapon": [
+        3072,
+        3840
+      ]
+    }
+  },
+  "android": {
+    "version": "0.10.16",
+    "package": "org.mistandiron.suongvasat",
+    "serial": "N9AIOC1546046RZ",
+    "normal_misses": 2,
+    "contacts": [
+      [
+        "charged_hew",
+        "39124469273",
+        "48"
+      ]
+    ],
+    "runtime_script_errors": [],
+    "installed_apk_sha256": "c4310ac048e2db63dfebbb5e7fbd89b5babbaa5bc74f4c5ff492c8ba783f508d",
+    "release_apk_sha256": "c4310ac048e2db63dfebbb5e7fbd89b5babbaa5bc74f4c5ff492c8ba783f508d",
+    "matching_apk": true
+  },
+  "post_hit_seconds": 0.7333333333333334,
+  "reference": "tools/clip_studio/outputs/MonsterHunterWildsGreatSwordTu_20261010_030034/MonsterHunterWildsGreatSwordTu.mp4",
+  "visual_review": "Key poses compared before full render; new armor binding and foot targets reviewed in production game screenshots.",
+  "release": "https://github.com/trinhmanhviet/SteamHunter/releases/tag/v0.10.16"
+}

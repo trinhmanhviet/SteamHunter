@@ -16,7 +16,7 @@ def main():
     shutil.copy2(approved / "body.png", body_dir / "body_atlas.png")
     shutil.copy2(approved / "weapon.png", weapon_dir / "overhead_atlas.png")
     manifest = json.loads((approved / "frames.json").read_text())
-    manifest["source"] = "Hunyuan overhead study; corrected two-hand grip and 1.4x weapon length (0.10.15)"
+    manifest["source"] = "Reference overhead study; corrected greaves and grounded stance, two-hand grip and 1.4x weapon length (0.10.16)"
     manifest["body_texture"] = "res://art/characters/hunter/body_atlas.png"
     manifest["weapon_texture"] = "res://art/weapons/great_cleaver/overhead_atlas.png"
     (body_dir / "overhead_frames.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")

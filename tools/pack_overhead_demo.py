@@ -16,7 +16,7 @@ COLOURS = PALETTE + [(91, 117, 143), (174, 195, 209), (241, 249, 254),
                     (191, 145, 65), (105, 71, 35), (76, 48, 37)]
 LABELS = {"ready": "Sẵn sàng", "raise": "Nâng kiếm", "hold": "Giữ charge",
           "strike": "Bổ xuống", "settle": "Theo đà", "recover": "Hồi thế"}
-LENGTHS = {"raise": .2, "strike": .1, "settle": 1.1, "recover": .6, "hold": .4}
+LENGTHS = {"raise": .2, "strike": .1, "settle": .22, "recover": .48, "hold": .4}
 
 
 def main():
@@ -87,7 +87,7 @@ def main():
         board.paste(composite[frame - 1].resize((320, 320), Image.Resampling.NEAREST), (x, y))
         draw.text((x + 10, y + 319), f"Pose {frame}", font=font, fill="#f3f7ed")
     board.save(DIRECTORY / "key_poses.png")
-    report = {"frames": count, "normal_seconds": 2.0, "hold_loop_seconds": .4,
+    report = {"frames": count, "normal_seconds": 1.0, "hold_loop_seconds": .4,
               "palette_size": len(COLOURS), "no_layer_clipping": True,
               "max_wrist_error_pixels": max(max(f["wrist_error_pixels"].values()) for f in data["frames"]),
               "atlas_sizes": {k: list(v.size) for k, v in sheets.items()}, "bounds": bounds}

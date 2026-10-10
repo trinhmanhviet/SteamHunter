@@ -28,6 +28,19 @@ LANDMARKS = {
     "neck": ((0, 0, .75), (0, 0, .835), "spine"),
     "head": ((0, 0, .835), (0, 0, .98), "neck"),
 }
+
+def lower_leg_weights(points, names):
+    points = np.asarray(points, dtype=float)
+    weights = np.zeros((len(points), len(names)))
+    z = points[:, 2]
+    ankle = np.clip((z - .13) / .03, 0, 1)
+    knee = np.clip((z - .265) / .045, 0, 1)
+    for suffix in ("R", "L"):
+        mask = points[:, 0] < 0 if suffix == "R" else points[:, 0] >= 0
+        weights[mask, names.index("foot." + suffix)] = (1 - ankle[mask])
+        weights[mask, names.index("shin." + suffix)] = ankle[mask] * (1 - knee[mask])
+        weights[mask, names.index("thigh." + suffix)] = knee[mask]
+    return weights
 for suffix, sign in (("R", -1), ("L", 1)):
     LANDMARKS.update({
         f"upper_arm.{suffix}": ((sign * .16, .015, .760), (sign * .215, -.03, .605), "spine"),

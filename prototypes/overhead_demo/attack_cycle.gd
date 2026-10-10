@@ -8,7 +8,7 @@ var hit_count := 0
 var impact_damage := 0
 var released := false
 var impact_fired := false
-const LENGTHS := {"raise": 0.20, "strike": 0.10, "settle": 1.10, "recover": 0.60}
+const LENGTHS := {"raise": 0.20, "strike": 0.10, "settle": 0.22, "recover": 0.48}
 
 func press() -> bool:
 	if state != "ready":

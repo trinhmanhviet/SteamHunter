@@ -5,6 +5,10 @@ const WEAPON := "res://art/weapons/great_cleaver/overhead_atlas.png"
 const FRAMES := "res://art/characters/hunter/overhead_frames.json"
 const BODY_PIVOT := Vector2(64, 116)
 const WEAPON_PIVOT := Vector2(192, 244)
+const CONTACT_TIME := 1.0 / 30.0
+const SETTLE_TIME := .22
+const RECOVER_TIME := .48
+const POST_HIT_TIME := CONTACT_TIME + SETTLE_TIME + RECOVER_TIME
 static var _frames: Dictionary = {}
 
 static func metadata() -> Dictionary:
@@ -14,7 +18,8 @@ static func metadata() -> Dictionary:
 
 static func stage_frame(stage: String, progress: float) -> int:
 	var indices: Array = metadata().stages[stage]
-	return int(indices[clampi(int(progress * indices.size()), 0, indices.size() - 1)])
+	# The same phase time must select the same cell despite subtraction roundoff.
+	return int(indices[clampi(int(progress * indices.size() + .000001), 0, indices.size() - 1)])
 
 static func frame_for(charge: float, elapsed: float, action: Dictionary, from_hold: bool) -> int:
 	if charge > 0.0:
@@ -26,7 +31,6 @@ static func frame_for(charge: float, elapsed: float, action: Dictionary, from_ho
 	if int(action.get("damage", 0)) == 0:
 		return stage_frame("hold", .0)
 	var hit: float = action.hit_at
-	var duration: float = action.duration
 	if elapsed < hit:
 		var wind_end := maxf(0.0, hit - 2.0 / 30.0)
 		if from_hold and elapsed < wind_end:
@@ -40,12 +44,10 @@ static func frame_for(charge: float, elapsed: float, action: Dictionary, from_ho
 	var after_hit := elapsed - hit
 	if after_hit < 1.0 / 30.0:
 		return int(metadata().stages.strike[-1])
-	var post := maxf(.00001, duration - hit - 1.0 / 30.0)
-	var progress := clampf((after_hit - 1.0 / 30.0) / post, 0, .99999)
-	var settle_fraction := 1.0666667 / 1.6666667
-	if progress < settle_fraction:
-		return stage_frame("settle", progress / settle_fraction)
-	return stage_frame("recover", (progress - settle_fraction) / (1.0 - settle_fraction))
+	var since_contact := after_hit - CONTACT_TIME
+	if since_contact < SETTLE_TIME:
+		return stage_frame("settle", since_contact / SETTLE_TIME)
+	return stage_frame("recover", (since_contact - SETTLE_TIME) / RECOVER_TIME)
 
 static func region(index: int, layer: String) -> Rect2:
 	var coords: Array = metadata().frames[index][layer]

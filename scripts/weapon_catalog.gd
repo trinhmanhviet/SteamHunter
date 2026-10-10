@@ -1,4 +1,5 @@
 extends RefCounted
+const CleaverArt = preload("res://scripts/cleaver_art.gd")
 
 static var _weapons: Dictionary = {}
 
@@ -147,6 +148,13 @@ static func _ensure() -> void:
 			}
 		}
 	}
+
+	# Every action currently rendered as an overhead cut shares the same recovery.
+	for id in _weapons["blade"]["actions"]:
+		if id == "shoulder_brace": continue
+		var move: Dictionary = _weapons["blade"]["actions"][id]
+		move["duration"] = float(move["hit_at"]) + CleaverArt.POST_HIT_TIME
+		move["combo_open"] = float(move["hit_at"]) + CleaverArt.CONTACT_TIME + CleaverArt.SETTLE_TIME + CleaverArt.RECOVER_TIME * .75
 
 static func required_ids() -> Array[String]:
 	return ["blade", "counter", "twins", "pike"]

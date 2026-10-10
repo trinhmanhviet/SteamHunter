@@ -16,31 +16,33 @@ from mathutils import Quaternion, Vector
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from rig_hunter_heavy import global_bone_shift, holdout_material, choose_pole
 from rig_hunter_prototype import project
+from hunter_rig_weights import lower_leg_weights
 
 # frame, grip forward/height/angle, hip forward/drop/yaw, lean, shoulder yaw,
 # front foot forward, rear heel pitch. Forward is world -Y, screen right.
 POSES = [
-    (1, -.30, .575, 12, 0, -.035, -8, 8, 8, -.165, 0),
-    (4, -.25, .735, 62, .015, -.065, -13, -4, 13, -.18, 6),
-    (8, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (9, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (12, -.097, .832, 119, .018, -.104, -17, -10, 17, -.21, 14),
-    (15, -.100, .837, 118, .020, -.099, -17, -11, 18, -.21, 15),
-    (18, -.103, .833, 117, .022, -.103, -17, -12, 19, -.21, 16),
-    (20, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (21, -.100, .835, 118, .020, -.10, -17, -11, 18, -.21, 15),
-    (22, -.34, .615, 45, -.055, -.13, -1, 25, 3, -.23, 26),
-    (23, -.470, .365, -14.5, -.10, -.19, 13, 48, -9, -.245, 30),
-    (24, -.480, .360, -14.3, -.11, -.20, 14, 50, -10, -.245, 30),
-    (27, -.485, .355, -14.1, -.115, -.205, 14, 51, -10, -.245, 28),
-    (35, -.477, .365, -14.5, -.105, -.195, 13, 48, -9, -.245, 25),
-    (45, -.475, .370, -14.7, -.10, -.19, 12, 47, -8, -.245, 21),
-    (56, -.460, .384, -15.3, -.095, -.18, 11, 45, -7, -.245, 18),
-    (57, -.455, .386, -15.4, -.09, -.18, 11, 44, -7, -.245, 18),
-    (62, -.41, .46, -9, -.07, -.14, 6, 34, -3, -.23, 12),
-    (67, -.35, .535, 2, -.035, -.085, 0, 20, 1, -.20, 5),
-    (74, -.30, .575, 12, 0, -.035, -8, 8, 8, -.165, 0),
+    (1, -.30, .575, 12, 0, -.015, -4, 5, 4, -.120, 0),
+    (4, -.25, .735, 62, .010, -.040, -8, -3, 9, -.145, 3),
+    (8, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
+    (9, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
+    (12, -.097, .832, 119, .008, -.079, -13, -6, 13, -.170, 5),
+    (15, -.100, .837, 118, .010, -.074, -13, -7, 14, -.170, 6),
+    (18, -.103, .833, 117, .012, -.078, -13, -8, 15, -.170, 7),
+    (20, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
+    (21, -.100, .835, 118, .010, -.075, -13, -7, 14, -.170, 6),
+    (22, -.33, .615, 45, -.035, -.090, 0, 22, 2, -.19, 9),
+    (23, -.440, .390, -15.8, -.070, -.115, 8, 36, -5, -.205, 12),
+    (24, -.445, .385, -15.6, -.075, -.120, 9, 38, -6, -.205, 12),
+    (27, -.450, .380, -15.4, -.078, -.125, 9, 39, -6, -.205, 11),
+    (35, -.440, .390, -15.8, -.070, -.115, 8, 36, -5, -.205, 10),
+    (45, -.435, .395, -16.0, -.065, -.110, 7, 34, -4, -.205, 9),
+    (56, -.420, .410, -16.7, -.060, -.105, 7, 32, -4, -.205, 8),
+    (57, -.415, .412, -16.8, -.055, -.105, 7, 31, -4, -.205, 8),
+    (62, -.38, .46, -9, -.040, -.075, 4, 24, -1, -.180, 5),
+    (67, -.33, .535, 2, -.020, -.040, 0, 13, 1, -.145, 2),
+    (74, -.30, .575, 12, 0, -.015, -4, 5, 4, -.120, 0),
 ]
+
 STAGES = {"ready": [1], "raise": list(range(2, 9)), "hold": list(range(9, 21)),
           "strike": list(range(21, 24)), "settle": list(range(24, 57)),
           "recover": list(range(57, 75))}
@@ -66,6 +68,16 @@ def main():
         bpy.data.objects["Grip." + suffix].location.x = local_x * height
         bpy.data.objects["WristIK." + suffix].location.x = local_x * height
     rig.pose.bones["hips"].rotation_mode = "XYZ"
+    # Greaves are solid pieces along the shin, not cloth spanning three joints.
+    points = np.array([tuple(body.matrix_world @ v.co) for v in body.data.vertices]) / height
+    indices = np.flatnonzero(points[:, 2] < .325)
+    names = [group.name for group in body.vertex_groups]
+    weights = lower_leg_weights(points[indices], names)
+    for group in body.vertex_groups:
+        group.remove(indices.tolist())
+    for vertex, row in zip(indices, weights):
+        for column in np.flatnonzero(row):
+            body.vertex_groups[names[column]].add([int(vertex)], float(row[column]), "REPLACE")
     feet = {s: bpy.data.objects["FootTarget." + s] for s in ("R", "L")}
     elbows = {s: bpy.data.objects["ElbowPole." + s] for s in ("R", "L")}
     base_foot = {s: feet[s].rotation_quaternion.copy() for s in feet}
@@ -119,6 +131,9 @@ def main():
         ik = next(c for c in rig.pose.bones["forearm." + suffix].constraints if c.type == "IK")
         choose_pole(scene, rig, ik, "forearm." + suffix,
                     Vector((side * .23, -.12, .61)) * height, height)
+        leg = next(c for c in rig.pose.bones["shin." + suffix].constraints if c.type == "IK")
+        choose_pole(scene, rig, leg, "shin." + suffix,
+                    Vector((side * .12, -.08 if suffix == "R" else .01, .27)) * height, height)
     frames = [row[0] for row in POSES] if args.keys else list(range(1, 75))
     rest = np.array([tuple(v.co) for v in body.data.vertices])
     # Ground both foot meshes at their lowest visible point, permitting heel lift.

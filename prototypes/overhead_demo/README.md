@@ -27,6 +27,10 @@ Esc thoát. APK là bản thử được ký bằng debug keystore của dự á
 
 ## Nhịp chuyển động
 
+Mã nguồn hiện tại đã được đồng bộ với game 0.10.16: nâng .20 s → bổ .10 s →
+chịu đà .22 s → hồi .48 s, tổng 1.00 s. Giáp chân và thế đặt chân cũng đã sửa.
+APK demo 0.1.0 trên release cũ vẫn dùng nhịp dưới đây.
+
 Nâng kiếm .20 s → bổ .10 s → chịu đà 1.10 s → hồi thế .60 s, tổng 2.00 s.
 Charge thêm vòng giữ kiếm .40 s, lặp tới lúc nhả. Nhả sớm được ghi nhận nhưng
 nhân vật vẫn hoàn thành đoạn nâng kiếm trước khi bổ. Hit nằm ở frame tiếp đất,
